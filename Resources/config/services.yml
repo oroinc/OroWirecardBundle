@@ -1,0 +1,34 @@
+services:
+    #integration
+    oro_wirecard.integation.wirecard_seamless.channel:
+        class: 'Oro\Bundle\WirecardBundle\Integration\WirecardSeamlessChannelType'
+        tags:
+            - { name: oro_integration.channel, type: wirecard_seamless }
+
+    oro_wirecard.integration.wirecard_seamless.transport:
+        class: 'Oro\Bundle\WirecardBundle\Integration\WirecardSeamlessTransport'
+        tags:
+            - { name: oro_integration.transport, type: wirecard_seamless, channel_type: wirecard_seamless }
+
+    oro_wirecard.provider.payment_transaction:
+        class: 'Oro\Bundle\WirecardBundle\Provider\PaymentTransactionProvider'
+        parent: oro_payment.provider.payment_transaction
+        public: false
+
+    oro_wirecard.seamless.client:
+        class: 'GuzzleHttp\Client'
+        public: false
+
+    oro_wirecard.seamless.gateway:
+        class: 'Oro\Bundle\WirecardBundle\Wirecard\Seamless\Gateway'
+        public: false
+        arguments:
+            - '@oro_wirecard.seamless.client'
+            - '@request_stack'
+
+    oro_wirecard.request.payment_method_param_converter:
+        class: 'Oro\Bundle\WirecardBundle\Request\PaymentMethodParamConverter'
+        arguments:
+            - '@oro_payment.payment_method_provider.registry'
+        tags:
+            - { name: request.param_converter, priority: -2, converter: payment_method_param_converter }

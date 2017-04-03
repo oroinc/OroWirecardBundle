@@ -1,0 +1,2 @@
+bundles:
+    - OroWirecardBundle:Form:fields.html.twig

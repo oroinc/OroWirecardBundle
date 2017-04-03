@@ -1,0 +1,10 @@
+services:
+    oro_wirecard.test.payment_method.wirecard_seamless_provider:
+        class: 'Oro\Bundle\WirecardBundle\Tests\Functional\Stub\Method\WirecardSeamlessMethodProviderStub'
+        tags:
+            - { name: oro_payment.payment_method_provider }
+
+    oro_wirecard.test.payment_method.view.wirecard_seamless_provider:
+        class: 'Oro\Bundle\WirecardBundle\Tests\Functional\Stub\Method\View\WirecardSeamlessMethodViewProviderStub'
+        tags:
+            - { name: oro_payment.payment_method_view_provider }

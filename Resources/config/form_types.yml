@@ -1,0 +1,24 @@
+services:
+    oro_wirecard.form.type.credit_card:
+        class: Oro\Bundle\WirecardBundle\Form\Type\CreditCardType
+        tags:
+            - { name: form.type, alias: oro_wirecard_seamless_credit_card }
+
+    oro_wirecard.form.type.credit_card_expiration_date:
+        class: Oro\Bundle\WirecardBundle\Form\Type\CreditCardExpirationDateType
+        tags:
+            - { name: form.type, alias: oro_wirecard_seamless_credit_card_expiration_date }
+
+    oro_wirecard.form.type.sepa_direct_debit:
+        class: Oro\Bundle\WirecardBundle\Form\Type\SepaDirectDebitType
+        tags:
+            - { name: form.type, alias: oro_wirecard_seamless_sepa_direct_debit }
+
+    oro_wirecard.form.type.wirecard_seamless.settings:
+        class: Oro\Bundle\WirecardBundle\Form\Type\WirecardSeamlessSettingsType
+        arguments:
+            - '@translator.default'
+            - '@oro_security.encoder.mcrypt'
+        tags:
+            - { name: form.type, alias: oro_wirecard_seamless_settings }
+

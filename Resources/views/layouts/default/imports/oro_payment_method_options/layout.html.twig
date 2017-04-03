@@ -1,0 +1,41 @@
+{% block _payment_methods_wirecard_seamless_credit_card_widget %}
+    {% set pageComponent = views.options.creditCardComponent|default('orowirecard/js/app/components/input-wirecard-seamless-credit-card') %}
+    {% set options = view.options %}
+    {{ block('_payment_methods_wirecard_seamless_input_widget') }}
+{% endblock %}
+
+{% block _payment_methods_wirecard_seamless_sepa_direct_debit_widget %}
+    {% set pageComponent = views.options.sepaComponent|default('orowirecard/js/app/components/input-wirecard-seamless-sepa-direct-debit') %}
+    {% set options = view.options %}
+    {{ block('_payment_methods_wirecard_seamless_input_widget') }}
+{% endblock %}
+
+{% block _payment_methods_wirecard_seamless_input_widget %}
+    <div class="{{ class_prefix }}__form__payment-methods"
+         data-page-component-module="{{ pageComponent }}"
+         data-page-component-options="{{ {sourceEntityId: options.sourceEntityId,
+             paymentMethod: options.paymentMethod,
+             initiatePaymentMethodRoute: options.initiatePaymentMethodRoute}|json_encode }}">
+        <div class="{{ class_prefix }}__form__payment-methods__form"
+             data-wirecard-form="data-wirecard-form">
+            {% for child in options.formView.children %}
+                <div class="{{ class_prefix }}__form__row">
+                    {{ form_row(child, {class_prefix: class_prefix}) }}
+                </div>
+            {% endfor %}
+            <div class="hidden" data-wirecard-errors></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block _payment_methods_wirecard_seamless_paypal_widget %}
+    {% set pageComponent = views.options.paypalComponent|default('orowirecard/js/app/components/input-wirecard-seamless') %}
+    {% set options = view.options %}
+    <div class="{{ class_prefix }}__form__payment-methods"
+         data-page-component-module="{{ pageComponent }}"
+         data-page-component-options="{{ {sourceEntityId: options.sourceEntityId,
+             paymentMethod: options.paymentMethod,
+             initiatePaymentMethodRoute: options.initiatePaymentMethodRoute}|json_encode }}">
+        <div>{{ 'oro.wirecard.paypal.redirect_to_paypal'|trans|nl2br }}</div>
+    </div>
+{% endblock %}

@@ -1,0 +1,58 @@
+services:
+    oro_wirecard.event_listener.callback.wirecard_seamless.credit_card:
+        class: 'Oro\Bundle\WirecardBundle\EventListener\Callback\WirecardSeamlessListener'
+        lazy: true
+        arguments:
+            - '@oro_wirecard.method.provider.wirecard_seamless.credit_card'
+        calls:
+            - ['setLogger', ['@logger']]
+        tags:
+            - { name: kernel.event_listener, event: oro_payment.callback.notify, method: onNotify }
+
+    oro_wirecard.event_listener.callback.wirecard_seamless.paypal:
+        class: 'Oro\Bundle\WirecardBundle\EventListener\Callback\WirecardSeamlessListener'
+        lazy: true
+        arguments:
+            - '@oro_wirecard.method.provider.wirecard_seamless.paypal'
+        calls:
+            - ['setLogger', ['@logger']]
+        tags:
+            - { name: kernel.event_listener, event: oro_payment.callback.notify, method: onNotify }
+
+    oro_wirecard.event_listener.callback.wirecard_seamless.sepa_direct_debit:
+        class: 'Oro\Bundle\WirecardBundle\EventListener\Callback\WirecardSeamlessListener'
+        lazy: true
+        arguments:
+            - '@oro_wirecard.method.provider.wirecard_seamless.sepa_direct_debit'
+        calls:
+            - ['setLogger', ['@logger']]
+        tags:
+            - { name: kernel.event_listener, event: oro_payment.callback.notify, method: onNotify }
+
+    oro_wirecard.event_listener.callback.ip_check.wirecard_seamless.credit_card:
+        class: 'Oro\Bundle\WirecardBundle\EventListener\Callback\WirecardIPCheckListener'
+        lazy: true
+        arguments:
+            - '@oro_wirecard.method.provider.wirecard_seamless.credit_card'
+            - '@request_stack'
+        tags:
+            - { name: kernel.event_listener, event: oro_payment.callback.notify, method: onNotify, priority: 255 }
+
+    oro_wirecard.event_listener.callback.ip_check.wirecard_seamless.paypal:
+        class: 'Oro\Bundle\WirecardBundle\EventListener\Callback\WirecardIPCheckListener'
+        lazy: true
+        arguments:
+            - '@oro_wirecard.method.provider.wirecard_seamless.paypal'
+            - '@request_stack'
+        tags:
+            - { name: kernel.event_listener, event: oro_payment.callback.notify, method: onNotify, priority: 255 }
+
+    oro_wirecard.event_listener.callback.ip_check.wirecard_seamless.sepa_direct_debit:
+        class: 'Oro\Bundle\WirecardBundle\EventListener\Callback\WirecardIPCheckListener'
+        lazy: true
+        arguments:
+            - '@oro_wirecard.method.provider.wirecard_seamless.sepa_direct_debit'
+            - '@request_stack'
+        tags:
+            - { name: kernel.event_listener, event: oro_payment.callback.notify, method: onNotify, priority: 255 }
+

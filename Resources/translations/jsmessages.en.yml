@@ -1,0 +1,8 @@
+oro:
+    wirecard:
+        validation:
+            expiration_date: "Invalid Expiration date."
+            month: "Please, choose correct month."
+            credit_card: "Invalid card number."
+            iban: "Please enter a valid IBAN number."
+            bic: "Please enter a valid BIC number."

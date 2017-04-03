@@ -1,0 +1,172 @@
+parameters:
+    oro_wirecard.method.wirecard_seamless: 'wirecard_seamless'
+    oro_wirecard.method.identifier_prefix.wirecard_seamless.credit_card: 'wirecard_seamless_credit_card'
+    oro_wirecard.method.identifier_prefix.wirecard_seamless.sepa_direct_debit: 'wirecard_seamless_sepa_direct_debit'
+    oro_wirecard.method.identifier_prefix.wirecard_seamless.paypal: 'wirecard_seamless_paypal'
+
+services:
+    oro_wirecard.method.generator.identifier.wirecard_seamless.credit_card:
+        parent: oro_integration.generator.prefixed_identifier_generator
+        public: true
+        arguments:
+            - '%oro_wirecard.method.identifier_prefix.wirecard_seamless.credit_card%'
+
+    oro_wirecard.method.generator.identifier.wirecard_seamless.paypal:
+        parent: oro_integration.generator.prefixed_identifier_generator
+        public: true
+        arguments:
+            - '%oro_wirecard.method.identifier_prefix.wirecard_seamless.paypal%'
+
+    oro_wirecard.method.generator.identifier.wirecard_seamless.sepa_direct_debit:
+        parent: oro_integration.generator.prefixed_identifier_generator
+        public: true
+        arguments:
+            - '%oro_wirecard.method.identifier_prefix.wirecard_seamless.sepa_direct_debit%'
+
+    oro_wirecard.method.config.factory.wirecard_seamless.credit_card:
+        class: 'Oro\Bundle\WirecardBundle\Method\Config\Factory\WirecardSeamlessCreditCardConfigFactory'
+        public: false
+        arguments:
+            - '@oro_security.encoder.mcrypt'
+            - '@oro_locale.helper.localization'
+            - '@oro_wirecard.method.generator.identifier.wirecard_seamless.credit_card'
+
+    oro_wirecard.method.config.factory.wirecard_seamless.paypal:
+        class: 'Oro\Bundle\WirecardBundle\Method\Config\Factory\WirecardSeamlessPaypalConfigFactory'
+        public: false
+        arguments:
+            - '@oro_security.encoder.mcrypt'
+            - '@oro_locale.helper.localization'
+            - '@oro_wirecard.method.generator.identifier.wirecard_seamless.paypal'
+
+    oro_wirecard.method.config.factory.wirecard_seamless.sepa_direct_debit:
+        class: 'Oro\Bundle\WirecardBundle\Method\Config\Factory\WirecardSeamlessSepaConfigFactory'
+        public: false
+        arguments:
+            - '@oro_security.encoder.mcrypt'
+            - '@oro_locale.helper.localization'
+            - '@oro_wirecard.method.generator.identifier.wirecard_seamless.sepa_direct_debit'
+
+    oro_wirecard.method.config.provider.wirecard_seamless.credit_card:
+        class: 'Oro\Bundle\WirecardBundle\Method\Config\Provider\WirecardSeamlessCreditCardConfigProvider'
+        public: false
+        arguments:
+            - '@doctrine'
+            - '@logger'
+            - '@oro_wirecard.method.config.factory.wirecard_seamless.credit_card'
+            - '%oro_wirecard.method.wirecard_seamless%'
+
+    oro_wirecard.method.config.provider.wirecard_seamless.paypal:
+        class: 'Oro\Bundle\WirecardBundle\Method\Config\Provider\WirecardSeamlessPaypalConfigProvider'
+        public: false
+        arguments:
+            - '@doctrine'
+            - '@logger'
+            - '@oro_wirecard.method.config.factory.wirecard_seamless.paypal'
+            - '%oro_wirecard.method.wirecard_seamless%'
+
+    oro_wirecard.method.config.provider.wirecard_seamless.sepa_direct_debit:
+        class: 'Oro\Bundle\WirecardBundle\Method\Config\Provider\WirecardSeamlessSepaConfigProvider'
+        public: false
+        arguments:
+            - '@doctrine'
+            - '@logger'
+            - '@oro_wirecard.method.config.factory.wirecard_seamless.sepa_direct_debit'
+            - '%oro_wirecard.method.wirecard_seamless%'
+
+    oro_wirecard.method.factory.wirecard_seamless:
+        class: 'Oro\Bundle\WirecardBundle\Method\Factory\WirecardSeamlessPaymentMethodFactory'
+        public: false
+        abstract: true
+        arguments:
+            - '@oro_wirecard.provider.payment_transaction'
+            - '@oro_wirecard.seamless.gateway'
+            - '@router'
+
+    oro_wirecard.method.factory.wirecard_seamless.credit_card:
+        class: 'Oro\Bundle\WirecardBundle\Method\Factory\WirecardSeamlessCreditCardPaymentMethodFactory'
+        public: false
+        parent: oro_wirecard.method.factory.wirecard_seamless
+
+    oro_wirecard.method.factory.wirecard_seamless.paypal:
+        class: 'Oro\Bundle\WirecardBundle\Method\Factory\WirecardSeamlessPaypalPaymentMethodFactory'
+        public: false
+        parent: oro_wirecard.method.factory.wirecard_seamless
+
+    oro_wirecard.method.factory.wirecard_seamless.sepa_direct_debit:
+        class: 'Oro\Bundle\WirecardBundle\Method\Factory\WirecardSeamlessSepaPaymentMethodFactory'
+        public: false
+        parent: oro_wirecard.method.factory.wirecard_seamless
+
+    oro_wirecard.method.view.factory.wirecard_seamless:
+        class: 'Oro\Bundle\WirecardBundle\Method\View\Factory\WirecardSeamlessViewFactory'
+        public: false
+        abstract: true
+        arguments:
+            - '@form.factory'
+
+    oro_wirecard.method.view.factory.wirecard_seamless.credit_card:
+        class: 'Oro\Bundle\WirecardBundle\Method\View\Factory\WirecardSeamlessCreditCardViewFactory'
+        public: false
+        parent: oro_wirecard.method.view.factory.wirecard_seamless
+
+    oro_wirecard.method.view.factory.wirecard_seamless.paypal:
+        class: 'Oro\Bundle\WirecardBundle\Method\View\Factory\WirecardSeamlessPaypalViewFactory'
+        public: false
+        parent: oro_wirecard.method.view.factory.wirecard_seamless
+
+    oro_wirecard.method.view.factory.wirecard_seamless.sepa_direct_debit:
+        class: 'Oro\Bundle\WirecardBundle\Method\View\Factory\WirecardSeamlessSepaViewFactory'
+        public: false
+        parent: oro_wirecard.method.view.factory.wirecard_seamless
+
+    oro_wirecard.method.provider.wirecard_seamless.credit_card:
+        class: 'Oro\Bundle\WirecardBundle\Method\Provider\WirecardSeamlessCreditCardMethodProvider'
+        arguments:
+            - '@oro_wirecard.method.config.provider.wirecard_seamless.credit_card'
+            - '@oro_wirecard.method.factory.wirecard_seamless.credit_card'
+        tags:
+            - { name: oro_payment.payment_method_provider }
+
+    oro_wirecard.method.provider.wirecard_seamless.paypal:
+        class: 'Oro\Bundle\WirecardBundle\Method\Provider\WirecardSeamlessPaypalMethodProvider'
+        arguments:
+            - '@oro_wirecard.method.config.provider.wirecard_seamless.paypal'
+            - '@oro_wirecard.method.factory.wirecard_seamless.paypal'
+        tags:
+            - { name: oro_payment.payment_method_provider }
+
+    oro_wirecard.method.provider.wirecard_seamless.sepa_direct_debit:
+        class: 'Oro\Bundle\WirecardBundle\Method\Provider\WirecardSeamlessSepaMethodProvider'
+        arguments:
+            - '@oro_wirecard.method.config.provider.wirecard_seamless.sepa_direct_debit'
+            - '@oro_wirecard.method.factory.wirecard_seamless.sepa_direct_debit'
+        tags:
+            - { name: oro_payment.payment_method_provider }
+
+    oro_wirecard.method.view.provider.wirecard_seamless.credit_card:
+        class: 'Oro\Bundle\WirecardBundle\Method\View\Provider\WirecardSeamlessCreditCardViewProvider'
+        arguments:
+            - '@oro_wirecard.method.view.factory.wirecard_seamless.credit_card'
+            - '@oro_wirecard.method.config.provider.wirecard_seamless.credit_card'
+        tags:
+            - { name: oro_payment.payment_method_view_provider }
+
+    oro_wirecard.method.view.provider.wirecard_seamless.paypal:
+        class: 'Oro\Bundle\WirecardBundle\Method\View\Provider\WirecardSeamlessPaypalViewProvider'
+        arguments:
+            - '@oro_wirecard.method.view.factory.wirecard_seamless.paypal'
+            - '@oro_wirecard.method.config.provider.wirecard_seamless.paypal'
+        tags:
+            - { name: oro_payment.payment_method_view_provider }
+
+    oro_wirecard.method.view.provider.wirecard_seamless.sepa_direct_debit:
+        class: 'Oro\Bundle\WirecardBundle\Method\View\Provider\WirecardSeamlessSepaViewProvider'
+        arguments:
+            - '@oro_wirecard.method.view.factory.wirecard_seamless.sepa_direct_debit'
+            - '@oro_wirecard.method.config.provider.wirecard_seamless.sepa_direct_debit'
+        tags:
+            - { name: oro_payment.payment_method_view_provider }
+
+
+

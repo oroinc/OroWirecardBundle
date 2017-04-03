@@ -1,0 +1,60 @@
+oro:
+    wirecard:
+        channel_type:
+            wirecard_seamless.label: 'Wirecard Seamless Checkout'
+        settings:
+            wirecard_seamless:
+                credit_card_labels.label: 'Credit Card Label'
+                credit_card_short_labels.label: 'Credit Card Short Label'
+                paypal_labels.label: 'PayPal Label'
+                paypal_short_labels.label: 'PayPal Short Label'
+                sepa_labels.label: 'SEPA Direct Debit Label'
+                sepa_short_labels.label: 'SEPA Direct Debit Short Label'
+                customer_id.label: 'Customer Id'
+                shop_id.label: 'Shop Id'
+                secret.label: 'Secret'
+                test_mode.label: 'Test mode'
+        methods:
+            credit_card.label: 'credit card'
+            tooltip: |
+                The verification number is a 3-digit number printed on the back of your card.
+                The American Express security code is a 4-digit number printed on the front of your card.
+        system_configuration:
+            groups:
+                wirecard_seamless.title: 'Wircard Seamless Checkout'
+                display_options.title: 'Display Options'
+                integration.title: 'Integration'
+                connection.title: 'Connection Options'
+                advanced_settings.title: 'Advanced Settings'
+            fields:
+                partner.label: 'Partner'
+                user.label: 'User'
+                vendor.label: 'Vendor'
+                customer_id.label: 'Customer Id'
+                shop_id.label: 'Shop Id'
+                secret.label: 'Secret'
+                credit_card.label: 'credit card'
+                sepa.label: 'sepa (direct debit)'
+                credit_card_label.label: 'credit card Label'
+                sepa_label.label: 'sepa (direct debit) Label'
+                paypal.label: 'Paypal'
+                paypal_label.label: 'paypal Label'
+
+        credit_card:
+            expiration_date.label: 'Expiration Date'
+            card_number.label: 'Credit Card Number'
+
+        sepa:
+            iban.label: 'IBAN'
+            bic.label: 'BIC'
+        paypal:
+            redirect_to_paypal: 'You will be redirected to PayPal website to complete your purchase after the order review step.'
+    payment:
+        admin:
+            wirecard_seamless_credit_card.label: 'Wirecard Seamless Credit Card'
+            wirecard_seamless_sepa_direct_debit.label: 'Wirecard Seamless SEPA Direct Debit'
+            wirecard_seamless_paypal.label: 'Wirecard Seamless PayPal'
+
+
+
+

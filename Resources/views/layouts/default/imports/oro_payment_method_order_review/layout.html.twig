@@ -1,0 +1,21 @@
+{% block _order_review_payment_methods_wirecard_seamless_credit_card_widget %}
+    {{ block('_order_review_payment_methods_wirecard_seamless_widget') }}
+{% endblock %}
+
+{% block _order_review_payment_methods_wirecard_seamless_sepa_direct_debit_widget %}
+    {{ block('_order_review_payment_methods_wirecard_seamless_widget') }}
+{% endblock %}
+
+{% block _order_review_payment_methods_wirecard_seamless_paypal_widget %}
+    {{ block('_order_review_payment_methods_wirecard_seamless_widget') }}
+{% endblock %}
+
+
+{% block _order_review_payment_methods_wirecard_seamless_widget %}
+    {% if options.payment_method is defined %}
+        <div class="hidden"
+             data-page-component-module="orowirecard/js/app/components/wirecard-seamless-component"
+             data-page-component-options="{{ {paymentMethod: options.payment_method}|json_encode }}">
+        </div>
+    {% endif %}
+{% endblock %}
