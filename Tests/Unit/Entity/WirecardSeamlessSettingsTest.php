@@ -19,7 +19,7 @@ class WirecardSeamlessSettingsTest extends \PHPUnit_Framework_TestCase
             ['customerId', 'some string'],
             ['shopId', 'some string'],
             ['secret', 'some string'],
-            ['testMode', false],
+            ['wcTestMode', false],
         ]);
         static::assertPropertyCollections(new WirecardSeamlessSettings(), [
             ['creditCardLabels', new LocalizedFallbackValue()],

@@ -177,7 +177,7 @@ class WirecardSeamlessSettings extends Transport
      *
      * @ORM\Column(name="oro_wcs_test_mode", type="boolean", options={"default"=false})
      */
-    protected $testMode = false;
+    protected $wcTestMode = false;
 
     public function __construct()
     {
@@ -206,7 +206,7 @@ class WirecardSeamlessSettings extends Transport
                     self::PAYPAL_SHORT_LABELS_KEY => $this->getPayPalShortLabels(),
                     self::SEPA_LABELS_KEY => $this->getSepaLabels(),
                     self::SEPA_SHORT_LABELS_KEY => $this->getSepaShortLabels(),
-                    self::TEST_MODE_KEY => $this->getTestMode(),
+                    self::TEST_MODE_KEY => $this->getWcTestMode(),
                 ]
             );
         }
@@ -509,6 +509,30 @@ class WirecardSeamlessSettings extends Transport
     }
 
     /**
+     * Set wcTestMode.
+     *
+     * @param boolean $wcTestMode
+     *
+     * @return $this
+     */
+    public function setWcTestMode($wcTestMode)
+    {
+        $this->wcTestMode = $wcTestMode;
+
+        return $this;
+    }
+
+    /**
+     * Get wcTestMode.
+     *
+     * @return boolean
+     */
+    public function getWcTestMode()
+    {
+        return $this->wcTestMode;
+    }
+
+    /**
      * Set testMode.
      *
      * @param boolean $testMode
@@ -517,9 +541,7 @@ class WirecardSeamlessSettings extends Transport
      */
     public function setTestMode($testMode)
     {
-        $this->testMode = $testMode;
-
-        return $this;
+        return $this->setWcTestMode($testMode);
     }
 
     /**
@@ -529,6 +551,6 @@ class WirecardSeamlessSettings extends Transport
      */
     public function getTestMode()
     {
-        return $this->testMode;
+        return $this->getWcTestMode();
     }
 }

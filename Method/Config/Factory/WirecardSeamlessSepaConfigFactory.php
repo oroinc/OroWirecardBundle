@@ -28,7 +28,7 @@ class WirecardSeamlessSepaConfigFactory extends WirecardSeamlessConfigFactory im
             WirecardSeamlessSepaConfig::CREDENTIALS_KEY => $this->getCredentials($settings),
             WirecardSeamlessSepaConfig::LANGUAGE_KEY => $this->getLanguageCode(),
             WirecardSeamlessSepaConfig::HASHING_METHOD_KEY => $this->getHashingMethod(),
-            WirecardSeamlessSepaConfig::TEST_MODE_KEY => $settings->getTestMode(),
+            WirecardSeamlessSepaConfig::TEST_MODE_KEY => $settings->getWcTestMode(),
         ];
 
         return new WirecardSeamlessSepaConfig($params);

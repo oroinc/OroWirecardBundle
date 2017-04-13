@@ -30,7 +30,7 @@ class WirecardSeamlessPaypalConfigFactory extends WirecardSeamlessConfigFactory 
             WirecardSeamlessPaypalConfig::CREDENTIALS_KEY => $this->getCredentials($settings),
             WirecardSeamlessPaypalConfig::LANGUAGE_KEY => $this->getLanguageCode(),
             WirecardSeamlessPaypalConfig::HASHING_METHOD_KEY => $this->getHashingMethod(),
-            WirecardSeamlessPaypalConfig::TEST_MODE_KEY => $settings->getTestMode(),
+            WirecardSeamlessPaypalConfig::TEST_MODE_KEY => $settings->getWcTestMode(),
         ];
 
         return new WirecardSeamlessPaypalConfig($params);
