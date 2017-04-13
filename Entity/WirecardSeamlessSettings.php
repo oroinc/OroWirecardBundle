@@ -206,7 +206,7 @@ class WirecardSeamlessSettings extends Transport
                     self::PAYPAL_SHORT_LABELS_KEY => $this->getPayPalShortLabels(),
                     self::SEPA_LABELS_KEY => $this->getSepaLabels(),
                     self::SEPA_SHORT_LABELS_KEY => $this->getSepaShortLabels(),
-                    self::TEST_MODE_KEY => $this->getWcTestMode(),
+                    self::TEST_MODE_KEY => $this->getTestMode(),
                 ]
             );
         }
