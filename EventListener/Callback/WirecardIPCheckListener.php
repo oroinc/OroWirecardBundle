@@ -3,10 +3,11 @@
 namespace Oro\Bundle\WirecardBundle\EventListener\Callback;
 
 use Oro\Bundle\PaymentBundle\Method\Provider\PaymentMethodProviderInterface;
+use Oro\Bundle\PaymentBundle\Event\AbstractCallbackEvent;
+use Oro\Bundle\WirecardBundle\Method\Config\Provider\WirecardSeamlessConfigProvider;
+use Oro\Bundle\WirecardBundle\Method\Config\Provider\WirecardSeamlessConfigProviderInterface;
 use Symfony\Component\HttpFoundation\IpUtils;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Oro\Bundle\PaymentBundle\Event\AbstractCallbackEvent;
-use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option;
 
 class WirecardIPCheckListener
 {
@@ -25,19 +26,27 @@ class WirecardIPCheckListener
     protected $paymentMethodProvider;
 
     /**
+     * @var WirecardSeamlessConfigProvider
+     */
+    protected $configProvider;
+
+    /**
      * @var RequestStack
      */
     private $requestStack;
 
     /**
      * @param PaymentMethodProviderInterface $paymentMethodProvider
-     * @param RequestStack                   $requestStack
+     * @param WirecardSeamlessConfigProviderInterface $configProvider
+     * @param RequestStack $requestStack
      */
     public function __construct(
         PaymentMethodProviderInterface $paymentMethodProvider,
+        WirecardSeamlessConfigProviderInterface $configProvider,
         RequestStack $requestStack
     ) {
         $this->paymentMethodProvider = $paymentMethodProvider;
+        $this->configProvider = $configProvider;
         $this->requestStack = $requestStack;
     }
 
@@ -56,6 +65,12 @@ class WirecardIPCheckListener
             return;
         }
 
+        $configs = $this->configProvider->getPaymentConfigs();
+        if (!isset($configs[$paymentTransaction->getPaymentMethod()])) {
+            return;
+        }
+        $config = $configs[$paymentTransaction->getPaymentMethod()];
+
         $masterRequest = $this->requestStack->getMasterRequest();
         if (null === $masterRequest) {
             $event->markFailed();
@@ -64,10 +79,8 @@ class WirecardIPCheckListener
         }
 
         $requestIp = $masterRequest->getClientIp();
-        $requestOptions = $paymentTransaction->getRequest();
-        $testMode = isset($requestOptions[Option\TestMode::TESTMODE]) && $requestOptions[Option\TestMode::TESTMODE];
 
-        if (!$testMode && !IpUtils::checkIp($requestIp, self::$allowedIPs)) {
+        if (!$config->isTestMode() && !IpUtils::checkIp($requestIp, self::$allowedIPs)) {
             $event->markFailed();
         }
     }

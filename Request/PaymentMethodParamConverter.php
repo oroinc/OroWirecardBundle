@@ -3,7 +3,7 @@
 namespace Oro\Bundle\WirecardBundle\Request;
 
 use Oro\Bundle\PaymentBundle\Method\PaymentMethodInterface;
-use Oro\Bundle\PaymentBundle\Method\Provider\Registry\PaymentMethodProvidersRegistryInterface;
+use Oro\Bundle\PaymentBundle\Method\Provider\PaymentMethodProviderInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,13 +11,17 @@ use Symfony\Component\HttpFoundation\Request;
 class PaymentMethodParamConverter implements ParamConverterInterface
 {
     /**
-     * @var PaymentMethodProvidersRegistryInterface
+     * @var PaymentMethodProviderInterface
      */
-    protected $methodProvidersRegistry;
+    protected $methodProvider;
 
-    public function __construct(PaymentMethodProvidersRegistryInterface $methodProvidersRegistry)
+    /**
+     * PaymentMethodParamConverter constructor.
+     * @param PaymentMethodProviderInterface $methodProvider
+     */
+    public function __construct(PaymentMethodProviderInterface $methodProvider)
     {
-        $this->methodProvidersRegistry = $methodProvidersRegistry;
+        $this->methodProvider = $methodProvider;
     }
 
     /**
@@ -33,11 +37,9 @@ class PaymentMethodParamConverter implements ParamConverterInterface
 
         $paymentMethodIdentifier = $request->attributes->get($param);
 
-        foreach ($this->methodProvidersRegistry->getPaymentMethodProviders() as $provider) {
-            if ($provider->hasPaymentMethod($paymentMethodIdentifier)) {
-                $request->attributes->set($param, $provider->getPaymentMethod($paymentMethodIdentifier));
-                return true;
-            }
+        if ($this->methodProvider->hasPaymentMethod($paymentMethodIdentifier)) {
+            $request->attributes->set($param, $this->methodProvider->getPaymentMethod($paymentMethodIdentifier));
+            return true;
         }
         return false;
     }

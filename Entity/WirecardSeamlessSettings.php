@@ -163,7 +163,7 @@ class WirecardSeamlessSettings extends Transport
      *
      * @ORM\Column(name="oro_wcs_shop_id", type="string", length=255, nullable=false)
      */
-    protected $shopId;
+    protected $shopId = '';
 
     /**
      * @var string
@@ -173,11 +173,21 @@ class WirecardSeamlessSettings extends Transport
     protected $secret;
 
     /**
-     * @var bool
+     * @var boolean
      *
      * @ORM\Column(name="oro_wcs_test_mode", type="boolean", options={"default"=false})
      */
     protected $testMode = false;
+
+    public function __construct()
+    {
+        $this->creditCardLabels = new ArrayCollection();
+        $this->creditCardShortLabels = new ArrayCollection();
+        $this->paypalLabels = new ArrayCollection();
+        $this->paypalShortLabels = new ArrayCollection();
+        $this->sepaLabels = new ArrayCollection();
+        $this->sepaShortLabels = new ArrayCollection();
+    }
 
     /**
      * @return ParameterBag
@@ -205,19 +215,6 @@ class WirecardSeamlessSettings extends Transport
     }
 
     /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        $this->creditCardLabels = new ArrayCollection();
-        $this->creditCardShortLabels = new ArrayCollection();
-        $this->paypalLabels = new ArrayCollection();
-        $this->paypalShortLabels = new ArrayCollection();
-        $this->sepaLabels = new ArrayCollection();
-        $this->sepaShortLabels = new ArrayCollection();
-    }
-
-    /**
      * @return string
      */
     public function getCustomerId()
@@ -228,7 +225,7 @@ class WirecardSeamlessSettings extends Transport
     /**
      * @param string $customerId
      *
-     * @return WirecardSeamlessSettings
+     * @return $this
      */
     public function setCustomerId($customerId)
     {
@@ -248,11 +245,11 @@ class WirecardSeamlessSettings extends Transport
     /**
      * @param string $shopId
      *
-     * @return WirecardSeamlessSettings
+     * @return $this
      */
     public function setShopId($shopId)
     {
-        $this->shopId = $shopId;
+        $this->shopId = null === $shopId ? '': $shopId;
 
         return $this;
     }
@@ -268,7 +265,7 @@ class WirecardSeamlessSettings extends Transport
     /**
      * @param string $secret
      *
-     * @return WirecardSeamlessSettings
+     * @return $this
      */
     public function setSecret($secret)
     {
@@ -282,7 +279,7 @@ class WirecardSeamlessSettings extends Transport
      *
      * @param LocalizedFallbackValue $creditCardLabel
      *
-     * @return WirecardSeamlessSettings
+     * @return $this
      */
     public function addCreditCardLabel(LocalizedFallbackValue $creditCardLabel)
     {
@@ -294,7 +291,7 @@ class WirecardSeamlessSettings extends Transport
      *
      * @param LocalizedFallbackValue $creditCardLabel
      *
-     * @return WirecardSeamlessSettings
+     * @return $this
      */
     public function removeCreditCardLabel(LocalizedFallbackValue $creditCardLabel)
     {
@@ -316,7 +313,7 @@ class WirecardSeamlessSettings extends Transport
      *
      * @param LocalizedFallbackValue $creditCardShortLabel
      *
-     * @return WirecardSeamlessSettings
+     * @return $this
      */
     public function addCreditCardShortLabel(LocalizedFallbackValue $creditCardShortLabel)
     {
@@ -328,7 +325,7 @@ class WirecardSeamlessSettings extends Transport
      *
      * @param LocalizedFallbackValue $creditCardShortLabel
      *
-     * @return WirecardSeamlessSettings
+     * @return $this
      */
     public function removeCreditCardShortLabel(LocalizedFallbackValue $creditCardShortLabel)
     {
@@ -350,7 +347,7 @@ class WirecardSeamlessSettings extends Transport
      *
      * @param LocalizedFallbackValue $paypalLabel
      *
-     * @return WirecardSeamlessSettings
+     * @return $this
      */
     public function addPayPalLabel(LocalizedFallbackValue $paypalLabel)
     {
@@ -362,7 +359,7 @@ class WirecardSeamlessSettings extends Transport
      *
      * @param LocalizedFallbackValue $paypalLabel
      *
-     * @return WirecardSeamlessSettings
+     * @return $this
      */
     public function removePayPalLabel(LocalizedFallbackValue $paypalLabel)
     {
@@ -384,7 +381,7 @@ class WirecardSeamlessSettings extends Transport
      *
      * @param LocalizedFallbackValue $paypalShortLabel
      *
-     * @return WirecardSeamlessSettings
+     * @return $this
      */
     public function addPayPalShortLabel(LocalizedFallbackValue $paypalShortLabel)
     {
@@ -396,7 +393,7 @@ class WirecardSeamlessSettings extends Transport
      *
      * @param LocalizedFallbackValue $paypalShortLabel
      *
-     * @return WirecardSeamlessSettings
+     * @return $this
      */
     public function removePayPalShortLabel(LocalizedFallbackValue $paypalShortLabel)
     {
@@ -418,7 +415,7 @@ class WirecardSeamlessSettings extends Transport
      *
      * @param LocalizedFallbackValue $sepaLabel
      *
-     * @return WirecardSeamlessSettings
+     * @return $this
      */
     public function addSepaLabel(LocalizedFallbackValue $sepaLabel)
     {
@@ -430,7 +427,7 @@ class WirecardSeamlessSettings extends Transport
      *
      * @param LocalizedFallbackValue $sepaLabel
      *
-     * @return WirecardSeamlessSettings
+     * @return $this
      */
     public function removeSepaLabel(LocalizedFallbackValue $sepaLabel)
     {
@@ -452,7 +449,7 @@ class WirecardSeamlessSettings extends Transport
      *
      * @param LocalizedFallbackValue $sepaShortLabel
      *
-     * @return WirecardSeamlessSettings
+     * @return $this
      */
     public function addSepaShortLabel(LocalizedFallbackValue $sepaShortLabel)
     {
@@ -464,7 +461,7 @@ class WirecardSeamlessSettings extends Transport
      *
      * @param LocalizedFallbackValue $sepaShortLabel
      *
-     * @return WirecardSeamlessSettings
+     * @return $this
      */
     public function removeSepaShortLabel(LocalizedFallbackValue $sepaShortLabel)
     {
@@ -514,7 +511,7 @@ class WirecardSeamlessSettings extends Transport
     /**
      * Set testMode.
      *
-     * @param bool $testMode
+     * @param boolean $testMode
      *
      * @return $this
      */
@@ -528,7 +525,7 @@ class WirecardSeamlessSettings extends Transport
     /**
      * Get testMode.
      *
-     * @return bool
+     * @return boolean
      */
     public function getTestMode()
     {

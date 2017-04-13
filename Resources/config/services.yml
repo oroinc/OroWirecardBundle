@@ -24,11 +24,10 @@ services:
         public: false
         arguments:
             - '@oro_wirecard.seamless.client'
-            - '@request_stack'
 
     oro_wirecard.request.payment_method_param_converter:
         class: 'Oro\Bundle\WirecardBundle\Request\PaymentMethodParamConverter'
         arguments:
-            - '@oro_payment.payment_method_provider.registry'
+            - '@oro_payment.payment_method.composite_provider'
         tags:
             - { name: request.param_converter, priority: -2, converter: payment_method_param_converter }

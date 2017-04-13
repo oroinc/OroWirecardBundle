@@ -4,7 +4,7 @@ namespace Oro\Bundle\WirecardBundle\Method\Config\Provider;
 
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessSepaConfigInterface;
 
-interface WirecardSeamlessSepaConfigProviderInterface
+interface WirecardSeamlessSepaConfigProviderInterface extends WirecardSeamlessConfigProviderInterface
 {
     /**
      * @return WirecardSeamlessSepaConfigInterface[]
@@ -17,11 +17,4 @@ interface WirecardSeamlessSepaConfigProviderInterface
      * @return WirecardSeamlessSepaConfigInterface|null
      */
     public function getPaymentConfig($identifier);
-
-    /**
-     * @param string $identifier
-     *
-     * @return bool
-     */
-    public function hasPaymentConfig($identifier);
 }

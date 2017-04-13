@@ -28,8 +28,8 @@ class WirecardSeamlessMethodStub implements PaymentMethodInterface
 
         if ($action === WirecardSeamlessPaymentMethod::INITIATE) {
             $paymentTransaction
-                ->setAmount(WirecardSeamlessPaymentMethod::ZERO)
-                ->setCurrency(WirecardSeamlessPaymentMethod::CURRENCY_EUR)
+                ->setAmount(WirecardSeamlessPaymentMethod::ZERO_AMOUNT)
+                ->setCurrency(WirecardSeamlessPaymentMethod::EMPTY_CURRENCY)
                 ->setResponse(
                     [
                         'storageId' => self::TEST_STORAGE_ID,
@@ -41,6 +41,7 @@ class WirecardSeamlessMethodStub implements PaymentMethodInterface
                 'redirectUrl' => self::TEST_URL,
             ];
         }
+        return [];
     }
 
     /**

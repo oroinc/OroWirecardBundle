@@ -3,6 +3,7 @@
 namespace Oro\Bundle\WirecardBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -26,6 +27,7 @@ class CreditCardType extends AbstractType
                 'cardholdername',
                 TextType::class,
                 [
+                    'label' => 'oro.wirecard.credit_card.card_holder_name.label',
                     'constraints' => [
                         new NotBlank(),
                         new Length(['min' => '3', 'max' => '256']),
@@ -71,8 +73,9 @@ class CreditCardType extends AbstractType
             )
             ->add(
                 'cardverifycode',
-                TextType::class,
+                PasswordType::class,
                 [
+                    'label' => 'oro.wirecard.credit_card.cvv.label',
                     'constraints' => [
                         new NotBlank(),
                         new Integer(),

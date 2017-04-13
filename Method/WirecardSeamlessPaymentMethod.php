@@ -3,6 +3,9 @@
 namespace Oro\Bundle\WirecardBundle\Method;
 
 use Hochstrasser\Wirecard\Model\Seamless\Frontend\InitPaymentResult;
+use Oro\Bundle\CheckoutBundle\Entity\Checkout;
+use Oro\Bundle\EntityBundle\ORM\DoctrineHelper;
+use Oro\Bundle\OrderBundle\Entity\Order;
 use Oro\Bundle\PaymentBundle\Context\PaymentContextInterface;
 use Oro\Bundle\PaymentBundle\Entity\PaymentTransaction;
 use Oro\Bundle\PaymentBundle\Method\PaymentMethodInterface;
@@ -13,13 +16,14 @@ use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\InitDataStorageRequest;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\InitPaymentRequest;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Response\Response;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
-abstract class WirecardSeamlessPaymentMethod implements PaymentMethodInterface, WirecardSeamlessPaymentMethodInterface
+abstract class WirecardSeamlessPaymentMethod implements PaymentMethodInterface
 {
-    const ZERO = 0;
-    const CURRENCY_EUR = 'EUR';
+    const ZERO_AMOUNT = 0;
+    const EMPTY_CURRENCY = '';
 
     const INITIATE = 'initiate';
     const COMPLETE = 'complete';
@@ -44,17 +48,45 @@ abstract class WirecardSeamlessPaymentMethod implements PaymentMethodInterface, 
      */
     protected $router;
 
+    /**
+     * @var DoctrineHelper
+     */
+    protected $doctrineHelper;
+
+    /**
+     * @var RequestStack
+     */
+    protected $requestStack;
+
+    /**
+     * WirecardSeamlessPaymentMethod constructor.
+     * @param WirecardSeamlessConfigInterface $config
+     * @param PaymentTransactionProvider $transactionProvider
+     * @param Gateway $gateway
+     * @param RouterInterface $router
+     * @param DoctrineHelper $doctrineHelper
+     * @param RequestStack $requestStack
+     */
     public function __construct(
         WirecardSeamlessConfigInterface $config,
         PaymentTransactionProvider $transactionProvider,
         Gateway $gateway,
-        RouterInterface $router
+        RouterInterface $router,
+        DoctrineHelper $doctrineHelper,
+        RequestStack $requestStack
     ) {
         $this->config = $config;
         $this->transactionProvider = $transactionProvider;
         $this->gateway = $gateway;
         $this->router = $router;
+        $this->doctrineHelper = $doctrineHelper;
+        $this->requestStack = $requestStack;
     }
+
+    /**
+     * @return string
+     */
+    abstract public function getWirecardPaymentType();
 
     /** {@inheritdoc} */
     public function execute($action, PaymentTransaction $paymentTransaction)
@@ -72,8 +104,8 @@ abstract class WirecardSeamlessPaymentMethod implements PaymentMethodInterface, 
     public function initiate(PaymentTransaction $paymentTransaction)
     {
         $paymentTransaction
-            ->setAmount(static::ZERO)
-            ->setCurrency(static::CURRENCY_EUR);
+            ->setAmount(static::ZERO_AMOUNT)
+            ->setCurrency(static::EMPTY_CURRENCY);
 
         $options = $this->getInitiateOptions($paymentTransaction);
         $request = new InitDataStorageRequest();
@@ -90,6 +122,10 @@ abstract class WirecardSeamlessPaymentMethod implements PaymentMethodInterface, 
             ->setActive(true);
     }
 
+    /**
+     * @param PaymentTransaction $paymentTransaction
+     * @return array
+     */
     protected function getInitiateOptions(PaymentTransaction $paymentTransaction)
     {
         return array_merge(
@@ -98,7 +134,6 @@ abstract class WirecardSeamlessPaymentMethod implements PaymentMethodInterface, 
                 Option\Language::LANGUAGE => $this->config->getLanguageCode(),
                 Option\OrderIdent::ORDERIDENT => $paymentTransaction->getAccessIdentifier(),
                 Option\ReturnUrl::RETURNURL => $this->createReturnUrl($paymentTransaction),
-                Option\TestMode::TESTMODE => $this->config->isTestMode(),
             ]
         );
     }
@@ -110,18 +145,24 @@ abstract class WirecardSeamlessPaymentMethod implements PaymentMethodInterface, 
      */
     public function purchase(PaymentTransaction $paymentTransaction)
     {
-        $initiateTransaction =
-            $this->transactionProvider->getActiveInitiatePaymentTransaction($paymentTransaction->getPaymentMethod());
-        if (!$initiateTransaction) {
-            return [];
+        $transactionOptions = $paymentTransaction->getTransactionOptions();
+        if (!isset($transactionOptions['checkoutId'])) {
+            throw new \RuntimeException('Checkout Id not set');
         }
-
-        $initiateData = array_merge(
-            $initiateTransaction->getRequest(),
-            $initiateTransaction->getResponse()
+        $object = $this->doctrineHelper->getEntityReference(
+            Checkout::class,
+            $transactionOptions['checkoutId']
         );
 
-        $options = $this->getInitPaymentOptions($initiateData, $paymentTransaction);
+        $initiateTransaction = $this->transactionProvider->getActiveInitiatePaymentTransaction(
+            $object,
+            $paymentTransaction->getPaymentMethod()
+        );
+        if (!$initiateTransaction) {
+            throw new \RuntimeException('Initiate payment transaction not found');
+        }
+
+        $options = $this->getInitPaymentOptions($initiateTransaction, $paymentTransaction);
         $request = new InitPaymentRequest();
         $response = $this->gateway->request(
             $request,
@@ -142,8 +183,13 @@ abstract class WirecardSeamlessPaymentMethod implements PaymentMethodInterface, 
         return $initPaymentResponse ? ['redirectTo' => $initPaymentResponse->getRedirectUrl()] : [];
     }
 
+    /**
+     * @param PaymentTransaction $initiateTransaction
+     * @param PaymentTransaction $paymentTransaction
+     * @return array
+     */
     protected function getInitPaymentOptions(
-        array $initiateData,
+        PaymentTransaction $initiateTransaction,
         PaymentTransaction $paymentTransaction
     ) {
         return array_merge(
@@ -151,12 +197,15 @@ abstract class WirecardSeamlessPaymentMethod implements PaymentMethodInterface, 
             [
                 Option\Language::LANGUAGE => $this->config->getLanguageCode(),
 
-                Option\OrderIdent::ORDERIDENT => $initiateData[Option\OrderIdent::ORDERIDENT],
-                Option\StorageId::STORAGEID => $initiateData[Option\StorageId::STORAGEID],
+                Option\OrderIdent::ORDERIDENT =>
+                    $initiateTransaction->getRequest()[Option\OrderIdent::ORDERIDENT],
+                Option\StorageId::STORAGEID =>
+                    $initiateTransaction->getResponse()[Option\StorageId::STORAGEID],
 
                 Option\PaymentType::PAYMENTTYPE => $this->getWirecardPaymentType(),
                 Option\Amount::AMOUNT => $paymentTransaction->getAmount(),
                 Option\Currency::CURRENCY => $paymentTransaction->getCurrency(),
+                Option\OrderDescription::ORDERDESCRIPTION => $this->getOrderDescription($paymentTransaction),
 
                 Option\SuccessUrl::SUCCESSURL => $this->createSuccessUrl($paymentTransaction),
                 Option\CancelUrl::CANCELURL => $this->createFailureUrl($paymentTransaction),
@@ -164,10 +213,8 @@ abstract class WirecardSeamlessPaymentMethod implements PaymentMethodInterface, 
                 Option\ConfirmUrl::CONFIRMURL => $this->createConfirmUrl($paymentTransaction),
                 Option\ServiceUrl::SERVICEURL => $this->createServiceUrl(),
 
-                Option\ConsumerUserAgent::CONSUMERUSERAGENT => $this->gateway->getUserAgent(),
-                Option\ConsumerIpAddress::CONSUMERIPADDRESS => $this->gateway->getClientIp(),
-
-                Option\TestMode::TESTMODE => $this->config->isTestMode(),
+                Option\ConsumerUserAgent::CONSUMERUSERAGENT => $this->getUserAgent(),
+                Option\ConsumerIpAddress::CONSUMERIPADDRESS => $this->getClientIp(),
             ]
         );
     }
@@ -201,6 +248,10 @@ abstract class WirecardSeamlessPaymentMethod implements PaymentMethodInterface, 
             ->setSuccessful($response->isSuccessful());
     }
 
+    /**
+     * @param string $actionName
+     * @return bool
+     */
     public function supports($actionName)
     {
         return in_array(
@@ -305,12 +356,45 @@ abstract class WirecardSeamlessPaymentMethod implements PaymentMethodInterface, 
      */
     protected function createServiceUrl()
     {
-        $returnURL = $this->router->generate(
+        $serviceURL = $this->router->generate(
             'oro_frontend_root',
             [],
             UrlGeneratorInterface::ABSOLUTE_URL
         );
 
-        return $returnURL;
+        return $serviceURL;
+    }
+
+    /**
+     * @return array|string
+     */
+    protected function getUserAgent()
+    {
+        return $this->requestStack->getMasterRequest()->headers->get('User-Agent');
+    }
+
+    /**
+     * @return string
+     */
+    protected function getClientIp()
+    {
+        return $this->requestStack->getMasterRequest()->getClientIp();
+    }
+
+    /**
+     * @param PaymentTransaction $paymentTransaction
+     * @return string
+     */
+    protected function getOrderDescription(PaymentTransaction $paymentTransaction)
+    {
+        $object = $this->doctrineHelper->getEntityReference(
+            $paymentTransaction->getEntityClass(),
+            $paymentTransaction->getEntityIdentifier()
+        );
+        $orderDescription = $paymentTransaction->getEntityIdentifier();
+        if ($object instanceof Order) {
+            $orderDescription = $object->getIdentifier();
+        }
+        return $orderDescription;
     }
 }

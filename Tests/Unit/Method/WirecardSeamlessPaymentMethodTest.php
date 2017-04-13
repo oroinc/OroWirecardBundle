@@ -4,6 +4,9 @@ namespace Oro\Bundle\WirecardBundle\Tests\Unit\Method;
 
 use Hochstrasser\Wirecard\Model\Seamless\Frontend\InitPaymentResult;
 use Hochstrasser\Wirecard\Response\WirecardResponse;
+use Oro\Bundle\CheckoutBundle\Entity\Checkout;
+use Oro\Bundle\EntityBundle\ORM\DoctrineHelper;
+use Oro\Bundle\OrderBundle\Entity\Order;
 use Oro\Bundle\PaymentBundle\Context\PaymentContextInterface;
 use Oro\Bundle\PaymentBundle\Entity\PaymentTransaction;
 use Oro\Bundle\PaymentBundle\Method\PaymentMethodInterface;
@@ -16,6 +19,9 @@ use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\InitDataStorageRequest;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\InitPaymentRequest;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Response\Response;
+use Symfony\Component\HttpFoundation\HeaderBag;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -41,18 +47,28 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
     /** @var PaymentTransactionProvider|\PHPUnit_Framework_MockObject_MockObject */
     protected $transactionProvider;
 
+    /** @var DoctrineHelper|\PHPUnit_Framework_MockObject_MockObject */
+    protected $doctrineHelper;
+
+    /** @var RequestStack|\PHPUnit_Framework_MockObject_MockObject */
+    protected $requestStack;
+
     /**
      * @param WirecardSeamlessConfigInterface $config
      * @param PaymentTransactionProvider $transactionProvider
      * @param Gateway $gateway
      * @param RouterInterface $router
+     * @param DoctrineHelper $doctrineHelper
+     * @param RequestStack $requestStack
      * @return WirecardSeamlessPaymentMethod
      */
     abstract protected function createPaymentMethod(
         WirecardSeamlessConfigInterface $config,
         PaymentTransactionProvider $transactionProvider,
         Gateway $gateway,
-        RouterInterface $router
+        RouterInterface $router,
+        DoctrineHelper $doctrineHelper,
+        RequestStack $requestStack
     );
 
     protected function setUp()
@@ -72,11 +88,21 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->doctrineHelper = $this->getMockBuilder(DoctrineHelper::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->requestStack = $this->getMockBuilder(RequestStack::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->method = $this->createPaymentMethod(
             $this->paymentConfig,
             $this->transactionProvider,
             $this->gateway,
-            $this->router
+            $this->router,
+            $this->doctrineHelper,
+            $this->requestStack
         );
     }
 
@@ -236,28 +262,35 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
         $this->assertArrayHasKey(Option\Language::LANGUAGE, $transaction->getRequest());
         $this->assertArrayHasKey(Option\OrderIdent::ORDERIDENT, $transaction->getRequest());
         $this->assertArrayHasKey(Option\ReturnUrl::RETURNURL, $transaction->getRequest());
-        $this->assertArrayHasKey(Option\TestMode::TESTMODE, $transaction->getRequest());
     }
 
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage Initiate payment transaction not found
+     */
     public function testPurchaseWithoutInitiateTransaction()
     {
         $transaction = new PaymentTransaction();
         $transaction->setAction(PaymentMethodInterface::PURCHASE);
+        $transaction->setTransactionOptions(['checkoutId' => 'a checkout id']);
         $transaction->setPaymentMethod('payment_method');
+
+        $checkout = $this->createMock(Checkout::class);
+        $this->doctrineHelper
+            ->expects(static::once())
+            ->method('getEntityReference')
+            ->with(Checkout::class, 'a checkout id')
+            ->willReturn($checkout);
 
         $this->transactionProvider->expects($this->once())
             ->method('getActiveInitiatePaymentTransaction')
-            ->with('payment_method')
+            ->with($checkout, 'payment_method')
             ->willReturn(null);
-
 
         $this->gateway->expects($this->never())
             ->method('request');
 
-        $this->assertEquals(
-            [],
-            $this->method->purchase($transaction)
-        );
+        $this->method->purchase($transaction);
     }
 
     public function testPurchaseWithInitiateTransaction()
@@ -268,7 +301,31 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
         $transaction = new PaymentTransaction();
         $transaction->setAction(PaymentMethodInterface::PURCHASE);
         $transaction->setPaymentMethod('payment_method');
-        $transaction->setTransactionOptions(['originalOption' => 'originalValue']);
+        $transaction->setTransactionOptions(
+            [
+                'checkoutId' => 0,
+                'originalOption' => 'originalValue'
+            ]
+        );
+        $transaction->setEntityClass(Order::class);
+        $transaction->setEntityIdentifier(1);
+
+        $checkout = $this->createMock(Checkout::class);
+        $order = $this->createMock(Order::class);
+        $order->expects(static::once())
+            ->method('getIdentifier')
+            ->willReturn('an order identifier');
+
+        $this->doctrineHelper
+            ->expects(static::at(0))
+            ->method('getEntityReference')
+            ->with(Checkout::class, 0)
+            ->willReturn($checkout);
+        $this->doctrineHelper
+            ->expects(static::at(1))
+            ->method('getEntityReference')
+            ->with(Order::class, 1)
+            ->willReturn($order);
 
         $initiateTransaction = new PaymentTransaction();
         $initiateTransaction->setAction(WirecardSeamlessPaymentMethod::INITIATE);
@@ -278,7 +335,7 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
 
         $this->transactionProvider->expects($this->once())
             ->method('getActiveInitiatePaymentTransaction')
-            ->with('payment_method')
+            ->with($checkout, 'payment_method')
             ->willReturn($initiateTransaction);
 
         $initPaymentResponse = $this->getMockBuilder(InitPaymentResult::class)
@@ -302,6 +359,19 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
             ->method('request')
             ->with($this->isInstanceOf(InitPaymentRequest::class))
             ->willReturn($response);
+        $headers = $this->createMock(HeaderBag::class);
+        $headers->expects(static::once())
+            ->method('get')
+            ->with('User-Agent')
+            ->willReturn('user agent');
+        $request = $this->createMock(Request::class);
+        $request->headers = $headers;
+        $request->expects(static::once())
+            ->method('getClientIp')
+            ->willReturn('client ip');
+        $this->requestStack->expects(static::any())
+            ->method('getMasterRequest')
+            ->willReturn($request);
 
         $this->assertEquals(
             ['redirectTo' => 'redirectURL'],
@@ -320,7 +390,31 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
         $transaction = new PaymentTransaction();
         $transaction->setAction(PaymentMethodInterface::PURCHASE);
         $transaction->setPaymentMethod('payment_method');
-        $transaction->setTransactionOptions(['originalOption' => 'originalValue']);
+        $transaction->setTransactionOptions(
+            [
+                'checkoutId' => 0,
+                'originalOption' => 'originalValue'
+            ]
+        );
+        $transaction->setEntityClass(Order::class);
+        $transaction->setEntityIdentifier(1);
+
+        $checkout = $this->createMock(Checkout::class);
+        $order = $this->createMock(Order::class);
+        $order->expects(static::once())
+            ->method('getIdentifier')
+            ->willReturn('an order identifier');
+
+        $this->doctrineHelper
+            ->expects(static::at(0))
+            ->method('getEntityReference')
+            ->with(Checkout::class, 0)
+            ->willReturn($checkout);
+        $this->doctrineHelper
+            ->expects(static::at(1))
+            ->method('getEntityReference')
+            ->with(Order::class, 1)
+            ->willReturn($order);
 
         $initiateTransaction = new PaymentTransaction();
         $initiateTransaction->setAction(WirecardSeamlessPaymentMethod::INITIATE);
@@ -330,7 +424,7 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
 
         $this->transactionProvider->expects($this->once())
             ->method('getActiveInitiatePaymentTransaction')
-            ->with('payment_method')
+            ->with($checkout, 'payment_method')
             ->willReturn($initiateTransaction);
 
         $initPaymentResponse = $this->getMockBuilder(InitPaymentResult::class)
@@ -348,10 +442,19 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
             ->method('request')
             ->with($this->isInstanceOf(InitPaymentRequest::class))
             ->willReturn($response);
-        $this->gateway->expects($this->once())
-            ->method('getUserAgent');
-        $this->gateway->expects($this->once())
-            ->method('getClientIp');
+        $headers = $this->createMock(HeaderBag::class);
+        $headers->expects(static::once())
+            ->method('get')
+            ->with('User-Agent')
+            ->willReturn('user agent');
+        $request = $this->createMock(Request::class);
+        $request->headers = $headers;
+        $request->expects(static::once())
+            ->method('getClientIp')
+            ->willReturn('client ip');
+        $this->requestStack->expects(static::any())
+            ->method('getMasterRequest')
+            ->willReturn($request);
 
         $this->router->expects($this->exactly(5))
             ->method('generate')
@@ -408,7 +511,6 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
         $this->assertArrayHasKey(Option\ServiceUrl::SERVICEURL, $transaction->getRequest());
         $this->assertArrayHasKey(Option\ConsumerUserAgent::CONSUMERUSERAGENT, $transaction->getRequest());
         $this->assertArrayHasKey(Option\ConsumerIpAddress::CONSUMERIPADDRESS, $transaction->getRequest());
-        $this->assertArrayHasKey(Option\TestMode::TESTMODE, $transaction->getRequest());
     }
 
     public function testIsApplicable()

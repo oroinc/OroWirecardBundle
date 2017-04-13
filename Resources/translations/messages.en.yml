@@ -14,36 +14,22 @@ oro:
                 shop_id.label: 'Shop Id'
                 secret.label: 'Secret'
                 test_mode.label: 'Test mode'
-        methods:
-            credit_card.label: 'credit card'
-            tooltip: |
-                The verification number is a 3-digit number printed on the back of your card.
-                The American Express security code is a 4-digit number printed on the front of your card.
-        system_configuration:
             groups:
                 wirecard_seamless.title: 'Wircard Seamless Checkout'
                 display_options.title: 'Display Options'
                 integration.title: 'Integration'
                 connection.title: 'Connection Options'
                 advanced_settings.title: 'Advanced Settings'
-            fields:
-                partner.label: 'Partner'
-                user.label: 'User'
-                vendor.label: 'Vendor'
-                customer_id.label: 'Customer Id'
-                shop_id.label: 'Shop Id'
-                secret.label: 'Secret'
-                credit_card.label: 'credit card'
-                sepa.label: 'sepa (direct debit)'
-                credit_card_label.label: 'credit card Label'
-                sepa_label.label: 'sepa (direct debit) Label'
-                paypal.label: 'Paypal'
-                paypal_label.label: 'paypal Label'
-
+        methods:
+            credit_card.label: 'credit card'
+            tooltip: |
+                The verification number is a 3-digit number printed on the back of your card.
+                The American Express security code is a 4-digit number printed on the front of your card.
         credit_card:
+            card_holder_name.label: "Cardholder's Name"
+            cvv.label: 'CVV'
             expiration_date.label: 'Expiration Date'
             card_number.label: 'Credit Card Number'
-
         sepa:
             iban.label: 'IBAN'
             bic.label: 'BIC'

@@ -3,10 +3,10 @@
 namespace Oro\Bundle\WirecardBundle\Controller;
 
 use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessPaymentMethod;
 use Oro\Bundle\CheckoutBundle\Entity\Checkout;
 use Oro\Bundle\PaymentBundle\Method\PaymentMethodInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -23,13 +23,14 @@ class AjaxWirecardController extends Controller
      * @param Checkout $checkout
      * @param PaymentMethodInterface $paymentMethod
      * @return JsonResponse
-     *
      */
     public function initiateAction(Checkout $checkout, PaymentMethodInterface $paymentMethod)
     {
         $paymentTransactionProvider = $this->get('oro_wirecard.provider.payment_transaction');
-        $initiatePaymentTransaction =
-            $paymentTransactionProvider->getActiveInitiatePaymentTransaction($paymentMethod->getIdentifier());
+        $initiatePaymentTransaction = $paymentTransactionProvider->getActiveInitiatePaymentTransaction(
+            $checkout,
+            $paymentMethod->getIdentifier()
+        );
         if (!$initiatePaymentTransaction) {
             $initiatePaymentTransaction = $paymentTransactionProvider->createPaymentTransaction(
                 $paymentMethod->getIdentifier(),
@@ -37,7 +38,6 @@ class AjaxWirecardController extends Controller
                 $checkout
             );
         }
-        $initiatePaymentTransaction->setEntityIdentifier($checkout->getId());
 
         $paymentMethod->execute(WirecardSeamlessPaymentMethod::INITIATE, $initiatePaymentTransaction);
         $paymentTransactionProvider->savePaymentTransaction($initiatePaymentTransaction);

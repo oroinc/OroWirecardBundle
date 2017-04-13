@@ -20,7 +20,9 @@ class WirecardSeamlessSepaPaymentMethodFactory extends WirecardSeamlessPaymentMe
             $config,
             $this->transactionProvider,
             $this->gateway,
-            $this->router
+            $this->router,
+            $this->doctrineHelper,
+            $this->requestStack
         );
     }
 }

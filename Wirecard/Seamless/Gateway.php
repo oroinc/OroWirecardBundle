@@ -4,27 +4,30 @@ namespace Oro\Bundle\WirecardBundle\Wirecard\Seamless;
 
 use GuzzleHttp\ClientInterface;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\RequestInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class Gateway
 {
-    /** @var ClientInterface */
+    /**
+     * @var ClientInterface
+     */
     protected $client;
 
     /**
-     * @var RequestStack
+     * Gateway constructor.
+     * @param ClientInterface $client
      */
-    protected $requestStack;
-
     public function __construct(
-        ClientInterface $client,
-        RequestStack $requestStack
+        ClientInterface $client
     ) {
         $this->client = $client;
-        $this->requestStack = $requestStack;
     }
 
+    /**
+     * @param RequestInterface $request
+     * @param array $options
+     * @return \Hochstrasser\Wirecard\Response\WirecardResponse
+     */
     public function request(RequestInterface $request, array $options = [])
     {
         $resolver = new OptionsResolver();
@@ -35,15 +38,5 @@ class Gateway
         $rawResponse = $this->client->send($wirecardRequest->createHttpRequest());
 
         return $wirecardRequest->createResponse($rawResponse);
-    }
-
-    public function getUserAgent()
-    {
-        return $this->requestStack->getMasterRequest()->headers->get('User-Agent');
-    }
-
-    public function getClientIp()
-    {
-        return $this->requestStack->getMasterRequest()->getClientIp();
     }
 }

@@ -4,15 +4,15 @@ define(['underscore', 'orotranslation/js/translator', 'jquery', 'jquery.validate
 
     var defaultParam = {
         message: 'oro.wirecard.validation.month',
-        monthSelector: '[name$="oro_wirecard_seamless_credit_card[expirationDate][month]"]',
-        yearSelector: '[name$="oro_wirecard_seamless_credit_card[expirationDate][year]"]'
+        monthSelector: '[data-expiration-date-month]',
+        yearSelector: '[data-expiration-date-year]'
     };
 
     /**
      * @export orowirecard/js/validator/credit-card-expiration-date
      */
     return [
-        'credit-card-expiration-date',
+        'wc-credit-card-expiration-date',
         function(value, element, param) {
             param = _.extend({}, defaultParam, param);
             var form = $(element).parents('form');

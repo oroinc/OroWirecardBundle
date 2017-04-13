@@ -82,6 +82,8 @@ services:
             - '@oro_wirecard.provider.payment_transaction'
             - '@oro_wirecard.seamless.gateway'
             - '@router'
+            - '@oro_entity.doctrine_helper'
+            - '@request_stack'
 
     oro_wirecard.method.factory.wirecard_seamless.credit_card:
         class: 'Oro\Bundle\WirecardBundle\Method\Factory\WirecardSeamlessCreditCardPaymentMethodFactory'
@@ -167,6 +169,3 @@ services:
             - '@oro_wirecard.method.config.provider.wirecard_seamless.sepa_direct_debit'
         tags:
             - { name: oro_payment.payment_method_view_provider }
-
-
-

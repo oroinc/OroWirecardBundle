@@ -20,7 +20,9 @@ class WirecardSeamlessPaypalPaymentMethodFactory extends WirecardSeamlessPayment
             $config,
             $this->transactionProvider,
             $this->gateway,
-            $this->router
+            $this->router,
+            $this->doctrineHelper,
+            $this->requestStack
         );
     }
 }

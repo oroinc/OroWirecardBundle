@@ -22,6 +22,8 @@ define(function(require) {
 
         dataStorage: null,
 
+        initializingDataStorage: false,
+
         lastDataStorageStatus: null,
 
         /**
@@ -45,11 +47,11 @@ define(function(require) {
             var errorOutput = '';
             if (this.lastDataStorageStatus !== 0) {
                 storageResponse.getErrors().forEach(function(errorObject) {
-                    errorOutput += '<li>' + errorObject.consumerMessage + '</li>';
+                    errorOutput += '<li class="validation-failed">' + errorObject.consumerMessage + '</li>';
                 });
             }
             errorList.html(errorOutput);
-            errorList.toggleClass('hidden', this.lastDataStorageStatus === 0);
+            //errorList.toggleClass('validation-failed', this.lastDataStorageStatus === 0);
         },
 
         /**
@@ -57,18 +59,24 @@ define(function(require) {
         */
         beforeTransit: function(eventData) {
             if (this.$form.length > 0 && eventData.data.paymentMethod === this.options.paymentMethod) {
-                var validationStatus = (this.lastDataStorageStatus === 0) && this.validate(null);
+                var validationStatus = this.validate(null) && (this.lastDataStorageStatus === 0);
                 eventData.stopped = !validationStatus;
             }
         },
 
+        refreshPaymentMethod: function() {
+            mediator.trigger('checkout:payment:method:refresh');
+        },
+
         dispose: function() {
-            if (this.disposed || !this.disposable) {
+            if (this.disposed) {
                 return;
             }
 
-            mediator.off('checkout:payment:before-transit', this.beforeTransit, this);
+            this.$el.off();
+
             mediator.off('checkout:payment:method:changed', this.onPaymentMethodChanged, this);
+            mediator.off('checkout:payment:before-transit', this.beforeTransit, this);
 
             WirecardPaymentDataInputComponent.__super__.dispose.call(this);
         },
@@ -140,7 +148,8 @@ define(function(require) {
 
         initializeDataStorage: function() {
             var self = this;
-            if (this.options.initiatePaymentMethodRoute && !this.dataStorage) {
+            if (!this.initializingDataStorage && this.options.initiatePaymentMethodRoute && !this.dataStorage) {
+                this.initializingDataStorage = true;
                 mediator.execute('showLoading');
                 $.ajax({
                     url: routing.generate(
@@ -152,17 +161,29 @@ define(function(require) {
                     ),
                     type: 'POST',
                 }).done(function(data) {
-                    require([data.javascriptUrl], function() {
-                        // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
-                        // jshint -W117
-                        self.dataStorage = new WirecardCEE_DataStorage();
-                        // jshint +W117
-                        // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
-                        mediator.trigger('wirecard:datastorage:initialized', data);
-                    });
+                    var errN = data.errors && parseInt(data.errors);
+                    if (errN) {
+                        for (var i = 0; i < errN; i++) {
+                            mediator.execute(
+                                'showErrorMessage',
+                                data.error[i + 1].consumerMessage,
+                                data.error[i + 1].errorCode + ':' + data.error[i + 1].message
+                            );
+                        }
+                    } else {
+                        require([data.javascriptUrl], function() {
+                            // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+                            // jshint -W117
+                            self.dataStorage = new WirecardCEE_DataStorage();
+                            // jshint +W117
+                            // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
+                            mediator.trigger('wirecard:datastorage:initialized', self.dataStorage);
+                        });
+                    }
                 }).fail(function(jqXHR, textStatus, errorThrown) {
                     mediator.execute('showErrorMessage', textStatus, errorThrown);
                 }).always(function() {
+                    self.initializingDataStorage = false;
                     mediator.execute('hideLoading');
                 });
             }

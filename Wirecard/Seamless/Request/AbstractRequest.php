@@ -35,8 +35,7 @@ abstract class AbstractRequest implements RequestInterface
             ->addOption(new Option\ShopId())
             ->addOption(new Option\Secret())
             ->addOption(new Option\Language())
-            ->addOption(new Option\Hashing())
-            ->addOption(new Option\TestMode());
+            ->addOption(new Option\Hashing());
 
         return $this;
     }
@@ -73,6 +72,7 @@ abstract class AbstractRequest implements RequestInterface
      * @param Option\OptionInterface $option
      *
      * @return $this
+     * @throws \InvalidArgumentException
      */
     protected function addOption(Option\OptionInterface $option)
     {

@@ -4,16 +4,15 @@ namespace Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TestMode extends AbstractOption
+class OrderDescription implements OptionInterface
 {
-    const TESTMODE = 'testMode';
+    const ORDERDESCRIPTION = 'orderDescription';
 
     /** {@inheritdoc} */
     public function configureOption(OptionsResolver $resolver)
     {
         $resolver
-            ->setDefined(self::TESTMODE)
-            ->setDefault(self::TESTMODE, false)
-            ->addAllowedTypes(self::TESTMODE, 'boolean');
+            ->setRequired(self::ORDERDESCRIPTION)
+            ->addAllowedTypes(self::ORDERDESCRIPTION, 'string');
     }
 }

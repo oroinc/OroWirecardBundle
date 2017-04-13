@@ -2,7 +2,6 @@
 
 namespace Oro\Bundle\WirecardBundle\Provider;
 
-use Doctrine\Common\Collections\Criteria;
 use Oro\Bundle\PaymentBundle\Entity\PaymentTransaction;
 use Oro\Bundle\PaymentBundle\Provider\PaymentTransactionProvider as BasePaymentTransactionProvider;
 use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessPaymentMethod;
@@ -10,28 +9,24 @@ use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessPaymentMethod;
 class PaymentTransactionProvider extends BasePaymentTransactionProvider
 {
     /**
+     * @param object $object
      * @param string $paymentMethod
-     *
      * @return PaymentTransaction
      */
-    public function getActiveInitiatePaymentTransaction($paymentMethod)
+    public function getActiveInitiatePaymentTransaction($object, $paymentMethod)
     {
         $customerUser = $this->getLoggedCustomerUser();
         if (!$customerUser) {
             return null;
         }
 
-        /** @var PaymentTransaction $transaction */
-        $transaction = $this->doctrineHelper->getEntityRepository($this->paymentTransactionClass)->findOneBy(
-            [
+        $criteria = [
                 'active' => true,
                 'action' => WirecardSeamlessPaymentMethod::INITIATE,
                 'paymentMethod' => (string) $paymentMethod,
                 'frontendOwner' => $customerUser,
-            ],
-            ['id' => Criteria::DESC]
-        );
+        ];
 
-        return $transaction;
+        return $this->getPaymentTransaction($object, $criteria);
     }
 }

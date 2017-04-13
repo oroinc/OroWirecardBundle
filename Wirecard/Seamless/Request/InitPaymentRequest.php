@@ -19,6 +19,7 @@ class InitPaymentRequest extends AbstractRequest
             ->addOption(new Option\PaymentType())
             ->addOption(new Option\Amount())
             ->addOption(new Option\Currency())
+            ->addOption(new Option\OrderDescription())
 
             ->addOption(new Option\SuccessUrl())
             ->addOption(new Option\CancelUrl())
@@ -40,22 +41,9 @@ class InitPaymentRequest extends AbstractRequest
         $request = WirecardInitPaymentRequest::with();
         $request->setContext($this->buildContext($options));
 
-        $request->setOrderIdent($options[Option\OrderIdent::ORDERIDENT]);
-        $request->setStorageId($options[Option\StorageId::STORAGEID]);
-
-        $request->setPaymentType($options[Option\PaymentType::PAYMENTTYPE]);
-        $request->setAmount($options[Option\Amount::AMOUNT]);
-        $request->setCurrency($options[Option\Currency::CURRENCY]);
-        $request->setOrderDescription('orderDescription'); //FIXME: create order description
-
-        $request->setSuccessUrl($options[Option\SuccessUrl::SUCCESSURL]);
-        $request->setCancelUrl($options[Option\CancelUrl::CANCELURL]);
-        $request->setFailureUrl($options[Option\FailureUrl::FAILUREURL]);
-        $request->setConfirmUrl($options[Option\ConfirmUrl::CONFIRMURL]);
-        $request->setServiceUrl($options[Option\ServiceUrl::SERVICEURL]);
-
-        $request->setConsumerUserAgent($options[Option\ConsumerUserAgent::CONSUMERUSERAGENT]);
-        $request->setConsumerIpAddress($options[Option\ConsumerIpAddress::CONSUMERIPADDRESS]);
+        foreach ($options as $key => $value) {
+            $request->addParam($key, $value);
+        }
 
         return $request;
     }

@@ -96,7 +96,7 @@ class WirecardSeamlessSettingsType extends AbstractType
             ])
             ->add('shopId', TextType::class, [
                 'label' => 'oro.wirecard.settings.wirecard_seamless.shop_id.label',
-                'required' => true,
+                'required' => false,
             ])
             ->add('secret', PasswordType::class, [
                 'label' => 'oro.wirecard.settings.wirecard_seamless.secret.label',

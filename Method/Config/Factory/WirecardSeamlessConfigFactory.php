@@ -9,6 +9,7 @@ use Oro\Bundle\LocaleBundle\Helper\LocalizationHelper;
 use Oro\Bundle\SecurityBundle\Encoder\SymmetricCrypterInterface;
 use Oro\Bundle\WirecardBundle\Entity\WirecardSeamlessSettings;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option;
+use Oro\Bundle\WirecardBundle\Method\Config\Mapping\WirecardLanguageCodeMapper;
 
 abstract class WirecardSeamlessConfigFactory
 {
@@ -56,11 +57,18 @@ abstract class WirecardSeamlessConfigFactory
         ];
     }
 
+    /**
+     * @return string
+     */
     protected function getLanguageCode()
     {
         $localization = $this->localizationHelper->getCurrentLocalization();
 
-        return $localization ? $localization->getLanguageCode() : Option\Language::EN;
+        $languageCode = null;
+        if ($localization) {
+            $languageCode = $localization->getLanguageCode();
+        }
+        return WirecardLanguageCodeMapper::mapLanguageCodeToWirecardLanguageCode($languageCode);
     }
 
     /**
@@ -73,6 +81,9 @@ abstract class WirecardSeamlessConfigFactory
         return (string) $this->localizationHelper->getLocalizedValue($values);
     }
 
+    /**
+     * @return string
+     */
     protected function getHashingMethod()
     {
         return Option\Hashing::DEFAULT_HASHING_METHOD;

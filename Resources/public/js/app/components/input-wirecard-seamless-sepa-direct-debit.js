@@ -39,34 +39,88 @@ define(function(require) {
             $.validator.loadMethod('orowirecard/js/validator/sepa-iban');
             $.validator.loadMethod('orowirecard/js/validator/sepa-bic');
 
+            mediator.on('wirecard:datastorage:initialized', this.onDataStorageInitialized, this);
+
             this.$el
-                .on('focusout', this.options.selectors.accountOwner, $.proxy(this.collectAccountOwner, this))
-                .on('focusout', this.options.selectors.iban, $.proxy(this.collectIban, this))
-                .on('focusout', this.options.selectors.bic, $.proxy(this.collectBic, this));
+                .on('focusout', this.options.selectors.accountOwner, $.proxy(this.onAccountOwnerFocusout, this))
+                .on('focusout', this.options.selectors.iban, $.proxy(this.onIbanFocusout, this))
+                .on('focusout', this.options.selectors.bic, $.proxy(this.onBicFocusout, this));
         },
 
-        /**
-         * @param {jQuery.Event} e
-         */
-        collectAccountOwner: function(e) {
-            this.accountOwner = this.validate(this.options.selectors.accountOwner) ? e.target.value : null;
+        onDataStorageInitialized: function() {
+            var value = this.$el.find(this.options.selectors.accountOwner).val();
+            if (value) {
+                this.collectAccountOwner(value);
+            }
+            value = this.$el.find(this.options.selectors.iban).val();
+            if (value) {
+                this.collectIban(value);
+            }
+            value = this.$el.find(this.options.selectors.bic).val();
+            if (value) {
+                this.collectBic(value);
+            }
             this.storePaymentData();
         },
 
         /**
          * @param {jQuery.Event} e
          */
-        collectIban: function(e) {
-            this.iban = this.validate(this.options.selectors.iban) ? e.target.value : null;
-            this.storePaymentData();
+        onAccountOwnerFocusout: function(e) {
+            if (this.collectAccountOwner(e.target.value)) {
+                this.storePaymentData();
+            }
         },
 
         /**
          * @param {jQuery.Event} e
          */
-        collectBic: function(e) {
-            this.bic = this.validate(this.options.selectors.bic) ? e.target.value : null;
-            this.storePaymentData();
+        onIbanFocusout: function(e) {
+            if (this.collectIban(e.target.value)) {
+                this.storePaymentData();
+            }
+        },
+
+        /**
+         * @param {jQuery.Event} e
+         */
+        onBicFocusout: function(e) {
+            if (this.collectBic(e.target.value)) {
+                this.storePaymentData();
+            }
+        },
+
+        /**
+         * @param {string} accountOwner
+         * @return {boolean} true if value changed
+         */
+        collectAccountOwner: function(accountOwner) {
+            var oldValue = this.accountOwner;
+            this.accountOwner = this.validate(this.options.selectors.accountOwner) ? accountOwner : null;
+
+            return (oldValue !== this.accountOwner);
+        },
+
+        /**
+         * @param {string} iban
+         * @return {boolean} true if value changed
+         */
+        collectIban: function(iban) {
+            var oldValue = this.iban;
+            this.iban = this.validate(this.options.selectors.iban) ? iban : null;
+
+            return (oldValue !== this.iban);
+        },
+
+        /**
+         * @param {string} bic
+         * @return {boolean} true if value changed
+         */
+        collectBic: function(bic) {
+            var oldValue = this.bic;
+            this.bic = this.validate(this.options.selectors.bic) ? bic : null;
+
+            return (oldValue !== this.bic);
         },
 
         storePaymentData: function() {
@@ -98,6 +152,8 @@ define(function(require) {
             }
 
             this.$el.off();
+
+            mediator.off('wirecard:datastorage:initialized', this.onDataStorageInitialized, this);
 
             WirecardSepaDataInputComponent.__super__.dispose.call(this);
         }

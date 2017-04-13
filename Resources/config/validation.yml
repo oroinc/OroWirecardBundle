@@ -1,0 +1,21 @@
+Oro\Bundle\WirecardBundle\Entity\WirecardSeamlessSettings:
+    properties:
+        creditCardLabels:
+            - NotBlank: ~
+        creditCardShortLabels:
+            - NotBlank: ~
+        paypalLabels:
+            - NotBlank: ~
+        paypalShortLabels:
+            - NotBlank: ~
+        sepaLabels:
+            - NotBlank: ~
+        sepaShortLabels:
+            - NotBlank: ~
+        customerId:
+            - NotBlank: ~
+            - Valid: ~
+        secret:
+            - NotBlank: ~
+            - Length:
+                min: 7

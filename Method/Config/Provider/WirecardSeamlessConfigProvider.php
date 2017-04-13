@@ -8,7 +8,7 @@ use Oro\Bundle\WirecardBundle\Method\Config\Factory\WirecardSeamlessConfigFactor
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessConfigInterface;
 use Psr\Log\LoggerInterface;
 
-abstract class WirecardSeamlessConfigProvider
+abstract class WirecardSeamlessConfigProvider implements WirecardSeamlessConfigProviderInterface
 {
     /**
      * @var string

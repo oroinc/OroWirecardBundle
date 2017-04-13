@@ -29,6 +29,9 @@ define(function(require) {
          */
         year: null,
 
+        /**
+         * @property array
+         */
         expirationDate: null,
 
         /**
@@ -53,22 +56,36 @@ define(function(require) {
             $.validator.loadMethod('orowirecard/js/validator/credit-card-expiration-date');
             $.validator.loadMethod('orowirecard/js/validator/credit-card-expiration-date-not-blank');
 
+            mediator.on('wirecard:datastorage:initialized', this.onDataStorageInitialized, this);
+
             this.$el
-                .on('change', this.options.selectors.expirationmonth, $.proxy(this.collectMonthDate, this))
-                .on('change', this.options.selectors.expirationyear, $.proxy(this.collectYearDate, this))
-                .on('focusout', this.options.selectors.holdername, $.proxy(this.collectHolderName, this))
-                .on('focusout', this.options.selectors.pan, $.proxy(this.collectPan, this))
-                .on('focusout', this.options.selectors.cardVerifyCode, $.proxy(this.collectCardVerifyCode, this));
+                .on('change', this.options.selectors.expirationmonth, $.proxy(this.onExpirationMonthChange, this))
+                .on('change', this.options.selectors.expirationyear, $.proxy(this.onExpirationYearChange, this))
+                .on('focusout', this.options.selectors.holdername, $.proxy(this.onHoldersNameFocusout, this))
+                .on('focusout', this.options.selectors.pan, $.proxy(this.onPanFocusout, this))
+                .on('focusout', this.options.selectors.cardVerifyCode, $.proxy(this.onCardVerifyCodeFocusout, this));
         },
 
-        /**
-         * @param {jQuery.Event} e
-         */
-        collectMonthDate: function(e) {
-            this.month = e.target.value;
-            this.setExpirationDate();
-            if (!this.validateIfMonthAndYearNotBlank()) {
-                this.expirationDate = null;
+        onDataStorageInitialized: function() {
+            var value = this.$el.find(this.options.selectors.expirationmonth).val();
+            if (value) {
+                this.collectMonthDate(value);
+            }
+            value = this.$el.find(this.options.selectors.expirationyear).val();
+            if (value) {
+                this.collectYearDate(value);
+            }
+            value = this.$el.find(this.options.selectors.holdername).val();
+            if (value) {
+                this.collectHoldersName(value);
+            }
+            value = this.$el.find(this.options.selectors.pan).val();
+            if (value) {
+                this.collectPan(value);
+            }
+            value = this.$el.find(this.options.selectors.cardVerifyCode).val();
+            if (value) {
+                this.collectCardVerifyCode(value);
             }
             this.storePaymentData();
         },
@@ -76,13 +93,49 @@ define(function(require) {
         /**
          * @param {jQuery.Event} e
          */
-        collectYearDate: function(e) {
-            this.year = e.target.value;
+        onExpirationMonthChange: function(e) {
+            if (this.collectMonthDate(e.target.value)) {
+                this.storePaymentData();
+            }
+        },
+
+        /**
+         * @param {string} month
+         * @return {boolean} true if value changed
+         */
+        collectMonthDate: function(month) {
+            var oldValue = this.expirationDate;
+            this.month = month;
             this.setExpirationDate();
             if (!this.validateIfMonthAndYearNotBlank()) {
                 this.expirationDate = null;
             }
-            this.storePaymentData();
+
+            return (oldValue !== this.expirationDate);
+        },
+
+        /**
+         * @param {jQuery.Event} e
+         */
+        onExpirationYearChange: function(e) {
+            if (this.collectYearDate(e.target.value)) {
+                this.storePaymentData();
+            }
+        },
+
+        /**
+         * @param {string} year
+         * @return {boolean} true if value changed
+         */
+        collectYearDate: function(year) {
+            var oldValue = this.expirationDate;
+            this.year = year;
+            this.setExpirationDate();
+            if (!this.validateIfMonthAndYearNotBlank()) {
+                this.expirationDate = null;
+            }
+
+            return (oldValue !== this.expirationDate);
         },
 
         validateIfMonthAndYearNotBlank: function() {
@@ -96,25 +149,61 @@ define(function(require) {
         /**
          * @param {jQuery.Event} e
          */
-        collectHolderName: function(e) {
-            this.holdersName = this.validate(this.options.selectors.holdername) ? e.target.value : null;
-            this.storePaymentData();
+        onHoldersNameFocusout: function(e) {
+            if (this.collectHoldersName(e.target.value)) {
+                this.storePaymentData();
+            }
+        },
+
+        /**
+         * @param {string} holdersName
+         * @return {boolean} true if value changed
+         */
+        collectHoldersName: function(holdersName) {
+            var oldValue = this.holdersName;
+            this.holdersName = this.validate(this.options.selectors.holdername) ? holdersName : null;
+
+            return (oldValue !== this.holdersName);
         },
 
         /**
          * @param {jQuery.Event} e
          */
-        collectPan: function(e) {
-            this.pan = this.validate(this.options.selectors.pan) ? e.target.value : null;
-            this.storePaymentData();
+        onPanFocusout: function(e) {
+            if (this.collectPan(e.target.value)) {
+                this.storePaymentData();
+            }
+        },
+
+        /**
+         * @param {string} pan
+         * @return {boolean} true if value changed
+         */
+        collectPan: function(pan) {
+            var oldValue = this.pan;
+            this.pan = this.validate(this.options.selectors.pan) ? pan : null;
+
+            return (oldValue !== this.pan);
         },
 
         /**
          * @param {jQuery.Event} e
          */
-        collectCardVerifyCode: function(e) {
-            this.cvc = this.validate(this.options.selectors.cardVerifyCode) ? e.target.value : null;
-            this.storePaymentData();
+        onCardVerifyCodeFocusout: function(e) {
+            if (this.collectCardVerifyCode(e.target.value)) {
+                this.storePaymentData();
+            }
+        },
+
+        /**
+         * @param {string} cvc
+         * @return {boolean} true if value changed
+         */
+        collectCardVerifyCode: function(cvc) {
+            var oldValue = this.cvc;
+            this.cvc = this.validate(this.options.selectors.cardVerifyCode) ? cvc : null;
+
+            return (oldValue !== this.cvc);
         },
 
         storePaymentData: function() {
@@ -149,6 +238,8 @@ define(function(require) {
             }
 
             this.$el.off();
+
+            mediator.off('wirecard:datastorage:initialized', this.onDataStorageInitialized, this);
 
             WirecardCreditCardDataInputComponent.__super__.dispose.call(this);
         }
