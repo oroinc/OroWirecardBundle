@@ -34,6 +34,8 @@ class CreditCardType extends AbstractType
                     ],
                     'attr' => [
                         'data-card-holder-name' => true,
+                        'autocomplete' => 'off',
+                        'placeholder' => false,
                     ],
                 ]
             )
@@ -47,6 +49,13 @@ class CreditCardType extends AbstractType
                     'attr' => [
                         'autocomplete' => 'off',
                         'data-pan' => true,
+                        'placeholder' => false,
+                        'data-validation' => [
+                            'credit-card-number' => [
+                                'message' => 'oro.payment.validation.credit_card',
+                                'payload' => null,
+                            ]
+                        ],
                     ],
                     'constraints' => [
                         new Integer(),
@@ -76,12 +85,14 @@ class CreditCardType extends AbstractType
                 PasswordType::class,
                 [
                     'label' => 'oro.wirecard.credit_card.cvv.label',
+                    'block_name' => 'payment_credit_card_cvv',
                     'constraints' => [
                         new NotBlank(),
                         new Integer(),
-                        new Length(['min' => '3', 'max' => '3']),
+                        new Length(['min' => '3', 'max' => '4']),
                     ],
                     'attr' => [
+                        'placeholder' => false,
                         'data-cvc' => true,
                     ],
                 ]

@@ -11,25 +11,36 @@ define(function(require) {
 
     WirecardPaymentDataInputComponent = BaseComponent.extend({
         options: {
-            hasInputForm: false,
+            messages: {
+                communication_err: 'oro.wirecard.communication_err'
+            },
+            sourceEntityId: null,
             paymentMethod: null,
             validationSelector: '[data-validation]',
-            initiatePaymentMethodRoute: null,
-            progressButtonSelector: 'button.checkout__form__submit[type="submit"]',
+            initiatePaymentMethodRoute: 'oro_wirecard_seamless_initiate',
             formSelector: '[data-wirecard-form]',
             wirecardErrorsSelector: '[data-wirecard-errors]'
         },
-
-        dataStorage: null,
-
-        initializingDataStorage: false,
-
-        lastDataStorageStatus: null,
 
         /**
          * @property {jQuery}
          */
         $el: null,
+
+        /**
+         * @property {jQuery}
+         */
+        $form: null,
+
+        /**
+         * @property {Object|null}
+         */
+        dataStorage: null,
+
+        /**
+         * @property {Boolean}
+         */
+        disposable: true,
 
         initialize: function(options) {
             this.options = _.extend({}, this.options, options);
@@ -37,46 +48,19 @@ define(function(require) {
             this.$el = this.options._sourceElement;
             this.$form = this.$el.find(this.options.formSelector);
 
-            mediator.on('checkout:payment:before-transit', this.beforeTransit, this);
-            mediator.on('checkout:payment:method:changed', this.onPaymentMethodChanged, this);
-        },
-
-        handleStorageResponse: function(storageResponse) {
-            this.lastDataStorageStatus = storageResponse.getStatus();
-            var errorList = this.$form.find(this.options.wirecardErrorsSelector);
-            var errorOutput = '';
-            if (this.lastDataStorageStatus !== 0) {
-                storageResponse.getErrors().forEach(function(errorObject) {
-                    errorOutput += '<li class="validation-failed">' + errorObject.consumerMessage + '</li>';
-                });
-            }
-            errorList.html(errorOutput);
-            //errorList.toggleClass('validation-failed', this.lastDataStorageStatus === 0);
-        },
-
-        /**
-        * @param {Object} eventData
-        */
-        beforeTransit: function(eventData) {
-            if (this.$form.length > 0 && eventData.data.paymentMethod === this.options.paymentMethod) {
-                var validationStatus = this.validate(null) && (this.lastDataStorageStatus === 0);
-                eventData.stopped = !validationStatus;
-            }
-        },
-
-        refreshPaymentMethod: function() {
-            mediator.trigger('checkout:payment:method:refresh');
+            mediator.on('checkout:payment:before-hide-filled-form', this.beforeHideFilledForm, this);
+            mediator.on('checkout:payment:before-restore-filled-form', this.beforeRestoreFilledForm, this);
+            mediator.on('checkout:payment:remove-filled-form', this.removeFilledForm, this);
         },
 
         dispose: function() {
-            if (this.disposed) {
+            if (this.disposed || !this.disposable) {
                 return;
             }
 
-            this.$el.off();
-
-            mediator.off('checkout:payment:method:changed', this.onPaymentMethodChanged, this);
-            mediator.off('checkout:payment:before-transit', this.beforeTransit, this);
+            mediator.off('checkout:payment:before-hide-filled-form', this.beforeHideFilledForm, this);
+            mediator.off('checkout:payment:before-restore-filled-form', this.beforeRestoreFilledForm, this);
+            mediator.off('checkout:payment:remove-filled-form', this.removeFilledForm, this);
 
             WirecardPaymentDataInputComponent.__super__.dispose.call(this);
         },
@@ -137,58 +121,79 @@ define(function(require) {
 
         },
 
-        /**
-         * @param {Object} eventData
-         */
-        onPaymentMethodChanged: function(eventData) {
-            if (eventData.paymentMethod === this.options.paymentMethod) {
-                this.initializeDataStorage();
+        initializeDataStorage: function(successCallback, failCallback) {
+            if (this.dataStorage) {
+                return successCallback();
             }
-        },
 
-        initializeDataStorage: function() {
             var self = this;
-            if (!this.initializingDataStorage && this.options.initiatePaymentMethodRoute && !this.dataStorage) {
-                this.initializingDataStorage = true;
-                mediator.execute('showLoading');
-                $.ajax({
-                    url: routing.generate(
-                        this.options.initiatePaymentMethodRoute,
-                        {
-                            id: this.options.sourceEntityId,
-                            paymentMethod: this.options.paymentMethod,
-                        }
-                    ),
-                    type: 'POST',
-                }).done(function(data) {
-                    var errN = data.errors && parseInt(data.errors);
-                    if (errN) {
-                        for (var i = 0; i < errN; i++) {
-                            mediator.execute(
-                                'showErrorMessage',
-                                data.error[i + 1].consumerMessage,
-                                data.error[i + 1].errorCode + ':' + data.error[i + 1].message
-                            );
-                        }
-                    } else {
-                        require([data.javascriptUrl], function() {
-                            // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
-                            // jshint -W117
-                            self.dataStorage = new WirecardCEE_DataStorage();
-                            // jshint +W117
-                            // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
-                            mediator.trigger('wirecard:datastorage:initialized', self.dataStorage);
-                        });
+            $.ajax({
+                url: routing.generate(
+                    this.options.initiatePaymentMethodRoute,
+                    {
+                        id: this.options.sourceEntityId,
+                        paymentMethod: this.options.paymentMethod
                     }
-                }).fail(function(jqXHR, textStatus, errorThrown) {
-                    mediator.execute('showErrorMessage', textStatus, errorThrown);
-                }).always(function() {
-                    self.initializingDataStorage = false;
-                    mediator.execute('hideLoading');
-                });
+                ),
+                type: 'POST'
+            }).done(function(data) {
+                if (data.errors) {
+                    var numberOfErrors = parseInt(data.errors);
+                    for (var i = 1; i <= numberOfErrors; i++) {
+                        mediator.execute(
+                            'showErrorMessage',
+                            data.error[i].consumerMessage,
+                            data.error[i].errorCode + ':' + data.error[i].message
+                        );
+                    }
+                    return failCallback();
+                } else {
+                    require([data.javascriptUrl], function() {
+                        // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+                        self.dataStorage = new WirecardCEE_DataStorage(); // jshint ignore:line
+                        // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
+                        return successCallback();
+                    });
+                }
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                self.logError(errorThrown);
+                return failCallback();
+            });
+        },
+
+        dataStorageLoadFailed: function() {
+            mediator.execute('hideLoading');
+            mediator.execute('showErrorMessage', __(this.options.messages.communication_err));
+        },
+
+        /**
+         * @param {(string|Object)} message
+         */
+        logError: function(message) {
+            if (typeof window.console === 'undefined') {
+                // can not log error because console doesn't exist
+                return;
+            }
+            window.console.error(message);
+        },
+
+        beforeHideFilledForm: function() {
+            this.disposable = false;
+        },
+
+        beforeRestoreFilledForm: function() {
+            if (this.disposable) {
+                this.dispose();
             }
         },
 
+        removeFilledForm: function() {
+            // Remove hidden form js component
+            if (!this.disposable) {
+                this.disposable = true;
+                this.dispose();
+            }
+        }
     });
 
     return WirecardPaymentDataInputComponent;

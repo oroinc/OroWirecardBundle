@@ -24,8 +24,14 @@ class SepaDirectDebitType extends AbstractType
                 'accountOwner',
                 TextType::class,
                 [
+                    'required' => true,
                     'attr' => [
+                        'placeholder' => false,
                         'data-account-owner' => true,
+                        'autocomplete' => 'off',
+                    ],
+                    'constraints' => [
+                        new NotBlank(),
                     ],
                 ]
             )
@@ -43,9 +49,9 @@ class SepaDirectDebitType extends AbstractType
                                 'payload' => null,
                             ],
                         ],
+                        'placeholder' => false,
                         'autocomplete' => 'off',
                         'data-bank-iban' => true,
-
                     ],
                     'constraints' => [
                         new NotBlank(),
@@ -66,6 +72,7 @@ class SepaDirectDebitType extends AbstractType
                                 'payload' => null,
                             ],
                         ],
+                        'placeholder' => false,
                         'autocomplete' => 'off',
                         'data-bank-bic' => true,
 

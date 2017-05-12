@@ -1,4 +1,3 @@
-/*jshint bitwise: false*/
 define([
     'underscore',
     'orotranslation/js/translator'
@@ -15,20 +14,11 @@ define([
     return [
         'sepa-bic',
         function(value, element) {
-
-            if (this.optional(element)) {
-                return true;
-            }
-
             var bic = value.replace(/ /g, '').toUpperCase();
             var patternBic = '^([a-zA-Z]){4}([a-zA-Z]){2}([0-9a-zA-Z]){2}([0-9a-zA-Z]{3})?$';
             var bicRegexp = new RegExp(patternBic, '');
 
-            if (!(bicRegexp.test(bic))) {
-                return false;
-            }
-
-            return true;
+            return bicRegexp.test(bic);
         },
         function(param) {
             param = _.extend({}, defaultParam, param);

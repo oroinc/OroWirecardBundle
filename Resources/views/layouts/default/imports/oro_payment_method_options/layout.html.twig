@@ -29,13 +29,14 @@
 {% endblock %}
 
 {% block _payment_methods_wirecard_seamless_paypal_widget %}
-    {% set pageComponent = views.options.paypalComponent|default('orowirecard/js/app/components/input-wirecard-seamless') %}
+    {% set pageComponent = views.options.paypalComponent|default('orowirecard/js/app/components/input-wirecard-seamless-paypal') %}
     {% set options = view.options %}
     <div class="{{ class_prefix }}__form__payment-methods"
          data-page-component-module="{{ pageComponent }}"
          data-page-component-options="{{ {sourceEntityId: options.sourceEntityId,
              paymentMethod: options.paymentMethod,
              initiatePaymentMethodRoute: options.initiatePaymentMethodRoute}|json_encode }}">
+        <img src="{% image '@OroWirecardBundle/Resources/public/default/images/pp-express-checkout-method.png' %}{{ asset_url }}{% endimage %}">
         <div>{{ 'oro.wirecard.paypal.redirect_to_paypal'|trans|nl2br }}</div>
     </div>
 {% endblock %}

@@ -3,6 +3,7 @@ define(function(require) {
 
     var WirecardSepaDataInputComponent;
     var _ = require('underscore');
+    var __ = require('orotranslation/js/translator');
     var $ = require('jquery');
     var mediator = require('oroui/js/mediator');
     var WirecardPaymentDataInputComponent = require('orowirecard/js/app/components/input-wirecard-seamless');
@@ -13,148 +14,97 @@ define(function(require) {
             selectors: {
                 accountOwner: '[data-account-owner]',
                 iban: '[data-bank-iban]',
-                bic: '[data-bank-bic]',
-            },
+                bic: '[data-bank-bic]'
+            }
         }),
-
-        /**
-         * @property string
-         */
-        accountOwner: null,
-
-        /**
-         * @property string
-         */
-        iban: null,
-
-        /**
-         * @property string
-         */
-        bic: null,
 
         initialize: function(options) {
             this.options = _.extend({}, this.options, options);
-            WirecardSepaDataInputComponent.__super__.initialize.apply(this, arguments);
 
             $.validator.loadMethod('orowirecard/js/validator/sepa-iban');
             $.validator.loadMethod('orowirecard/js/validator/sepa-bic');
 
-            mediator.on('wirecard:datastorage:initialized', this.onDataStorageInitialized, this);
+            WirecardSepaDataInputComponent.__super__.initialize.apply(this, arguments);
+
+            mediator.on('checkout:payment:before-transit', this.beforeTransit, this);
 
             this.$el
-                .on('focusout', this.options.selectors.accountOwner, $.proxy(this.onAccountOwnerFocusout, this))
-                .on('focusout', this.options.selectors.iban, $.proxy(this.onIbanFocusout, this))
-                .on('focusout', this.options.selectors.bic, $.proxy(this.onBicFocusout, this));
-        },
-
-        onDataStorageInitialized: function() {
-            var value = this.$el.find(this.options.selectors.accountOwner).val();
-            if (value) {
-                this.collectAccountOwner(value);
-            }
-            value = this.$el.find(this.options.selectors.iban).val();
-            if (value) {
-                this.collectIban(value);
-            }
-            value = this.$el.find(this.options.selectors.bic).val();
-            if (value) {
-                this.collectBic(value);
-            }
-            this.storePaymentData();
+                .on(
+                    'focusout',
+                    this.options.selectors.accountOwner,
+                    $.proxy(this.validate, this, this.options.selectors.accountOwner)
+                )
+                .on(
+                    'focusout',
+                    this.options.selectors.iban,
+                    $.proxy(this.validate, this, this.options.selectors.iban)
+                )
+                .on(
+                    'focusout',
+                    this.options.selectors.bic,
+                    $.proxy(this.validate, this, this.options.selectors.bic)
+                );
         },
 
         /**
-         * @param {jQuery.Event} e
+         * @param {Object} eventData
          */
-        onAccountOwnerFocusout: function(e) {
-            if (this.collectAccountOwner(e.target.value)) {
-                this.storePaymentData();
-            }
-        },
-
-        /**
-         * @param {jQuery.Event} e
-         */
-        onIbanFocusout: function(e) {
-            if (this.collectIban(e.target.value)) {
-                this.storePaymentData();
-            }
-        },
-
-        /**
-         * @param {jQuery.Event} e
-         */
-        onBicFocusout: function(e) {
-            if (this.collectBic(e.target.value)) {
-                this.storePaymentData();
-            }
-        },
-
-        /**
-         * @param {string} accountOwner
-         * @return {boolean} true if value changed
-         */
-        collectAccountOwner: function(accountOwner) {
-            var oldValue = this.accountOwner;
-            this.accountOwner = this.validate(this.options.selectors.accountOwner) ? accountOwner : null;
-
-            return (oldValue !== this.accountOwner);
-        },
-
-        /**
-         * @param {string} iban
-         * @return {boolean} true if value changed
-         */
-        collectIban: function(iban) {
-            var oldValue = this.iban;
-            this.iban = this.validate(this.options.selectors.iban) ? iban : null;
-
-            return (oldValue !== this.iban);
-        },
-
-        /**
-         * @param {string} bic
-         * @return {boolean} true if value changed
-         */
-        collectBic: function(bic) {
-            var oldValue = this.bic;
-            this.bic = this.validate(this.options.selectors.bic) ? bic : null;
-
-            return (oldValue !== this.bic);
-        },
-
-        storePaymentData: function() {
-            if (this.dataStorage === null ||
-                this.accountOwner === null ||
-                this.iban === null ||
-                this.bic === null) {
+        beforeTransit: function(eventData) {
+            if (eventData.data.paymentMethod !== this.options.paymentMethod || eventData.stopped) {
                 return;
             }
 
-            var self = this;
+            eventData.stopped = true;
+
+            if (!this.validate()) {
+                return;
+            }
+
             mediator.execute('showLoading');
+
+            this.initializeDataStorage(
+                _.bind(this.dataStorageSuccess, this, eventData.resume),
+                _.bind(this.dataStorageLoadFailed, this)
+            );
+        },
+
+        /**
+         * @param {function} resumeCallback
+         */
+        dataStorageSuccess: function(resumeCallback) {
+            var self = this;
+
             this.dataStorage.storeSepaDdInformation(
                 {
-                    accountOwner: this.accountOwner,
-                    bankAccountIban: this.iban,
-                    bankBic: this.bic
+                    accountOwner: self.$form.find(self.options.selectors.accountOwner).val(),
+                    bankAccountIban: self.$form.find(self.options.selectors.iban).val(),
+                    bankBic: self.$form.find(self.options.selectors.bic).val()
                 },
                 function(response) {
-                    self.handleStorageResponse.call(self, response);
+                    var errorList = self.$form.find(self.options.wirecardErrorsSelector);
                     mediator.execute('hideLoading');
+                    if (response.getStatus() === 0) {
+                        errorList.html('');
+                        return resumeCallback();
+                    } else {
+                        self.logError(response);
+                        var errorOutput = '';
+                        response.getErrors().forEach(function(errorObject) {
+                            errorOutput += '<li class="validation-failed">' + errorObject.consumerMessage + '</li>';
+                        });
+                        errorList.html(errorOutput);
+                    }
                 }
             );
         },
 
         dispose: function() {
-            if (this.disposed) {
+            if (this.disposed || !this.disposable) {
                 return;
             }
 
             this.$el.off();
-
-            mediator.off('wirecard:datastorage:initialized', this.onDataStorageInitialized, this);
-
+            mediator.off('checkout:payment:before-transit', this.beforeTransit, this);
             WirecardSepaDataInputComponent.__super__.dispose.call(this);
         }
     });

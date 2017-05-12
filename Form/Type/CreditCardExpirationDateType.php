@@ -40,7 +40,7 @@ class CreditCardExpirationDateType extends AbstractType
             ]
         );
 
-        $resolver->setAllowedValues(['input' => ['array']]);
+        $resolver->setAllowedValues('input', ['array']);
     }
 
     /**
