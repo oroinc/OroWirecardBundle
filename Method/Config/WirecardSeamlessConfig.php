@@ -15,14 +15,6 @@ abstract class WirecardSeamlessConfig extends AbstractParameterBagPaymentConfig 
     /**
      * {@inheritdoc}
      */
-    public function __construct(array $parameters)
-    {
-        parent::__construct($parameters);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getCredentials()
     {
         return $this->get(self::CREDENTIALS_KEY);

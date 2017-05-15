@@ -9,11 +9,7 @@ class WirecardSeamlessSepaConfigFactory extends WirecardSeamlessConfigFactory im
     WirecardSeamlessSepaConfigFactoryInterface
 {
     /**
-     * @param WirecardSeamlessSettings $settings
-     *
-     * @return WirecardSeamlessSepaConfig
-     *
-     * @throws \InvalidArgumentException
+     * {@inheritdoc}
      */
     public function createConfig(WirecardSeamlessSettings $settings)
     {

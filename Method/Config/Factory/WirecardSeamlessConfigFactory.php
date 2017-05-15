@@ -16,30 +16,38 @@ abstract class WirecardSeamlessConfigFactory
     /**
      * @var SymmetricCrypterInterface
      */
-    private $encoder;
+    protected $encoder;
 
     /**
      * @var LocalizationHelper
      */
-    private $localizationHelper;
+    protected $localizationHelper;
 
     /**
      * @var IntegrationIdentifierGeneratorInterface
      */
-    private $identifierGenerator;
+    protected $identifierGenerator;
 
     /**
-     * @param SymmetricCrypterInterface               $encoder
-     * @param LocalizationHelper                      $localizationHelper
+     * @var WirecardLanguageCodeMapper
+     */
+    protected $languageCodeMapper;
+
+    /**
+     * @param SymmetricCrypterInterface $encoder
+     * @param LocalizationHelper $localizationHelper
      * @param IntegrationIdentifierGeneratorInterface $identifierGenerator
+     * @param WirecardLanguageCodeMapper $languageCodeMapper
      */
     public function __construct(
         SymmetricCrypterInterface $encoder,
         LocalizationHelper $localizationHelper,
+        WirecardLanguageCodeMapper $languageCodeMapper,
         IntegrationIdentifierGeneratorInterface $identifierGenerator
     ) {
         $this->encoder = $encoder;
         $this->localizationHelper = $localizationHelper;
+        $this->languageCodeMapper = $languageCodeMapper;
         $this->identifierGenerator = $identifierGenerator;
     }
 
@@ -68,7 +76,8 @@ abstract class WirecardSeamlessConfigFactory
         if ($localization) {
             $languageCode = $localization->getLanguageCode();
         }
-        return WirecardLanguageCodeMapper::mapLanguageCodeToWirecardLanguageCode($languageCode);
+
+        return $this->languageCodeMapper->mapLanguageCodeToWirecardLanguageCode($languageCode);
     }
 
     /**
@@ -78,7 +87,7 @@ abstract class WirecardSeamlessConfigFactory
      */
     protected function getLocalizedValue(Collection $values)
     {
-        return (string) $this->localizationHelper->getLocalizedValue($values);
+        return (string)$this->localizationHelper->getLocalizedValue($values);
     }
 
     /**
@@ -96,7 +105,7 @@ abstract class WirecardSeamlessConfigFactory
      */
     protected function getDecryptedValue($value)
     {
-        return (string) $this->encoder->decryptData($value);
+        return (string)$this->encoder->decryptData($value);
     }
 
     /**
@@ -106,12 +115,12 @@ abstract class WirecardSeamlessConfigFactory
      */
     protected function getPaymentMethodIdentifier(Channel $channel)
     {
-        return (string) $this->identifierGenerator->generateIdentifier($channel);
+        return (string)$this->identifierGenerator->generateIdentifier($channel);
     }
 
     /**
      * @param Channel $channel
-     * @param string  $suffix
+     * @param string $suffix
      *
      * @return string
      */

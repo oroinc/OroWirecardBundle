@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 
 abstract class WirecardSeamlessView implements PaymentMethodViewInterface
 {
-    const INITIATE_ROUTE = 'oro_wirecard_seamless_initiate';
+    const INITIATE_ROUTE = 'oro_wirecard_frontend_seamless_initiate';
 
     /** @var FormFactoryInterface */
     protected $formFactory;

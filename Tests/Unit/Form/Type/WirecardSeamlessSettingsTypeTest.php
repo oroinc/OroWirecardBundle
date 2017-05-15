@@ -2,6 +2,7 @@
 
 namespace Oro\Bundle\PayPalBundle\Tests\Unit\Form\Type;
 
+use Oro\Bundle\FormBundle\Form\Type\OroEncodedPlaceholderPasswordType;
 use Oro\Bundle\LocaleBundle\Tests\Unit\Form\Type\Stub\LocalizedFallbackValueCollectionTypeStub;
 use Oro\Bundle\SecurityBundle\Encoder\SymmetricCrypterInterface;
 use Oro\Bundle\WirecardBundle\Entity\WirecardSeamlessSettings;
@@ -27,8 +28,6 @@ class WirecardSeamlessSettingsTypeTest extends FormIntegrationTestCase
 
     public function setUp()
     {
-        parent::setUp();
-
         /** @var TranslatorInterface|\PHPUnit_Framework_MockObject_MockObject $translator */
         $translator = $this->createMock(TranslatorInterface::class);
 
@@ -37,6 +36,8 @@ class WirecardSeamlessSettingsTypeTest extends FormIntegrationTestCase
             $translator,
             $this->encoder
         );
+
+        parent::setUp();
     }
 
     /**
@@ -45,11 +46,13 @@ class WirecardSeamlessSettingsTypeTest extends FormIntegrationTestCase
     protected function getExtensions()
     {
         $localizedType = new LocalizedFallbackValueCollectionTypeStub();
+        $oroEncodedPasswordType = new OroEncodedPlaceholderPasswordType($this->encoder);
 
         return [
             new PreloadedExtension(
                 [
                     $localizedType->getName() => $localizedType,
+                    $oroEncodedPasswordType->getName() => $oroEncodedPasswordType,
                 ],
                 []
             ),

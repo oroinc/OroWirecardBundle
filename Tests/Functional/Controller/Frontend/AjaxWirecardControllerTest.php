@@ -1,6 +1,6 @@
 <?php
 
-namespace Oro\Bundle\WirecardBundle\Tests\Unit\Controller;
+namespace Oro\Bundle\WirecardBundle\Tests\Unit\Controller\Frontend;
 
 use Oro\Bundle\CheckoutBundle\Entity\Checkout;
 use Oro\Bundle\CustomerBundle\Tests\Functional\DataFixtures\LoadCustomerUserData;
@@ -41,7 +41,7 @@ class AjaxWirecardControllerTest extends WebTestCase
         $this->client->request(
             'GET',
             $this->getUrl(
-                'oro_wirecard_seamless_initiate',
+                'oro_wirecard_frontend_seamless_initiate',
                 [
                     'id' => $checkout->getId(),
                     'paymentMethod' => $paymentMethodIdentifier

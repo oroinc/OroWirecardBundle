@@ -16,7 +16,7 @@ class InitDataStorageRequest extends AbstractRequest
             ->addOption(new Option\OrderIdent())
             ->addOption(new Option\ReturnUrl());
 
-        return parent::configureRequestOptions();
+        return $this;
     }
 
     /**

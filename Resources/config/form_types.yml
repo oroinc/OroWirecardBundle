@@ -18,6 +18,5 @@ services:
         class: Oro\Bundle\WirecardBundle\Form\Type\WirecardSeamlessSettingsType
         arguments:
             - '@translator.default'
-            - '@oro_security.encoder.mcrypt'
         tags:
             - { name: form.type, alias: oro_wirecard_seamless_settings }

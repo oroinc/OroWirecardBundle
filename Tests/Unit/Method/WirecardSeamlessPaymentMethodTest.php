@@ -10,7 +10,6 @@ use Oro\Bundle\OrderBundle\Entity\Order;
 use Oro\Bundle\PaymentBundle\Context\PaymentContextInterface;
 use Oro\Bundle\PaymentBundle\Entity\PaymentTransaction;
 use Oro\Bundle\PaymentBundle\Method\PaymentMethodInterface;
-use Oro\Bundle\WirecardBundle\DependencyInjection\OroWirecardExtension;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessConfigInterface;
 use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessPaymentMethod;
 use Oro\Bundle\WirecardBundle\Provider\PaymentTransactionProvider;
@@ -25,11 +24,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
-/**
- * Class WirecardSeamlessPaymentMethodTest
- * @package Oro\Bundle\WirecardBundle\Tests\Unit\Method
- *
- */
 abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_TestCase
 {
     /** @var Gateway|\PHPUnit_Framework_MockObject_MockObject */
@@ -104,14 +98,6 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
             $this->doctrineHelper,
             $this->requestStack
         );
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getExtensionAlias()
-    {
-        return OroWirecardExtension::ALIAS;
     }
 
     public function testExecute()

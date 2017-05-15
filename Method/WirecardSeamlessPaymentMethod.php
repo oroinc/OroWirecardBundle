@@ -59,7 +59,6 @@ abstract class WirecardSeamlessPaymentMethod implements PaymentMethodInterface
     protected $requestStack;
 
     /**
-     * WirecardSeamlessPaymentMethod constructor.
      * @param WirecardSeamlessConfigInterface $config
      * @param PaymentTransactionProvider $transactionProvider
      * @param Gateway $gateway
@@ -338,6 +337,7 @@ abstract class WirecardSeamlessPaymentMethod implements PaymentMethodInterface
      */
     protected function createReturnUrl(PaymentTransaction $paymentTransaction)
     {
+        // TODO: BB-9385 need to correctly handle this case
         $returnURL = $this->router->generate(
             'oro_checkout_frontend_checkout',
             [

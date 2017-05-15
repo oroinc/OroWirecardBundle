@@ -3,36 +3,32 @@
 namespace Oro\Bundle\WirecardBundle\Method\Config\Factory;
 
 use Oro\Bundle\WirecardBundle\Entity\WirecardSeamlessSettings;
-use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessPaypalConfig;
+use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessPayPalConfig;
 
 class WirecardSeamlessPaypalConfigFactory extends WirecardSeamlessConfigFactory implements
     WirecardSeamlessPaypalConfigFactoryInterface
 {
     /**
-     * @param WirecardSeamlessSettings $settings
-     *
-     * @return WirecardSeamlessPaypalConfig
-     *
-     * @throws \InvalidArgumentException
+     * {@inheritdoc}
      */
     public function createConfig(WirecardSeamlessSettings $settings)
     {
         $channel = $settings->getChannel();
 
         $params = [
-            WirecardSeamlessPaypalConfig::FIELD_PAYMENT_METHOD_IDENTIFIER =>
+            WirecardSeamlessPayPalConfig::FIELD_PAYMENT_METHOD_IDENTIFIER =>
                 $this->getPaymentMethodIdentifier($channel),
-            WirecardSeamlessPaypalConfig::FIELD_ADMIN_LABEL =>
-                $this->getAdminLabel($channel, WirecardSeamlessPaypalConfig::ADMIN_LABEL_SUFFIX),
-            WirecardSeamlessPaypalConfig::FIELD_LABEL => $this->getLocalizedValue($settings->getPayPalLabels()),
-            WirecardSeamlessPaypalConfig::FIELD_SHORT_LABEL =>
+            WirecardSeamlessPayPalConfig::FIELD_ADMIN_LABEL =>
+                $this->getAdminLabel($channel, WirecardSeamlessPayPalConfig::ADMIN_LABEL_SUFFIX),
+            WirecardSeamlessPayPalConfig::FIELD_LABEL => $this->getLocalizedValue($settings->getPayPalLabels()),
+            WirecardSeamlessPayPalConfig::FIELD_SHORT_LABEL =>
                 $this->getLocalizedValue($settings->getPayPalShortLabels()),
-            WirecardSeamlessPaypalConfig::CREDENTIALS_KEY => $this->getCredentials($settings),
-            WirecardSeamlessPaypalConfig::LANGUAGE_KEY => $this->getLanguageCode(),
-            WirecardSeamlessPaypalConfig::HASHING_METHOD_KEY => $this->getHashingMethod(),
-            WirecardSeamlessPaypalConfig::TEST_MODE_KEY => $settings->getTestMode(),
+            WirecardSeamlessPayPalConfig::CREDENTIALS_KEY => $this->getCredentials($settings),
+            WirecardSeamlessPayPalConfig::LANGUAGE_KEY => $this->getLanguageCode(),
+            WirecardSeamlessPayPalConfig::HASHING_METHOD_KEY => $this->getHashingMethod(),
+            WirecardSeamlessPayPalConfig::TEST_MODE_KEY => $settings->getTestMode(),
         ];
 
-        return new WirecardSeamlessPaypalConfig($params);
+        return new WirecardSeamlessPayPalConfig($params);
     }
 }

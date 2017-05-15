@@ -2,7 +2,7 @@
 
 namespace Oro\Bundle\WirecardBundle\Tests\Unit\Form;
 
-use Oro\Bundle\WirecardBundle\Form\Type\CreditCardExpirationDateType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -10,6 +10,7 @@ use Symfony\Component\Form\Test\FormIntegrationTestCase;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Validator\Validation;
 use Oro\Bundle\WirecardBundle\Form\Type\CreditCardType;
+use Oro\Bundle\WirecardBundle\Form\Type\CreditCardExpirationDateType;
 
 class CreditCardTypeTest extends FormIntegrationTestCase
 {
@@ -67,5 +68,19 @@ class CreditCardTypeTest extends FormIntegrationTestCase
         foreach ($formView->children as $formItemData) {
             $this->assertEquals('name', $formItemData->vars['full_name']);
         }
+    }
+
+    public function testFormConfiguration()
+    {
+        $form = $this->factory->create($this->formType);
+
+        $this->assertTrue($form->has('cardholderName'));
+        $this->assertTrue($form->has('creditCardNumber'));
+        $this->assertTrue($form->has('expirationDate'));
+        $this->assertTrue($form->has('cvv'));
+
+        $cvcInnerType = $form->get('cvv')->getConfig()->getType()->getInnerType();
+
+        $this->assertInstanceOf(PasswordType::class, $cvcInnerType);
     }
 }

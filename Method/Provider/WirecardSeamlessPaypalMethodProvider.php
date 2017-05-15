@@ -4,7 +4,7 @@ namespace Oro\Bundle\WirecardBundle\Method\Provider;
 
 use Oro\Bundle\PaymentBundle\Method\Provider\AbstractPaymentMethodProvider;
 use Oro\Bundle\WirecardBundle\Method\Config\Provider\WirecardSeamlessPaypalConfigProviderInterface;
-use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessPaypalConfigInterface;
+use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessPayPalConfigInterface;
 use Oro\Bundle\WirecardBundle\Method\Factory\WirecardSeamlessPaypalPaymentMethodFactoryInterface;
 
 class WirecardSeamlessPaypalMethodProvider extends AbstractPaymentMethodProvider
@@ -44,9 +44,9 @@ class WirecardSeamlessPaypalMethodProvider extends AbstractPaymentMethodProvider
     }
 
     /**
-     * @param WirecardSeamlessPaypalConfigInterface $config
+     * @param WirecardSeamlessPayPalConfigInterface $config
      */
-    protected function addPaypalMethod(WirecardSeamlessPaypalConfigInterface $config)
+    protected function addPaypalMethod(WirecardSeamlessPayPalConfigInterface $config)
     {
         $this->addMethod(
             $config->getPaymentMethodIdentifier(),

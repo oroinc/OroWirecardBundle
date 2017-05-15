@@ -66,7 +66,6 @@ class OroWirecardBundleInstaller implements Installation
         $table->addColumn('localized_value_id', 'integer', []);
         $table->setPrimaryKey(['transport_id', 'localized_value_id']);
         $table->addUniqueIndex(['localized_value_id'], 'UNIQ_37219116EB576E89');
-        $table->addIndex(['transport_id'], 'IDX_372191169909C13F', []);
     }
 
     /**
@@ -81,7 +80,6 @@ class OroWirecardBundleInstaller implements Installation
         $table->addColumn('localized_value_id', 'integer', []);
         $table->setPrimaryKey(['transport_id', 'localized_value_id']);
         $table->addUniqueIndex(['localized_value_id'], 'UNIQ_CB754450EB576E89');
-        $table->addIndex(['transport_id'], 'IDX_CB7544509909C13F', []);
     }
 
     /**
@@ -96,7 +94,6 @@ class OroWirecardBundleInstaller implements Installation
         $table->addColumn('localized_value_id', 'integer', []);
         $table->setPrimaryKey(['transport_id', 'localized_value_id']);
         $table->addUniqueIndex(['localized_value_id'], 'UNIQ_6890DDC0EB576E89');
-        $table->addIndex(['transport_id'], 'IDX_6890DDC09909C13F', []);
     }
 
     /**
@@ -111,7 +108,6 @@ class OroWirecardBundleInstaller implements Installation
         $table->addColumn('localized_value_id', 'integer', []);
         $table->setPrimaryKey(['transport_id', 'localized_value_id']);
         $table->addUniqueIndex(['localized_value_id'], 'UNIQ_A2DB8E9EEB576E89');
-        $table->addIndex(['transport_id'], 'IDX_A2DB8E9E9909C13F', []);
     }
 
     /**
@@ -126,7 +122,6 @@ class OroWirecardBundleInstaller implements Installation
         $table->addColumn('localized_value_id', 'integer', []);
         $table->setPrimaryKey(['transport_id', 'localized_value_id']);
         $table->addUniqueIndex(['localized_value_id'], 'UNIQ_C3E98F4BEB576E89');
-        $table->addIndex(['transport_id'], 'IDX_C3E98F4B9909C13F', []);
     }
 
     /**
@@ -141,7 +136,6 @@ class OroWirecardBundleInstaller implements Installation
         $table->addColumn('localized_value_id', 'integer', []);
         $table->setPrimaryKey(['transport_id', 'localized_value_id']);
         $table->addUniqueIndex(['localized_value_id'], 'UNIQ_EEEF8C1AEB576E89');
-        $table->addIndex(['transport_id'], 'IDX_EEEF8C1A9909C13F', []);
     }
 
     /**

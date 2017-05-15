@@ -9,11 +9,7 @@ class WirecardSeamlessCreditCardConfigFactory extends WirecardSeamlessConfigFact
     WirecardSeamlessCreditCardConfigFactoryInterface
 {
     /**
-     * @param WirecardSeamlessSettings $settings
-     *
-     * @return WirecardSeamlessCreditCardConfig
-     *
-     * @throws \InvalidArgumentException
+     * * {@inheritdoc}
      */
     public function createConfig(WirecardSeamlessSettings $settings)
     {

@@ -24,7 +24,7 @@ class CreditCardType extends AbstractType
     {
         $formBuilder
             ->add(
-                'cardholdername',
+                'cardholderName',
                 TextType::class,
                 [
                     'label' => 'oro.wirecard.credit_card.card_holder_name.label',
@@ -40,7 +40,7 @@ class CreditCardType extends AbstractType
                 ]
             )
             ->add(
-                'pan',
+                'creditCardNumber',
                 TextType::class,
                 [
                     'required' => true,
@@ -81,7 +81,7 @@ class CreditCardType extends AbstractType
                 ]
             )
             ->add(
-                'cardverifycode',
+                'cvv',
                 PasswordType::class,
                 [
                     'label' => 'oro.wirecard.credit_card.cvv.label',

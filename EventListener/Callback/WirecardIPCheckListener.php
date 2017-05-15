@@ -69,6 +69,7 @@ class WirecardIPCheckListener
         if (!isset($configs[$paymentTransaction->getPaymentMethod()])) {
             return;
         }
+
         $config = $configs[$paymentTransaction->getPaymentMethod()];
 
         $masterRequest = $this->requestStack->getMasterRequest();

@@ -36,7 +36,7 @@ class SepaDirectDebitType extends AbstractType
                 ]
             )
             ->add(
-                'bankAccountIban',
+                'bankIban',
                 TextType::class,
                 [
                     'required' => true,

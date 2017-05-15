@@ -16,9 +16,11 @@ class WirecardSeamlessListener
      */
     protected $paymentMethodProvider;
 
-    public function __construct(
-        PaymentMethodProviderInterface $paymentMethodProvider
-    ) {
+    /**
+     * @param PaymentMethodProviderInterface $paymentMethodProvider
+     */
+    public function __construct(PaymentMethodProviderInterface $paymentMethodProvider)
+    {
         $this->paymentMethodProvider = $paymentMethodProvider;
     }
 

@@ -12,8 +12,7 @@ class OroWirecardExtension extends Extension
     const ALIAS = 'oro_wirecard';
 
     /**
-     * @param array $configs
-     * @param ContainerBuilder $container
+     * {@inheritdoc}
      */
     public function load(array $configs, ContainerBuilder $container)
     {
@@ -23,6 +22,7 @@ class OroWirecardExtension extends Extension
         $loader->load('method.yml');
         $loader->load('callbacks.yml');
 
+        // TODO: Avoid test logic in production code
         if ($container->getParameter('kernel.environment') === 'test') {
             $loader->load('payment_test.yml');
         }

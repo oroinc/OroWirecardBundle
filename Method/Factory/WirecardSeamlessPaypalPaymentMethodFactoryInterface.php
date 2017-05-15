@@ -3,14 +3,14 @@
 namespace Oro\Bundle\WirecardBundle\Method\Factory;
 
 use Oro\Bundle\PaymentBundle\Method\PaymentMethodInterface;
-use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessPaypalConfigInterface;
+use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessPayPalConfigInterface;
 
 interface WirecardSeamlessPaypalPaymentMethodFactoryInterface
 {
     /**
-     * @param WirecardSeamlessPaypalConfigInterface $config
+     * @param WirecardSeamlessPayPalConfigInterface $config
      *
      * @return PaymentMethodInterface
      */
-    public function create(WirecardSeamlessPaypalConfigInterface $config);
+    public function create(WirecardSeamlessPayPalConfigInterface $config);
 }

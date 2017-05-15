@@ -2,26 +2,17 @@
 
 namespace Oro\Bundle\WirecardBundle\Form\Type;
 
+use Oro\Bundle\FormBundle\Form\Type\OroEncodedPlaceholderPasswordType;
 use Oro\Bundle\LocaleBundle\Form\Type\LocalizedFallbackValueCollectionType;
-use Oro\Bundle\SecurityBundle\Encoder\SymmetricCrypterInterface;
 use Oro\Bundle\WirecardBundle\Entity\WirecardSeamlessSettings;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\Exception\AccessException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
-use Symfony\Component\Validator\Exception\InvalidOptionsException;
-use Symfony\Component\Validator\Exception\MissingOptionsException;
 
-/**
- * Class WirecardSeamlessSettingsType.
- */
 class WirecardSeamlessSettingsType extends AbstractType
 {
     const BLOCK_PREFIX = 'oro_wirecard_seamless_settings';
@@ -32,30 +23,15 @@ class WirecardSeamlessSettingsType extends AbstractType
     protected $translator;
 
     /**
-     * @var SymmetricCrypterInterface
+     * @param TranslatorInterface $translator
      */
-    protected $encoder;
-
-    /**
-     * @param TranslatorInterface       $translator
-     * @param SymmetricCrypterInterface $encoder
-     */
-    public function __construct(
-        TranslatorInterface $translator,
-        SymmetricCrypterInterface $encoder
-    ) {
+    public function __construct(TranslatorInterface $translator)
+    {
         $this->translator = $translator;
-        $this->encoder = $encoder;
     }
 
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
-     *
-     * @throws ConstraintDefinitionException
-     * @throws InvalidOptionsException
-     * @throws MissingOptionsException
-     * @throws \InvalidArgumentException
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -93,36 +69,26 @@ class WirecardSeamlessSettingsType extends AbstractType
             ->add('customerId', TextType::class, [
                 'label' => 'oro.wirecard.settings.wirecard_seamless.customer_id.label',
                 'required' => true,
+                'attr' => ['autocomplete' => 'off'],
             ])
             ->add('shopId', TextType::class, [
                 'label' => 'oro.wirecard.settings.wirecard_seamless.shop_id.label',
                 'required' => false,
+                'attr' => ['autocomplete' => 'off'],
             ])
-            ->add('secret', PasswordType::class, [
+            ->add('secret', OroEncodedPlaceholderPasswordType::class, [
                 'label' => 'oro.wirecard.settings.wirecard_seamless.secret.label',
                 'required' => true,
+                'attr' => ['autocomplete' => 'new-password'],
             ])
             ->add('testMode', CheckboxType::class, [
                 'label' => 'oro.wirecard.settings.wirecard_seamless.test_mode.label',
                 'required' => false,
             ]);
-
-        $builder
-            ->get('secret')
-            ->addModelTransformer(new CallbackTransformer(
-                function ($value) {
-                    return $value;
-                },
-                function ($value) {
-                    return $this->encoder->encryptData($value);
-                }
-            ));
     }
 
     /**
-     * @param OptionsResolver $resolver
-     *
-     * @throws AccessException
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {

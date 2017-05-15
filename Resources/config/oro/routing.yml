@@ -1,5 +1,5 @@
 oro_wirecard_ajax:
-    resource:     "@OroWirecardBundle/Controller/AjaxWirecardController.php"
+    resource:     "@OroWirecardBundle/Controller/Frontend/AjaxWirecardController.php"
     type:         annotation
     prefix:       /wirecard
     options:

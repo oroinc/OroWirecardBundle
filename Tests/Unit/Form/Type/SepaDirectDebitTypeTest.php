@@ -2,9 +2,11 @@
 
 namespace Oro\Bundle\WirecardBundle\Tests\Unit\Form;
 
+use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\Test\FormIntegrationTestCase;
+use Symfony\Component\Validator\Validation;
 use Oro\Bundle\WirecardBundle\Form\Type\SepaDirectDebitType;
 
 class SepaDirectDebitTypeTest extends FormIntegrationTestCase
@@ -47,5 +49,24 @@ class SepaDirectDebitTypeTest extends FormIntegrationTestCase
         foreach ($formView->children as $formItemData) {
             $this->assertEquals('name', $formItemData->vars['full_name']);
         }
+    }
+
+    public function testFormConfiguration()
+    {
+        $form = $this->factory->create($this->formType);
+
+        $this->assertTrue($form->has('accountOwner'));
+        $this->assertTrue($form->has('bankIban'));
+        $this->assertTrue($form->has('bankBic'));
+    }
+
+    /**
+     * @return array
+     */
+    protected function getExtensions()
+    {
+        return [
+            new ValidatorExtension(Validation::createValidator()),
+        ];
     }
 }
