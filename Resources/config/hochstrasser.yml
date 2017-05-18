@@ -1,0 +1,40 @@
+services:
+    oro_wirecard.seamless.hochstrasser.client:
+        class: 'GuzzleHttp\Client'
+        public: false
+
+    oro_wirecard.seamless.hochstrasser.gateway:
+        class: 'Oro\Bundle\WirecardBundle\Wirecard\Seamless\Hochstrasser\Gateway'
+        public: false
+        arguments:
+            - '@oro_wirecard.seamless.hochstrasser.client'
+            - '@oro_wirecard.wirecard.seamless.hochstrasser.native_request_builder.registry'
+
+    oro_wirecard.wirecard.seamless.hochstrasser.native_request_builder.registry:
+        class: 'Oro\Bundle\WirecardBundle\Wirecard\Seamless\Hochstrasser\NativeRequestBuilder\NativeRequestBuilderRegistry'
+        public: false
+        calls:
+            - [addNativeRequestBuilder, ['@oro_wirecard.wirecard.seamless.hochstrasser.native_request_builder.init_data_storage']]
+            - [addNativeRequestBuilder, ['@oro_wirecard.wirecard.seamless.hochstrasser.native_request_builder.init_payment']]
+            - [addNativeRequestBuilder, ['@oro_wirecard.wirecard.seamless.hochstrasser.native_request_builder.init_paypal_payment']]
+            - [addNativeRequestBuilder, ['@oro_wirecard.wirecard.seamless.hochstrasser.native_request_builder.read_data_storage']]
+
+    oro_wirecard.wirecard.seamless.hochstrasser.native_request_builder.init_data_storage:
+        class: 'Oro\Bundle\WirecardBundle\Wirecard\Seamless\Hochstrasser\NativeRequestBuilder\InitDataStorageNativeRequestBuilder'
+        public: false
+
+    oro_wirecard.wirecard.seamless.hochstrasser.native_request_builder.init_payment:
+        class: 'Oro\Bundle\WirecardBundle\Wirecard\Seamless\Hochstrasser\NativeRequestBuilder\InitPaymentNativeRequestBuilder'
+        public: false
+
+    oro_wirecard.wirecard.seamless.hochstrasser.native_request_builder.init_paypal_payment:
+        class: 'Oro\Bundle\WirecardBundle\Wirecard\Seamless\Hochstrasser\NativeRequestBuilder\InitPayPalPaymentNativeRequestBuilder'
+        public: false
+
+    oro_wirecard.wirecard.seamless.hochstrasser.native_request_builder.read_data_storage:
+        class: 'Oro\Bundle\WirecardBundle\Wirecard\Seamless\Hochstrasser\NativeRequestBuilder\ReadDataStorageNativeRequestBuilder'
+        public: false
+
+    oro_wirecard.wirecard.seamless.hochstrasser.fingerprint_checker:
+        class: 'Oro\Bundle\WirecardBundle\Wirecard\Seamless\Hochstrasser\FingerprintChecker'
+        public: false

@@ -15,18 +15,9 @@ services:
         parent: oro_payment.provider.payment_transaction
         public: false
 
-    oro_wirecard.seamless.client:
-        class: 'GuzzleHttp\Client'
-        public: false
-
-    oro_wirecard.seamless.gateway:
-        class: 'Oro\Bundle\WirecardBundle\Wirecard\Seamless\Gateway'
-        public: false
-        arguments:
-            - '@oro_wirecard.seamless.client'
-
     oro_wirecard.request.payment_method_param_converter:
         class: 'Oro\Bundle\WirecardBundle\Request\PaymentMethodParamConverter'
+        public: false
         arguments:
             - '@oro_payment.payment_method.composite_provider'
         tags:

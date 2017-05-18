@@ -83,7 +83,7 @@ services:
         abstract: true
         arguments:
             - '@oro_wirecard.provider.payment_transaction'
-            - '@oro_wirecard.seamless.gateway'
+            - '@oro_wirecard.seamless.hochstrasser.gateway'
             - '@router'
             - '@oro_entity.doctrine_helper'
             - '@request_stack'

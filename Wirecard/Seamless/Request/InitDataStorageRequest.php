@@ -3,10 +3,11 @@
 namespace Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request;
 
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option;
-use Hochstrasser\Wirecard\Request\Seamless\Frontend\InitDataStorageRequest as WirecardInitDataStorageRequest;
 
 class InitDataStorageRequest extends AbstractRequest
 {
+    const IDENTIFIER = 'init_data_storage';
+
     /**
      * {@inheritdoc}
      */
@@ -22,14 +23,8 @@ class InitDataStorageRequest extends AbstractRequest
     /**
      * {@inheritdoc}
      */
-    public function buildWirecardRequest(array $options = [])
+    public function getRequestIdentifier()
     {
-        $request = WirecardInitDataStorageRequest::withOrderIdentAndReturnUrl(
-            $options[Option\OrderIdent::ORDERIDENT],
-            $options[Option\ReturnUrl::RETURNURL]
-        );
-        $request->setContext($this->buildContext($options));
-
-        return $request;
+        return self::IDENTIFIER;
     }
 }

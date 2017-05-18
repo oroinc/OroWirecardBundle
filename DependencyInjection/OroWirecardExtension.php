@@ -20,9 +20,10 @@ class OroWirecardExtension extends Extension
         $loader->load('services.yml');
         $loader->load('form_types.yml');
         $loader->load('method.yml');
+        $loader->load('hochstrasser.yml');
         $loader->load('callbacks.yml');
 
-        // TODO: Avoid test logic in production code
+        // TODO: BB-9506 Avoid test logic in production code
         if ($container->getParameter('kernel.environment') === 'test') {
             $loader->load('payment_test.yml');
         }

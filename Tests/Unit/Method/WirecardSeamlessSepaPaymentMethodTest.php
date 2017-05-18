@@ -6,7 +6,7 @@ use Oro\Bundle\EntityBundle\ORM\DoctrineHelper;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessConfigInterface;
 use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessSepaPaymentMethod;
 use Oro\Bundle\WirecardBundle\Provider\PaymentTransactionProvider;
-use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Gateway;
+use Oro\Bundle\WirecardBundle\Wirecard\Seamless\GatewayInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -18,7 +18,7 @@ class WirecardSeamlessSepaPaymentMethodTest extends WirecardSeamlessPaymentMetho
     protected function createPaymentMethod(
         WirecardSeamlessConfigInterface $config,
         PaymentTransactionProvider $transactionProvider,
-        Gateway $gateway,
+        GatewayInterface $gateway,
         RouterInterface $router,
         DoctrineHelper $doctrineHelper,
         RequestStack $requestStack

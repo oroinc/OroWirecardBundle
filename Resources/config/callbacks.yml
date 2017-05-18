@@ -59,3 +59,32 @@ services:
         tags:
             - { name: kernel.event_listener, event: oro_payment.callback.notify, method: onNotify, priority: 255 }
 
+    oro_wirecard.event_listener.callback.fingerprint.wirecard_seamless.credit_card:
+        class: 'Oro\Bundle\WirecardBundle\EventListener\Callback\WirecardSeamlessFingerprintCheckListener'
+        lazy: true
+        arguments:
+            - '@oro_wirecard.method.provider.wirecard_seamless.credit_card'
+            - '@oro_wirecard.method.config.provider.wirecard_seamless.credit_card'
+            - '@oro_wirecard.wirecard.seamless.hochstrasser.fingerprint_checker'
+        tags:
+            - { name: kernel.event_listener, event: oro_payment.callback.notify, method: onNotify, priority: 230 }
+
+    oro_wirecard.event_listener.callback.fingerprint.wirecard_seamless.sepa_direct_debit:
+        class: 'Oro\Bundle\WirecardBundle\EventListener\Callback\WirecardSeamlessFingerprintCheckListener'
+        lazy: true
+        arguments:
+            - '@oro_wirecard.method.provider.wirecard_seamless.sepa_direct_debit'
+            - '@oro_wirecard.method.config.provider.wirecard_seamless.sepa_direct_debit'
+            - '@oro_wirecard.wirecard.seamless.hochstrasser.fingerprint_checker'
+        tags:
+            - { name: kernel.event_listener, event: oro_payment.callback.notify, method: onNotify, priority: 230 }
+
+    oro_wirecard.event_listener.callback.fingerprint.wirecard_seamless.paypal:
+        class: 'Oro\Bundle\WirecardBundle\EventListener\Callback\WirecardSeamlessFingerprintCheckListener'
+        lazy: true
+        arguments:
+            - '@oro_wirecard.method.provider.wirecard_seamless.paypal'
+            - '@oro_wirecard.method.config.provider.wirecard_seamless.paypal'
+            - '@oro_wirecard.wirecard.seamless.hochstrasser.fingerprint_checker'
+        tags:
+            - { name: kernel.event_listener, event: oro_payment.callback.notify, method: onNotify, priority: 230 }

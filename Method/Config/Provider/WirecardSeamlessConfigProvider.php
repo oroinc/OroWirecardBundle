@@ -54,9 +54,7 @@ abstract class WirecardSeamlessConfigProvider implements WirecardSeamlessConfigP
     }
 
     /**
-     * @param string $identifier
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function hasPaymentConfig($identifier)
     {

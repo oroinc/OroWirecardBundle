@@ -2,7 +2,7 @@
 
 namespace Oro\Bundle\WirecardBundle\Method;
 
-class WirecardSeamlessSepaPaymentMethod extends WirecardSeamlessPaymentMethod
+class WirecardSeamlessSepaPaymentMethod extends WirecardSeamlessInitiateAwarePaymentMethod
 {
     const TYPE = 'SEPA-DD';
 

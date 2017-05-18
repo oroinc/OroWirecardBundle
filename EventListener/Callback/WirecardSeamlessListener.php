@@ -4,7 +4,7 @@ namespace Oro\Bundle\WirecardBundle\EventListener\Callback;
 
 use Oro\Bundle\PaymentBundle\Event\CallbackNotifyEvent;
 use Oro\Bundle\PaymentBundle\Method\Provider\PaymentMethodProviderInterface;
-use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessPaymentMethod;
+use Oro\Bundle\WirecardBundle\Method\AbstractWirecardSeamlessPaymentMethod;
 use Psr\Log\LoggerAwareTrait;
 
 class WirecardSeamlessListener
@@ -46,7 +46,7 @@ class WirecardSeamlessListener
 
         try {
             $paymentMethod = $this->paymentMethodProvider->getPaymentMethod($paymentTransaction->getPaymentMethod());
-            $paymentMethod->execute(WirecardSeamlessPaymentMethod::COMPLETE, $paymentTransaction);
+            $paymentMethod->execute(AbstractWirecardSeamlessPaymentMethod::COMPLETE, $paymentTransaction);
 
             $event->markSuccessful();
         } catch (\InvalidArgumentException $e) {

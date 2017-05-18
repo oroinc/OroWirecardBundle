@@ -2,28 +2,30 @@
 
 namespace Oro\Bundle\WirecardBundle\Wirecard\Seamless\Response;
 
-use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option;
-
-class Response
+class Response implements ResponseInterface
 {
     const FINGERPRINT_FIELD = 'responseFingerprint';
     const FINGERPRINT_ORDER_FIELD = 'responseFingerprintOrder';
     const PAYMENT_STATE_FIELD = 'paymentState';
     const GATEWAY_REFERENCE_NUMBER_FIELD = 'gatewayReferenceNumber';
     const ORDER_NUMBER_FIELD = 'orderNumber';
+    const REDIRECT_URL_FIELD = 'redirectUrl';
 
     /**
      * @var \ArrayObject
      */
     private $data;
 
+    /**
+     * @param array $data
+     */
     public function __construct(array $data = [])
     {
         $this->data = new \ArrayObject($data);
     }
 
     /**
-     * @return bool
+     * {@inheritdoc}
      */
     public function isSuccessful()
     {
@@ -31,7 +33,7 @@ class Response
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getPaymentState()
     {
@@ -39,7 +41,7 @@ class Response
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getFingerprint()
     {
@@ -47,18 +49,24 @@ class Response
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getFingerprintOrder()
     {
         return $this->getOffset(self::FINGERPRINT_ORDER_FIELD);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getGatewayReferenceNumber()
     {
         return $this->getOffset(self::GATEWAY_REFERENCE_NUMBER_FIELD);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getOrderNumber()
     {
         return $this->getOffset(self::ORDER_NUMBER_FIELD);
@@ -75,38 +83,19 @@ class Response
         return $this->data->offsetExists($index) ? $this->data->offsetGet($index) : $default;
     }
 
-    public function checkFingerprint(array $options = [])
+    /**
+     * {@inheritdoc}
+     */
+    public function getData()
     {
-        if (!$this->getFingerprint()) {
-            return false;
-        }
-
-        $this->data->offsetSet(Option\Secret::SECRET, $options[Option\Secret::SECRET]);
-        $fingerPrint = $this->calcFingerprint($options[Option\Secret::SECRET], $options[Option\Hashing::HASHING]);
-
-        return $fingerPrint === $this->getFingerprint();
+        return $this->data->getArrayCopy();
     }
 
-    public function calcFingerprint($secret, $hashingMethod = Option\Hashing::DEFAULT_HASHING_METHOD)
+    /**
+     * {@inheritdoc}
+     */
+    public function getRedirectUrl()
     {
-        if (!$this->getFingerprintOrder()) {
-            return null;
-        }
-
-        $responseFingerprintOrder = explode(',', $this->getFingerprintOrder());
-        $raw = '';
-        foreach ($responseFingerprintOrder as $parameter) {
-            if ($this->data->offsetExists($parameter)) {
-                $raw .= $this->data->offsetGet($parameter);
-            }
-        }
-
-        $fingerPrint = null;
-        if ($hashingMethod === Option\Hashing::HMAC) {
-            $fingerPrint = hash_hmac('sha512', $raw, $secret);
-        } else {
-            $fingerPrint = hash('sha512', $raw);
-        }
-        return $fingerPrint;
+        return $this->getOffset(self::REDIRECT_URL_FIELD);
     }
 }

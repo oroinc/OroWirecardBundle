@@ -4,9 +4,9 @@ namespace Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request;
 
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option;
 
-class InitPaymentRequest extends AbstractRequest
+class InitPaypalPaymentRequest extends AbstractRequest
 {
-    const IDENTIFIER = 'init_payment';
+    const IDENTIFIER = 'init_paypal_payment';
 
     /**
      * {@inheritdoc}
@@ -14,9 +14,6 @@ class InitPaymentRequest extends AbstractRequest
     protected function configureRequestOptions()
     {
         $this
-            ->addOption(new Option\StorageId())
-            ->addOption(new Option\OrderIdent())
-
             ->addOption(new Option\PaymentType())
             ->addOption(new Option\Amount())
             ->addOption(new Option\Currency())

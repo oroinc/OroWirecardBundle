@@ -5,7 +5,7 @@ namespace Oro\Bundle\WirecardBundle\Tests\Functional\Stub\Method;
 use Oro\Bundle\PaymentBundle\Context\PaymentContextInterface;
 use Oro\Bundle\PaymentBundle\Entity\PaymentTransaction;
 use Oro\Bundle\PaymentBundle\Method\PaymentMethodInterface;
-use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessPaymentMethod;
+use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessInitiateAwarePaymentMethod;
 
 class WirecardSeamlessMethodStub implements PaymentMethodInterface
 {
@@ -26,10 +26,10 @@ class WirecardSeamlessMethodStub implements PaymentMethodInterface
             throw new \InvalidArgumentException(sprintf('Unsupported action "%s"', $action));
         }
 
-        if ($action === WirecardSeamlessPaymentMethod::INITIATE) {
+        if ($action === WirecardSeamlessInitiateAwarePaymentMethod::INITIATE) {
             $paymentTransaction
-                ->setAmount(WirecardSeamlessPaymentMethod::ZERO_AMOUNT)
-                ->setCurrency(WirecardSeamlessPaymentMethod::EMPTY_CURRENCY)
+                ->setAmount(0)
+                ->setCurrency('')
                 ->setResponse(
                     [
                         'storageId' => self::TEST_STORAGE_ID,
@@ -65,6 +65,6 @@ class WirecardSeamlessMethodStub implements PaymentMethodInterface
      */
     public function supports($actionName)
     {
-        return WirecardSeamlessPaymentMethod::INITIATE === $actionName || self::PURCHASE === $actionName;
+        return WirecardSeamlessInitiateAwarePaymentMethod::INITIATE === $actionName || self::PURCHASE === $actionName;
     }
 }

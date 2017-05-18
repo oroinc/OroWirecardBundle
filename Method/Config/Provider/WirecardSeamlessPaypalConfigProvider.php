@@ -2,10 +2,7 @@
 
 namespace Oro\Bundle\WirecardBundle\Method\Config\Provider;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
-use Oro\Bundle\WirecardBundle\Method\Config\Factory\WirecardSeamlessPaypalConfigFactoryInterface;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessPayPalConfigInterface;
-use Psr\Log\LoggerInterface;
 
 class WirecardSeamlessPaypalConfigProvider extends WirecardSeamlessConfigProvider implements
     WirecardSeamlessPaypalConfigProviderInterface
@@ -14,18 +11,6 @@ class WirecardSeamlessPaypalConfigProvider extends WirecardSeamlessConfigProvide
      * @var WirecardSeamlessPayPalConfigInterface[]
      */
     protected $configs = [];
-
-    /**
-     * {@inheritdoc}
-     */
-    public function __construct(
-        ManagerRegistry $doctrine,
-        LoggerInterface $logger,
-        WirecardSeamlessPaypalConfigFactoryInterface $factory,
-        $type
-    ) {
-        parent::__construct($doctrine, $logger, $factory, $type);
-    }
 
     /**
      * {@inheritdoc}

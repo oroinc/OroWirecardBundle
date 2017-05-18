@@ -2,10 +2,7 @@
 
 namespace Oro\Bundle\WirecardBundle\Method\Config\Provider;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
-use Oro\Bundle\WirecardBundle\Method\Config\Factory\WirecardSeamlessCreditCardConfigFactoryInterface;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessCreditCardConfigInterface;
-use Psr\Log\LoggerInterface;
 
 class WirecardSeamlessCreditCardConfigProvider extends WirecardSeamlessConfigProvider implements
     WirecardSeamlessCreditCardConfigProviderInterface
@@ -14,18 +11,6 @@ class WirecardSeamlessCreditCardConfigProvider extends WirecardSeamlessConfigPro
      * @var WirecardSeamlessCreditCardConfigInterface[]
      */
     protected $configs = [];
-
-    /**
-     * {@inheritdoc}
-     */
-    public function __construct(
-        ManagerRegistry $doctrine,
-        LoggerInterface $logger,
-        WirecardSeamlessCreditCardConfigFactoryInterface $factory,
-        $type
-    ) {
-        parent::__construct($doctrine, $logger, $factory, $type);
-    }
 
     /**
      * {@inheritdoc}

@@ -2,7 +2,7 @@
 
 namespace Oro\Bundle\WirecardBundle\Method;
 
-class WirecardSeamlessCreditCardPaymentMethod extends WirecardSeamlessPaymentMethod
+class WirecardSeamlessCreditCardPaymentMethod extends WirecardSeamlessInitiateAwarePaymentMethod
 {
     const TYPE = 'CCARD';
 

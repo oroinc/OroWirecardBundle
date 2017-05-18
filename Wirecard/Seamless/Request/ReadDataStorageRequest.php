@@ -1,13 +1,13 @@
 <?php
 
-namespace Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\Factory;
+namespace Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request;
 
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option;
-use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\AbstractRequest;
-use Hochstrasser\Wirecard\Request\Seamless\Frontend\ReadDataStorageRequest as WirecardReadDataStorageRequest;
 
 class ReadDataStorageRequest extends AbstractRequest
 {
+    const IDENTIFIER = 'read_data_storage';
+
     /**
      * {@inheritdoc}
      */
@@ -22,13 +22,8 @@ class ReadDataStorageRequest extends AbstractRequest
     /**
      * {@inheritdoc}
      */
-    public function buildWirecardRequest(array $options = [])
+    public function getRequestIdentifier()
     {
-        $request = WirecardReadDataStorageRequest::withStorageId(
-            $options[Option\StorageId::STORAGEID]
-        );
-        $request->setContext($this->buildContext($options));
-
-        return $request;
+        return self::IDENTIFIER;
     }
 }

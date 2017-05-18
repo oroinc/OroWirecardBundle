@@ -3,9 +3,10 @@
 namespace Oro\Bundle\WirecardBundle\Controller\Frontend;
 
 use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
-use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessPaymentMethod;
+use Oro\Bundle\WirecardBundle\Method\AbstractWirecardSeamlessPaymentMethod;
 use Oro\Bundle\CheckoutBundle\Entity\Checkout;
 use Oro\Bundle\PaymentBundle\Method\PaymentMethodInterface;
+use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessInitiateAwarePaymentMethod;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -27,7 +28,9 @@ class AjaxWirecardController extends Controller
      */
     public function initiateAction(Checkout $checkout, PaymentMethodInterface $paymentMethod)
     {
-        if (!is_a($paymentMethod, WirecardSeamlessPaymentMethod::class)) {
+        if (!is_a($paymentMethod, WirecardSeamlessInitiateAwarePaymentMethod::class) ||
+            !$paymentMethod->supports(WirecardSeamlessInitiateAwarePaymentMethod::INITIATE)
+        ) {
             // Only wirecard payment methods are allowed
             throw new AccessDeniedHttpException();
         }
@@ -41,12 +44,12 @@ class AjaxWirecardController extends Controller
         if (!$initiatePaymentTransaction) {
             $initiatePaymentTransaction = $paymentTransactionProvider->createPaymentTransaction(
                 $paymentMethod->getIdentifier(),
-                WirecardSeamlessPaymentMethod::INITIATE,
+                WirecardSeamlessInitiateAwarePaymentMethod::INITIATE,
                 $checkout
             );
         }
 
-        $paymentMethod->execute(WirecardSeamlessPaymentMethod::INITIATE, $initiatePaymentTransaction);
+        $paymentMethod->execute(WirecardSeamlessInitiateAwarePaymentMethod::INITIATE, $initiatePaymentTransaction);
         $paymentTransactionProvider->savePaymentTransaction($initiatePaymentTransaction);
 
         return new JsonResponse($initiatePaymentTransaction->getResponse());
