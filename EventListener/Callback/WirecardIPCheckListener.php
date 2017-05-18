@@ -61,16 +61,18 @@ class WirecardIPCheckListener
             return;
         }
 
-        if (false === $this->paymentMethodProvider->hasPaymentMethod($paymentTransaction->getPaymentMethod())) {
+        $paymentMethodIdentifier = $paymentTransaction->getPaymentMethod();
+
+        if (false === $this->paymentMethodProvider->hasPaymentMethod($paymentMethodIdentifier)) {
             return;
         }
 
-        $configs = $this->configProvider->getPaymentConfigs();
-        if (!isset($configs[$paymentTransaction->getPaymentMethod()])) {
-            return;
+        if (false === $this->configProvider->hasPaymentConfig($paymentMethodIdentifier)) {
+            // Config must exist in case of payment method exist
+            throw new \InvalidArgumentException('Can not find config');
         }
 
-        $config = $configs[$paymentTransaction->getPaymentMethod()];
+        $config = $this->configProvider->getPaymentConfig($paymentMethodIdentifier);
 
         $masterRequest = $this->requestStack->getMasterRequest();
         if (null === $masterRequest) {

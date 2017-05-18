@@ -3,6 +3,7 @@
 namespace Oro\Bundle\WirecardBundle\Tests\Unit\Method;
 
 use Oro\Bundle\EntityBundle\ORM\DoctrineHelper;
+use Oro\Bundle\PaymentBundle\Provider\ExtractOptionsProvider;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessConfigInterface;
 use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessCreditCardPaymentMethod;
 use Oro\Bundle\WirecardBundle\Provider\PaymentTransactionProvider;
@@ -21,7 +22,8 @@ class WirecardSeamlessCreditCardPaymentMethodTest extends WirecardSeamlessPaymen
         GatewayInterface $gateway,
         RouterInterface $router,
         DoctrineHelper $doctrineHelper,
-        RequestStack $requestStack
+        RequestStack $requestStack,
+        ExtractOptionsProvider $optionsProvider
     ) {
         return new WirecardSeamlessCreditCardPaymentMethod(
             $config,
@@ -29,7 +31,8 @@ class WirecardSeamlessCreditCardPaymentMethodTest extends WirecardSeamlessPaymen
             $gateway,
             $router,
             $doctrineHelper,
-            $requestStack
+            $requestStack,
+            $optionsProvider
         );
     }
 

@@ -18,7 +18,13 @@ class FingerprintChecker implements FingerprintCheckerInterface
         $paymentTransaction->getRequest();
         $response = new Response($data);
 
-        $fingerprint = Fingerprint::fromResponseParameters($data);
+        try {
+            $fingerprint = Fingerprint::fromResponseParameters($data);
+        } catch (\UnexpectedValueException $e) {
+            // TODO: BB-9537 need to improve this
+            // Fingerprint order information not found in wirecard callback
+            return true;
+        }
 
         $keys = ['hashingMethod'];
 

@@ -40,15 +40,10 @@ abstract class WirecardSeamlessInitiateAwarePaymentMethod extends AbstractWireca
      */
     public function purchase(PaymentTransaction $paymentTransaction)
     {
-        $transactionOptions = $paymentTransaction->getTransactionOptions();
-        if (!isset($transactionOptions['checkoutId'])) {
-            throw new \RuntimeException('Checkout Id not set');
+        $checkout = $this->extractCheckout($paymentTransaction);
+        if (!$checkout) {
+            throw new \RuntimeException('Appropriate checkout is not found');
         }
-
-        $checkout = $this->doctrineHelper->getEntityReference(
-            Checkout::class,
-            $transactionOptions['checkoutId']
-        );
 
         $initiateTransaction = $this->transactionProvider->getActiveInitiatePaymentTransaction(
             $checkout,
@@ -100,6 +95,7 @@ abstract class WirecardSeamlessInitiateAwarePaymentMethod extends AbstractWireca
 
         return array_merge(
             $this->getBaseOptions($paymentTransaction),
+            $this->getShippingInfo($paymentTransaction),
             [
                 Option\OrderIdent::ORDERIDENT => $initiateRequest[Option\OrderIdent::ORDERIDENT],
                 Option\StorageId::STORAGEID => $initiateResponse[Option\StorageId::STORAGEID],

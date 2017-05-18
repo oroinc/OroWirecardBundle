@@ -10,6 +10,7 @@ use Oro\Bundle\OrderBundle\Entity\Order;
 use Oro\Bundle\PaymentBundle\Context\PaymentContextInterface;
 use Oro\Bundle\PaymentBundle\Entity\PaymentTransaction;
 use Oro\Bundle\PaymentBundle\Method\PaymentMethodInterface;
+use Oro\Bundle\PaymentBundle\Provider\ExtractOptionsProvider;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessConfigInterface;
 use Oro\Bundle\WirecardBundle\Method\AbstractWirecardSeamlessPaymentMethod;
 use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessInitiateAwarePaymentMethod;
@@ -48,6 +49,9 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
     /** @var RequestStack|\PHPUnit_Framework_MockObject_MockObject */
     protected $requestStack;
 
+    /** @var ExtractOptionsProvider|\PHPUnit_Framework_MockObject_MockObject */
+    protected $optionsProvider;
+
     /**
      * @param WirecardSeamlessConfigInterface $config
      * @param PaymentTransactionProvider $transactionProvider
@@ -55,6 +59,7 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
      * @param RouterInterface $router
      * @param DoctrineHelper $doctrineHelper
      * @param RequestStack $requestStack
+     * @param ExtractOptionsProvider $optionsProvider
      * @return AbstractWirecardSeamlessPaymentMethod
      */
     abstract protected function createPaymentMethod(
@@ -63,7 +68,8 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
         GatewayInterface $gateway,
         RouterInterface $router,
         DoctrineHelper $doctrineHelper,
-        RequestStack $requestStack
+        RequestStack $requestStack,
+        ExtractOptionsProvider $optionsProvider
     );
 
     protected function setUp()
@@ -92,13 +98,16 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->optionsProvider = $this->createMock(ExtractOptionsProvider::class);
+
         $this->method = $this->createPaymentMethod(
             $this->paymentConfig,
             $this->transactionProvider,
             $this->gateway,
             $this->router,
             $this->doctrineHelper,
-            $this->requestStack
+            $this->requestStack,
+            $this->optionsProvider
         );
     }
 

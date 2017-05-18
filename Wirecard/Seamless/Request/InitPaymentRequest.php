@@ -29,7 +29,9 @@ class InitPaymentRequest extends AbstractRequest
             ->addOption(new Option\ServiceUrl())
 
             ->addOption(new Option\ConsumerUserAgent())
-            ->addOption(new Option\ConsumerIpAddress());
+            ->addOption(new Option\ConsumerIpAddress())
+
+            ->addOption(new Option\ConsumerShippingAddress());
 
         return $this;
     }

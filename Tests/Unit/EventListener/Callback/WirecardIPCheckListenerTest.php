@@ -90,10 +90,18 @@ class WirecardIPCheckListenerTest extends \PHPUnit_Framework_TestCase
             ->expects(static::once())
             ->method('isTestMode')
             ->willReturn(false);
+
         $this->configProvider
             ->expects(static::once())
-            ->method('getPaymentConfigs')
-            ->willReturn(['payment_method' => $config]);
+            ->method('hasPaymentConfig')
+            ->with('payment_method')
+            ->willReturn(true);
+
+        $this->configProvider
+            ->expects(static::once())
+            ->method('getPaymentConfig')
+            ->with('payment_method')
+            ->willReturn($config);
 
         $listener = new WirecardIPCheckListener($this->paymentMethodProvider, $this->configProvider, $requestStack);
         $listener->onNotify($event);
@@ -134,15 +142,24 @@ class WirecardIPCheckListenerTest extends \PHPUnit_Framework_TestCase
             ->method('hasPaymentMethod')
             ->with('payment_method')
             ->willReturn(true);
+
         $config = $this->createMock(WirecardSeamlessConfig::class);
         $config
             ->expects(static::once())
             ->method('isTestMode')
             ->willReturn(false);
+
         $this->configProvider
             ->expects(static::once())
-            ->method('getPaymentConfigs')
-            ->willReturn(['payment_method' => $config]);
+            ->method('hasPaymentConfig')
+            ->with('payment_method')
+            ->willReturn(true);
+
+        $this->configProvider
+            ->expects(static::once())
+            ->method('getPaymentConfig')
+            ->with('payment_method')
+            ->willReturn($config);
 
         $listener = new WirecardIPCheckListener($this->paymentMethodProvider, $this->configProvider, $requestStack);
         $listener->onNotify($event);
@@ -188,10 +205,18 @@ class WirecardIPCheckListenerTest extends \PHPUnit_Framework_TestCase
             ->expects(static::once())
             ->method('isTestMode')
             ->willReturn(true);
+
         $this->configProvider
             ->expects(static::once())
-            ->method('getPaymentConfigs')
-            ->willReturn(['payment_method' => $config]);
+            ->method('hasPaymentConfig')
+            ->with('payment_method')
+            ->willReturn(true);
+
+        $this->configProvider
+            ->expects(static::once())
+            ->method('getPaymentConfig')
+            ->with('payment_method')
+            ->willReturn($config);
 
         $listener = new WirecardIPCheckListener($this->paymentMethodProvider, $this->configProvider, $requestStack);
         $listener->onNotify($event);
@@ -228,10 +253,18 @@ class WirecardIPCheckListenerTest extends \PHPUnit_Framework_TestCase
             ->with('payment_method')
             ->willReturn(true);
         $config = $this->createMock(WirecardSeamlessConfig::class);
+
         $this->configProvider
             ->expects(static::once())
-            ->method('getPaymentConfigs')
-            ->willReturn(['payment_method' => $config]);
+            ->method('hasPaymentConfig')
+            ->with('payment_method')
+            ->willReturn(true);
+
+        $this->configProvider
+            ->expects(static::once())
+            ->method('getPaymentConfig')
+            ->with('payment_method')
+            ->willReturn($config);
 
         $listener = new WirecardIPCheckListener($this->paymentMethodProvider, $this->configProvider, $requestStack);
         $listener->onNotify($event);

@@ -3,6 +3,7 @@
 namespace Oro\Bundle\WirecardBundle\Method\Factory;
 
 use Oro\Bundle\EntityBundle\ORM\DoctrineHelper;
+use Oro\Bundle\PaymentBundle\Provider\ExtractOptionsProvider;
 use Oro\Bundle\WirecardBundle\Provider\PaymentTransactionProvider;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\GatewayInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -36,6 +37,11 @@ abstract class WirecardSeamlessPaymentMethodFactory
     protected $requestStack;
 
     /**
+     * @var ExtractOptionsProvider
+     */
+    protected $optionsProvider;
+
+    /**
      * @param PaymentTransactionProvider $transactionProvider
      * @param GatewayInterface $gateway
      * @param RouterInterface $router
@@ -47,12 +53,14 @@ abstract class WirecardSeamlessPaymentMethodFactory
         GatewayInterface $gateway,
         RouterInterface $router,
         DoctrineHelper $doctrineHelper,
-        RequestStack $requestStack
+        RequestStack $requestStack,
+        ExtractOptionsProvider $optionsProvider
     ) {
         $this->transactionProvider = $transactionProvider;
         $this->gateway = $gateway;
         $this->router = $router;
         $this->doctrineHelper = $doctrineHelper;
         $this->requestStack = $requestStack;
+        $this->optionsProvider = $optionsProvider;
     }
 }

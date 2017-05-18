@@ -87,6 +87,7 @@ services:
             - '@router'
             - '@oro_entity.doctrine_helper'
             - '@request_stack'
+            - '@oro_payment.provider.extract_options'
 
     oro_wirecard.method.factory.wirecard_seamless.credit_card:
         class: 'Oro\Bundle\WirecardBundle\Method\Factory\WirecardSeamlessCreditCardPaymentMethodFactory'

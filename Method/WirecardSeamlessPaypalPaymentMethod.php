@@ -24,7 +24,10 @@ class WirecardSeamlessPaypalPaymentMethod extends AbstractWirecardSeamlessPaymen
      */
     public function purchase(PaymentTransaction $paymentTransaction)
     {
-        $options = $this->getBaseOptions($paymentTransaction);
+        $options = array_merge(
+            $this->getBaseOptions($paymentTransaction),
+            $this->getShippingInfo($paymentTransaction)
+        );
 
         $request = new InitPaypalPaymentRequest();
 

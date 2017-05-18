@@ -41,13 +41,13 @@ class WirecardSeamlessListener
             return;
         }
 
+        $paymentMethod = $this->paymentMethodProvider->getPaymentMethod($paymentTransaction->getPaymentMethod());
+
         $paymentTransaction
             ->setResponse(array_replace($paymentTransaction->getResponse(), $event->getData()));
 
         try {
-            $paymentMethod = $this->paymentMethodProvider->getPaymentMethod($paymentTransaction->getPaymentMethod());
             $paymentMethod->execute(AbstractWirecardSeamlessPaymentMethod::COMPLETE, $paymentTransaction);
-
             $event->markSuccessful();
         } catch (\InvalidArgumentException $e) {
             if ($this->logger) {

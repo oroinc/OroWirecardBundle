@@ -6,7 +6,9 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
+use Oro\Bundle\CheckoutBundle\Entity\Checkout;
 use Oro\Bundle\EntityBundle\ORM\DoctrineHelper;
+use Oro\Bundle\PaymentBundle\Provider\ExtractOptionsProvider;
 use Oro\Bundle\PaymentBundle\Context\PaymentContextInterface;
 use Oro\Bundle\PaymentBundle\Entity\PaymentTransaction;
 use Oro\Bundle\PaymentBundle\Method\PaymentMethodInterface;
@@ -53,12 +55,18 @@ abstract class AbstractWirecardSeamlessPaymentMethod implements PaymentMethodInt
     protected $requestStack;
 
     /**
+     * @var ExtractOptionsProvider
+     */
+    protected $optionsProvider;
+
+    /**
      * @param WirecardSeamlessConfigInterface $config
      * @param PaymentTransactionProvider $transactionProvider
      * @param GatewayInterface $gateway
      * @param RouterInterface $router
      * @param DoctrineHelper $doctrineHelper
      * @param RequestStack $requestStack
+     * @param ExtractOptionsProvider $optionsProvider
      */
     public function __construct(
         WirecardSeamlessConfigInterface $config,
@@ -66,7 +74,8 @@ abstract class AbstractWirecardSeamlessPaymentMethod implements PaymentMethodInt
         GatewayInterface $gateway,
         RouterInterface $router,
         DoctrineHelper $doctrineHelper,
-        RequestStack $requestStack
+        RequestStack $requestStack,
+        ExtractOptionsProvider $optionsProvider
     ) {
         $this->config = $config;
         $this->transactionProvider = $transactionProvider;
@@ -74,6 +83,7 @@ abstract class AbstractWirecardSeamlessPaymentMethod implements PaymentMethodInt
         $this->router = $router;
         $this->doctrineHelper = $doctrineHelper;
         $this->requestStack = $requestStack;
+        $this->optionsProvider = $optionsProvider;
     }
 
     /**
@@ -290,5 +300,51 @@ abstract class AbstractWirecardSeamlessPaymentMethod implements PaymentMethodInt
             Option\ConsumerUserAgent::CONSUMERUSERAGENT => $this->getUserAgent(),
             Option\ConsumerIpAddress::CONSUMERIPADDRESS => $this->getClientIp(),
         ];
+    }
+
+    /**
+     * @param PaymentTransaction $transaction
+     * @return array
+     */
+    protected function getShippingInfo(PaymentTransaction $transaction)
+    {
+        $checkout = $this->extractCheckout($transaction);
+        if (!$checkout) {
+            return [];
+        }
+
+        $address = $checkout->getShippingAddress();
+        if (!$address) {
+            return [];
+        }
+
+        $addressOption = $this->optionsProvider->getShippingAddressOptions(
+            $this->doctrineHelper->getEntityClass($address),
+            $address
+        );
+
+        return [
+            Option\ConsumerShippingAddress::CONSUMERSHIPPINGFIRSTNAME => $addressOption->getFirstName(),
+            Option\ConsumerShippingAddress::CONSUMERSHIPPINGLASTNAME => $addressOption->getLastName(),
+            Option\ConsumerShippingAddress::CONSUMERSHIPPINGADDRESS1 => $addressOption->getStreet(),
+            Option\ConsumerShippingAddress::CONSUMERSHIPPINGADDRESS2 => $addressOption->getStreet2(),
+            Option\ConsumerShippingAddress::CONSUMERSHIPPINGCITY => $addressOption->getCity(),
+            Option\ConsumerShippingAddress::CONSUMERSHIPPINGSTATE => $addressOption->getRegionCode(),
+            Option\ConsumerShippingAddress::CONSUMERSHIPPINGCOUNTRY => $addressOption->getCountryIso2(),
+            Option\ConsumerShippingAddress::CONSUMERSHIPPINGZIPCODE => $addressOption->getPostalCode(),
+        ];
+    }
+
+    /**
+     * @param PaymentTransaction $transaction
+     * @return null|Checkout
+     */
+    protected function extractCheckout(PaymentTransaction $transaction)
+    {
+        $transactionOptions = $transaction->getTransactionOptions();
+        if (!isset($transactionOptions['checkoutId'])) {
+            return null;
+        }
+        return $this->doctrineHelper->getEntity(Checkout::class, $transactionOptions['checkoutId']);
     }
 }
