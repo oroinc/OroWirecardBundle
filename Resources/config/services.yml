@@ -22,3 +22,10 @@ services:
             - '@oro_payment.payment_method.composite_provider'
         tags:
             - { name: request.param_converter, priority: -2, converter: payment_method_param_converter }
+
+    oro_wirecard.validator.constraints.methods_configs_rule:
+        class: Oro\Bundle\WirecardBundle\Validator\Constraints\PaymentMethodsConfigsRuleConstraintValidator
+        arguments:
+            - '@oro_wirecard.method.config.provider.wirecard_seamless.sepa_direct_debit'
+        tags:
+            - { name: validator.constraint_validator }

@@ -40,15 +40,8 @@ abstract class WirecardSeamlessInitiateAwarePaymentMethod extends AbstractWireca
      */
     public function purchase(PaymentTransaction $paymentTransaction)
     {
-        $checkout = $this->extractCheckout($paymentTransaction);
-        if (!$checkout) {
-            throw new \RuntimeException('Appropriate checkout is not found');
-        }
+        $initiateTransaction = $this->getInitiateTransaction($paymentTransaction);
 
-        $initiateTransaction = $this->transactionProvider->getActiveInitiatePaymentTransaction(
-            $checkout,
-            $paymentTransaction->getPaymentMethod()
-        );
         if (!$initiateTransaction) {
             throw new \RuntimeException('Initiate payment transaction not found');
         }
@@ -66,6 +59,23 @@ abstract class WirecardSeamlessInitiateAwarePaymentMethod extends AbstractWireca
         $redirectUrl = $response->getRedirectUrl();
 
         return $redirectUrl ? ['redirectTo' => $redirectUrl] : [];
+    }
+
+    /**
+     * @param PaymentTransaction $paymentTransaction
+     * @return PaymentTransaction
+     */
+    protected function getInitiateTransaction(PaymentTransaction $paymentTransaction)
+    {
+        $checkout = $this->extractCheckout($paymentTransaction);
+        if (!$checkout) {
+            throw new \RuntimeException('Appropriate checkout is not found');
+        }
+
+        return $this->transactionProvider->getActiveInitiatePaymentTransaction(
+            $checkout,
+            $paymentTransaction->getPaymentMethod()
+        );
     }
 
     /**

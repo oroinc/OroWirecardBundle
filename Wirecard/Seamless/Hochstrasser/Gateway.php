@@ -3,10 +3,8 @@
 namespace Oro\Bundle\WirecardBundle\Wirecard\Seamless\Hochstrasser;
 
 use GuzzleHttp\ClientInterface;
-use Hochstrasser\Wirecard\Fingerprint;
-use Hochstrasser\Wirecard\Request\WirecardRequestInterface;
-use Hochstrasser\Wirecard\Response\WirecardResponseInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\GatewayInterface;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\RequestInterface;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Response\Response;

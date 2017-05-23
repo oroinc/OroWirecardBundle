@@ -19,3 +19,7 @@ Oro\Bundle\WirecardBundle\Entity\WirecardSeamlessSettings:
             - NotBlank: ~
             - Length:
                 min: 7
+
+Oro\Bundle\PaymentBundle\Entity\PaymentMethodsConfigsRule:
+    constraints:
+        - Oro\Bundle\WirecardBundle\Validator\Constraints\PaymentMethodsConfigsRuleConstraint: ~

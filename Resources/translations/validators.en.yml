@@ -1,0 +1,6 @@
+oro:
+    wirecard:
+        validators:
+            sepa_only_eur_allowed: |
+              The Wirecard SEPA payment method is not available for this currency.
+              Please remove Wirecard SEPA from payment method configurations or select the EUR currency.

@@ -16,6 +16,7 @@ services:
         calls:
             - [addNativeRequestBuilder, ['@oro_wirecard.wirecard.seamless.hochstrasser.native_request_builder.init_data_storage']]
             - [addNativeRequestBuilder, ['@oro_wirecard.wirecard.seamless.hochstrasser.native_request_builder.init_payment']]
+            - [addNativeRequestBuilder, ['@oro_wirecard.wirecard.seamless.hochstrasser.native_request_builder.init_sepa_payment']]
             - [addNativeRequestBuilder, ['@oro_wirecard.wirecard.seamless.hochstrasser.native_request_builder.init_paypal_payment']]
             - [addNativeRequestBuilder, ['@oro_wirecard.wirecard.seamless.hochstrasser.native_request_builder.read_data_storage']]
 
@@ -25,6 +26,10 @@ services:
 
     oro_wirecard.wirecard.seamless.hochstrasser.native_request_builder.init_payment:
         class: 'Oro\Bundle\WirecardBundle\Wirecard\Seamless\Hochstrasser\NativeRequestBuilder\InitPaymentNativeRequestBuilder'
+        public: false
+
+    oro_wirecard.wirecard.seamless.hochstrasser.native_request_builder.init_sepa_payment:
+        class: 'Oro\Bundle\WirecardBundle\Wirecard\Seamless\Hochstrasser\NativeRequestBuilder\InitSepaPaymentNativeRequestBuilder'
         public: false
 
     oro_wirecard.wirecard.seamless.hochstrasser.native_request_builder.init_paypal_payment:

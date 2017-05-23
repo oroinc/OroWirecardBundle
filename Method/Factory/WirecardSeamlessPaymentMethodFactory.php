@@ -47,6 +47,7 @@ abstract class WirecardSeamlessPaymentMethodFactory
      * @param RouterInterface $router
      * @param DoctrineHelper $doctrineHelper
      * @param RequestStack $requestStack
+     * @param ExtractOptionsProvider $optionsProvider
      */
     public function __construct(
         PaymentTransactionProvider $transactionProvider,
