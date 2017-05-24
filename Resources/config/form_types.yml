@@ -16,7 +16,5 @@ services:
 
     oro_wirecard.form.type.wirecard_seamless.settings:
         class: Oro\Bundle\WirecardBundle\Form\Type\WirecardSeamlessSettingsType
-        arguments:
-            - '@translator.default'
         tags:
             - { name: form.type, alias: oro_wirecard_seamless_settings }

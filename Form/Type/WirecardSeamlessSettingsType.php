@@ -19,19 +19,6 @@ class WirecardSeamlessSettingsType extends AbstractType
     const BLOCK_PREFIX = 'oro_wirecard_seamless_settings';
 
     /**
-     * @var TranslatorInterface
-     */
-    protected $translator;
-
-    /**
-     * @param TranslatorInterface $translator
-     */
-    public function __construct(TranslatorInterface $translator)
-    {
-        $this->translator = $translator;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
