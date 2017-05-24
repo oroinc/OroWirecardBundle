@@ -28,7 +28,7 @@ class CallbackControllerTest extends WebTestCase
                 Response::FINGERPRINT_ORDER_FIELD => 'a,b,c',
                 'a' => 'a',
                 'b' => 'b',
-                'c' => 'c'
+                'c' => 'c',
             ]
         );
 
@@ -40,7 +40,7 @@ class CallbackControllerTest extends WebTestCase
             Response::FINGERPRINT_ORDER_FIELD => 'a,b,c',
             'a' => 'a',
             'b' => 'b',
-            'c' => 'c'
+            'c' => 'c',
         ];
 
         /** @var PaymentTransaction $paymentTransaction */

@@ -2,9 +2,6 @@
 
 namespace Oro\Bundle\WirecardBundle\Form\Type;
 
-use Oro\Bundle\FormBundle\Form\Type\OroEncodedPlaceholderPasswordType;
-use Oro\Bundle\LocaleBundle\Form\Type\LocalizedFallbackValueCollectionType;
-use Oro\Bundle\WirecardBundle\Entity\WirecardSeamlessSettings;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -12,6 +9,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
+
+use Oro\Bundle\FormBundle\Form\Type\OroEncodedPlaceholderPasswordType;
+use Oro\Bundle\LocaleBundle\Form\Type\LocalizedFallbackValueCollectionType;
+use Oro\Bundle\WirecardBundle\Entity\WirecardSeamlessSettings;
 
 class WirecardSeamlessSettingsType extends AbstractType
 {
@@ -81,7 +82,7 @@ class WirecardSeamlessSettingsType extends AbstractType
                 'required' => true,
                 'attr' => ['autocomplete' => 'new-password'],
             ])
-            ->add('testMode', CheckboxType::class, [
+            ->add('wcTestMode', CheckboxType::class, [
                 'label' => 'oro.wirecard.settings.wirecard_seamless.test_mode.label',
                 'required' => false,
             ]);

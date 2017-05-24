@@ -4,8 +4,8 @@ namespace Oro\Bundle\WirecardBundle\Method\Config\Provider;
 
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessPayPalConfigInterface;
 
-class WirecardSeamlessPaypalConfigProvider extends WirecardSeamlessConfigProvider implements
-    WirecardSeamlessPaypalConfigProviderInterface
+class WirecardSeamlessPayPalConfigProvider extends WirecardSeamlessConfigProvider implements
+    WirecardSeamlessPayPalConfigProviderInterface
 {
     /**
      * @var WirecardSeamlessPayPalConfigInterface[]

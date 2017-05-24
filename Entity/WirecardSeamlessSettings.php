@@ -163,7 +163,7 @@ class WirecardSeamlessSettings extends Transport
      *
      * @ORM\Column(name="oro_wcs_shop_id", type="string", length=255, nullable=false)
      */
-    protected $shopId = '';
+    protected $shopId;
 
     /**
      * @var string
@@ -206,7 +206,7 @@ class WirecardSeamlessSettings extends Transport
                     self::PAYPAL_SHORT_LABELS_KEY => $this->getPayPalShortLabels(),
                     self::SEPA_LABELS_KEY => $this->getSepaLabels(),
                     self::SEPA_SHORT_LABELS_KEY => $this->getSepaShortLabels(),
-                    self::TEST_MODE_KEY => $this->getTestMode(),
+                    self::TEST_MODE_KEY => $this->isWcTestMode(),
                 ]
             );
         }
@@ -219,7 +219,7 @@ class WirecardSeamlessSettings extends Transport
      */
     public function getCustomerId()
     {
-        return $this->customerId;
+        return (string)$this->customerId;
     }
 
     /**
@@ -239,7 +239,7 @@ class WirecardSeamlessSettings extends Transport
      */
     public function getShopId()
     {
-        return $this->shopId;
+        return (string)$this->shopId;
     }
 
     /**
@@ -249,7 +249,7 @@ class WirecardSeamlessSettings extends Transport
      */
     public function setShopId($shopId)
     {
-        $this->shopId = null === $shopId ? '': $shopId;
+        $this->shopId = $shopId;
 
         return $this;
     }
@@ -259,7 +259,7 @@ class WirecardSeamlessSettings extends Transport
      */
     public function getSecret()
     {
-        return $this->secret;
+        return (string)$this->secret;
     }
 
     /**
@@ -479,7 +479,7 @@ class WirecardSeamlessSettings extends Transport
     }
 
     /**
-     * @param Collection             $collection
+     * @param Collection $collection
      * @param LocalizedFallbackValue $label
      *
      * @return $this
@@ -494,7 +494,7 @@ class WirecardSeamlessSettings extends Transport
     }
 
     /**
-     * @param Collection             $collection
+     * @param Collection $collection
      * @param LocalizedFallbackValue $label
      *
      * @return $this
@@ -527,30 +527,8 @@ class WirecardSeamlessSettings extends Transport
      *
      * @return boolean
      */
-    public function getWcTestMode()
+    public function isWcTestMode()
     {
-        return $this->wcTestMode;
-    }
-
-    /**
-     * Set testMode.
-     *
-     * @param boolean $testMode
-     *
-     * @return $this
-     */
-    public function setTestMode($testMode)
-    {
-        return $this->setWcTestMode($testMode);
-    }
-
-    /**
-     * Get testMode.
-     *
-     * @return boolean
-     */
-    public function getTestMode()
-    {
-        return $this->getWcTestMode();
+        return (bool)$this->wcTestMode;
     }
 }

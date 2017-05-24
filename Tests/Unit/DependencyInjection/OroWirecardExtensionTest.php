@@ -28,7 +28,7 @@ class OroWirecardExtensionTest extends ExtensionTestCase
             'oro_wirecard.event_listener.callback.wirecard_seamless.sepa_direct_debit',
             'oro_wirecard.event_listener.callback.ip_check.wirecard_seamless.credit_card',
             'oro_wirecard.event_listener.callback.ip_check.wirecard_seamless.paypal',
-            'oro_wirecard.event_listener.callback.ip_check.wirecard_seamless.sepa_direct_debit'
+            'oro_wirecard.event_listener.callback.ip_check.wirecard_seamless.sepa_direct_debit',
         ];
         $this->assertDefinitionsLoaded($expectedDefinitions);
     }

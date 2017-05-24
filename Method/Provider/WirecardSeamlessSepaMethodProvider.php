@@ -20,7 +20,7 @@ class WirecardSeamlessSepaMethodProvider extends AbstractPaymentMethodProvider
     private $configProvider;
 
     /**
-     * @param WirecardSeamlessSepaConfigProviderInterface       $configProvider
+     * @param WirecardSeamlessSepaConfigProviderInterface $configProvider
      * @param WirecardSeamlessSepaPaymentMethodFactoryInterface $factory
      */
     public function __construct(

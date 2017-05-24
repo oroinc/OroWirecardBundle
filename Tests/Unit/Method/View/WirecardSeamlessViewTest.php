@@ -112,7 +112,7 @@ abstract class WirecardSeamlessViewTest extends \PHPUnit_Framework_TestCase
                 'formView' => $formView,
                 'paymentMethod' => 'identifier',
                 'sourceEntityId' => 'sourceEntityId',
-                'initiatePaymentMethodRoute' => $this->getInitiateRoute()
+                'initiatePaymentMethodRoute' => $this->getInitiateRoute(),
             ],
             $this->methodView->getOptions($context)
         );

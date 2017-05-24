@@ -5,7 +5,7 @@ namespace Oro\Bundle\WirecardBundle\Method\View\Factory;
 use Oro\Bundle\PaymentBundle\Method\View\PaymentMethodViewInterface;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessPayPalConfigInterface;
 
-interface WirecardSeamlessPaypalViewFactoryInterface
+interface WirecardSeamlessPayPalViewFactoryInterface
 {
     /**
      * @param WirecardSeamlessPayPalConfigInterface $config

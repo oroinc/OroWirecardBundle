@@ -301,7 +301,7 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
         $transaction->setTransactionOptions(
             [
                 'checkoutId' => 0,
-                'originalOption' => 'originalValue'
+                'originalOption' => 'originalValue',
             ]
         );
         $transaction->setEntityClass(Order::class);
@@ -393,7 +393,7 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
         $transaction->setTransactionOptions(
             [
                 'checkoutId' => 0,
-                'originalOption' => 'originalValue'
+                'originalOption' => 'originalValue',
             ]
         );
         $transaction->setEntityClass(Order::class);
@@ -464,21 +464,21 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
                     [
                         'accessIdentifier' => $transaction->getAccessIdentifier(),
                     ],
-                    UrlGeneratorInterface::ABSOLUTE_URL
+                    UrlGeneratorInterface::ABSOLUTE_URL,
                 ],
                 [
                     'oro_payment_callback_error',
                     [
                         'accessIdentifier' => $transaction->getAccessIdentifier(),
                     ],
-                    UrlGeneratorInterface::ABSOLUTE_URL
+                    UrlGeneratorInterface::ABSOLUTE_URL,
                 ],
                 [
                     'oro_payment_callback_error',
                     [
                         'accessIdentifier' => $transaction->getAccessIdentifier(),
                     ],
-                    UrlGeneratorInterface::ABSOLUTE_URL
+                    UrlGeneratorInterface::ABSOLUTE_URL,
                 ],
                 [
                     'oro_payment_callback_notify',
@@ -486,12 +486,12 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
                         'accessIdentifier' => $transaction->getAccessIdentifier(),
                         'accessToken' => $transaction->getAccessToken(),
                     ],
-                    UrlGeneratorInterface::ABSOLUTE_URL
+                    UrlGeneratorInterface::ABSOLUTE_URL,
                 ],
                 [
                     'oro_frontend_root',
                     [],
-                    UrlGeneratorInterface::ABSOLUTE_URL
+                    UrlGeneratorInterface::ABSOLUTE_URL,
                 ]
             )
             ->willReturnArgument(0);
@@ -530,7 +530,7 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
                 Response::FINGERPRINT_ORDER_FIELD => 'a,b,c',
                 'a' => 'a',
                 'b' => 'b',
-                'c' => 'c'
+                'c' => 'c',
             ]
         );
 
@@ -544,7 +544,7 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
                 Response::FINGERPRINT_ORDER_FIELD => 'a,b,c',
                 'a' => 'a',
                 'b' => 'b',
-                'c' => 'c'
+                'c' => 'c',
             ]
         );
 
@@ -563,7 +563,7 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
                 Response::FINGERPRINT_ORDER_FIELD => 'a,b,c',
                 'a' => 'a',
                 'b' => 'b',
-                'c' => 'c'
+                'c' => 'c',
             ]
         );
 
@@ -577,7 +577,7 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
                 Response::FINGERPRINT_ORDER_FIELD => 'a,b,c',
                 'a' => 'a',
                 'b' => 'b',
-                'c' => 'c'
+                'c' => 'c',
             ]
         );
 
@@ -596,7 +596,7 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
                 Response::FINGERPRINT_ORDER_FIELD => 'a,b,c',
                 'a' => 'a',
                 'b' => 'b',
-                'c' => 'c'
+                'c' => 'c',
             ]
         );
 
@@ -610,7 +610,7 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
                 Response::FINGERPRINT_ORDER_FIELD => 'a,b,c',
                 'a' => 'a',
                 'b' => 'b',
-                'c' => 'c'
+                'c' => 'c',
             ]
         );
 
@@ -632,7 +632,7 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
             [
                 Response::FINGERPRINT_ORDER_FIELD => 'a,b',
                 'a' => 'a',
-                'b' => 'b'
+                'b' => 'b',
             ]
         );
 
@@ -646,7 +646,7 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
                 Response::FINGERPRINT_ORDER_FIELD => 'a,b,c',
                 'a' => 'a',
                 'b' => 'b',
-                'c' => 'c'
+                'c' => 'c',
             ]
         );
 

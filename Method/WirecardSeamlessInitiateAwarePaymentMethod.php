@@ -34,9 +34,7 @@ abstract class WirecardSeamlessInitiateAwarePaymentMethod extends AbstractWireca
     }
 
     /**
-     * @param PaymentTransaction $paymentTransaction
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function purchase(PaymentTransaction $paymentTransaction)
     {
@@ -54,6 +52,7 @@ abstract class WirecardSeamlessInitiateAwarePaymentMethod extends AbstractWireca
 
         $paymentTransaction
             ->setRequest($options)
+            ->setActive(true)
             ->setResponse($response->getData());
 
         $redirectUrl = $response->getRedirectUrl();

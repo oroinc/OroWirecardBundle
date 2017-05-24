@@ -1,6 +1,6 @@
 <?php
 
-namespace Oro\Bundle\WirecardBundle\Tests\Unit\Form;
+namespace Oro\Bundle\WirecardBundle\Tests\Unit\Form\Type;
 
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\Test\FormIntegrationTestCase;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Validator\Validation;
+
 use Oro\Bundle\WirecardBundle\Form\Type\CreditCardType;
 use Oro\Bundle\WirecardBundle\Form\Type\CreditCardExpirationDateType;
 

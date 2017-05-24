@@ -34,7 +34,6 @@ services:
         lazy: true
         arguments:
             - '@oro_wirecard.method.provider.wirecard_seamless.credit_card'
-            - '@oro_wirecard.method.config.provider.wirecard_seamless.credit_card'
             - '@request_stack'
         tags:
             - { name: kernel.event_listener, event: oro_payment.callback.notify, method: onNotify, priority: 255 }
@@ -44,7 +43,6 @@ services:
         lazy: true
         arguments:
             - '@oro_wirecard.method.provider.wirecard_seamless.paypal'
-            - '@oro_wirecard.method.config.provider.wirecard_seamless.paypal'
             - '@request_stack'
         tags:
             - { name: kernel.event_listener, event: oro_payment.callback.notify, method: onNotify, priority: 255 }
@@ -54,7 +52,6 @@ services:
         lazy: true
         arguments:
             - '@oro_wirecard.method.provider.wirecard_seamless.sepa_direct_debit'
-            - '@oro_wirecard.method.config.provider.wirecard_seamless.sepa_direct_debit'
             - '@request_stack'
         tags:
             - { name: kernel.event_listener, event: oro_payment.callback.notify, method: onNotify, priority: 255 }

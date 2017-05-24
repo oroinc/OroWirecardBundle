@@ -6,19 +6,14 @@ use Oro\Bundle\IntegrationBundle\Entity\Transport;
 use Oro\Bundle\IntegrationBundle\Provider\TransportInterface;
 use Oro\Bundle\WirecardBundle\Entity\WirecardSeamlessSettings;
 use Oro\Bundle\WirecardBundle\Form\Type\WirecardSeamlessSettingsType;
-use Symfony\Component\HttpFoundation\ParameterBag;
 
 class WirecardSeamlessTransport implements TransportInterface
 {
-    /** @var ParameterBag */
-    protected $settings;
-
     /**
-     * @param Transport $transportEntity
+     * {@inheritdoc}
      */
     public function init(Transport $transportEntity)
     {
-        $this->settings = $transportEntity->getSettingsBag();
     }
 
     /**

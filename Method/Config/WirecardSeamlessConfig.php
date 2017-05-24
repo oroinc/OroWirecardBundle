@@ -41,6 +41,6 @@ abstract class WirecardSeamlessConfig extends AbstractParameterBagPaymentConfig 
      */
     public function isTestMode()
     {
-        return (bool) $this->get(self::TEST_MODE_KEY);
+        return (bool)$this->get(self::TEST_MODE_KEY);
     }
 }

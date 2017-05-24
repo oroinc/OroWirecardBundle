@@ -1,10 +1,11 @@
 <?php
 
-namespace Oro\Bundle\WirecardBundle\Tests\Unit\Form;
+namespace Oro\Bundle\WirecardBundle\Tests\Unit\Form\Type;
 
-use Oro\Bundle\WirecardBundle\Form\Type\CreditCardExpirationDateType;
 use Symfony\Component\Form\FormConfigInterface;
 use Symfony\Component\Form\Test\FormIntegrationTestCase;
+
+use Oro\Bundle\WirecardBundle\Form\Type\CreditCardExpirationDateType;
 
 class CreditCardExpirationDateTypeTest extends FormIntegrationTestCase
 {
@@ -76,7 +77,7 @@ class CreditCardExpirationDateTypeTest extends FormIntegrationTestCase
 
     /**
      * @param FormConfigInterface $formConfig
-     * @param array               $formOptions
+     * @param array $formOptions
      */
     public function assertFormOptions(FormConfigInterface $formConfig, $formOptions)
     {

@@ -5,13 +5,13 @@ namespace Oro\Bundle\WirecardBundle\Tests\Unit\Method;
 use Oro\Bundle\EntityBundle\ORM\DoctrineHelper;
 use Oro\Bundle\PaymentBundle\Provider\ExtractOptionsProvider;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessConfigInterface;
-use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessPaypalPaymentMethod;
+use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessPayPalPaymentMethod;
 use Oro\Bundle\WirecardBundle\Provider\PaymentTransactionProvider;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\GatewayInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
 
-class WirecardSeamlessPaypalPaymentMethodTest extends WirecardSeamlessPaymentMethodTest
+class WirecardSeamlessPayPalPaymentMethodTest extends WirecardSeamlessPaymentMethodTest
 {
     /**
      * @inheritDoc
@@ -25,7 +25,7 @@ class WirecardSeamlessPaypalPaymentMethodTest extends WirecardSeamlessPaymentMet
         RequestStack $requestStack,
         ExtractOptionsProvider $optionsProvider
     ) {
-        return new WirecardSeamlessPaypalPaymentMethod(
+        return new WirecardSeamlessPayPalPaymentMethod(
             $config,
             $transactionProvider,
             $gateway,
@@ -38,6 +38,6 @@ class WirecardSeamlessPaypalPaymentMethodTest extends WirecardSeamlessPaymentMet
 
     public function testGetWirecardPaymentType()
     {
-        $this->assertEquals(WirecardSeamlessPaypalPaymentMethod::TYPE, $this->method->getWirecardPaymentType());
+        $this->assertEquals(WirecardSeamlessPayPalPaymentMethod::TYPE, $this->method->getWirecardPaymentType());
     }
 }

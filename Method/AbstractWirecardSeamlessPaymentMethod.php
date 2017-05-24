@@ -91,7 +91,9 @@ abstract class AbstractWirecardSeamlessPaymentMethod implements PaymentMethodInt
      */
     abstract public function getWirecardPaymentType();
 
-    /** {@inheritdoc} */
+    /**
+     * {@inheritdoc}
+     */
     public function execute($action, PaymentTransaction $paymentTransaction)
     {
         if (!$this->supports($action)) {
@@ -110,8 +112,6 @@ abstract class AbstractWirecardSeamlessPaymentMethod implements PaymentMethodInt
 
     /**
      * @param PaymentTransaction $paymentTransaction
-     *
-     * @throws \RuntimeException
      */
     public function complete(PaymentTransaction $paymentTransaction)
     {
@@ -233,8 +233,6 @@ abstract class AbstractWirecardSeamlessPaymentMethod implements PaymentMethodInt
     }
 
     /**
-     * FIXME: how to go to about or contact pages??
-     *
      * @return string
      */
     protected function createServiceUrl()
@@ -249,11 +247,17 @@ abstract class AbstractWirecardSeamlessPaymentMethod implements PaymentMethodInt
     }
 
     /**
-     * @return array|string
+     * @return string
      */
     protected function getUserAgent()
     {
-        return $this->requestStack->getMasterRequest()->headers->get('User-Agent');
+        $masterRequest = $this->requestStack->getMasterRequest();
+
+        if (!$masterRequest) {
+            return '';
+        }
+
+        return $masterRequest->headers->get('User-Agent', '');
     }
 
     /**
@@ -261,7 +265,13 @@ abstract class AbstractWirecardSeamlessPaymentMethod implements PaymentMethodInt
      */
     protected function getClientIp()
     {
-        return $this->requestStack->getMasterRequest()->getClientIp();
+        $masterRequest = $this->requestStack->getMasterRequest();
+
+        if (!$masterRequest) {
+            return '';
+        }
+
+        return $masterRequest->getClientIp();
     }
 
     /**
@@ -345,6 +355,7 @@ abstract class AbstractWirecardSeamlessPaymentMethod implements PaymentMethodInt
         if (!isset($transactionOptions['checkoutId'])) {
             return null;
         }
+
         return $this->doctrineHelper->getEntity(Checkout::class, $transactionOptions['checkoutId']);
     }
 }

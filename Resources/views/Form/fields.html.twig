@@ -1,9 +1,8 @@
 {% block oro_wirecard_seamless_credit_card_expiration_date_widget -%}
     {% set validation = {
-        'credit-card-expiration-date-not-blank': {'message': 'oro.payment.validation.expiration_date', 'payload': null},
-        'credit-card-expiration-date': {'message': 'oro.payment.validation.month', 'payload': null}
-    }
-    %}
+    'credit-card-expiration-date-not-blank': {'message': 'oro.payment.validation.expiration_date', 'payload': null},
+    'credit-card-expiration-date': {'message': 'oro.payment.validation.month', 'payload': null}
+    } %}
 
     <div {{ block('widget_attributes') }} data-validation="{{ validation|json_encode }}">
         <div class="{{ class_prefix }}__form__select {{ class_prefix }}__form__select--exp-month">

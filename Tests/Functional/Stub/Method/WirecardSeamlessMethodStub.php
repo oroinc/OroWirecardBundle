@@ -33,7 +33,7 @@ class WirecardSeamlessMethodStub implements PaymentMethodInterface
                 ->setResponse(
                     [
                         'storageId' => self::TEST_STORAGE_ID,
-                        'javascriptURL' => self::TEST_JAVASCRIPT_URL
+                        'javascriptURL' => self::TEST_JAVASCRIPT_URL,
                     ]
                 );
         } elseif ($action === self::PURCHASE) {
@@ -41,6 +41,7 @@ class WirecardSeamlessMethodStub implements PaymentMethodInterface
                 'redirectUrl' => self::TEST_URL,
             ];
         }
+
         return [];
     }
 

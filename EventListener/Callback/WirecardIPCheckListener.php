@@ -26,27 +26,19 @@ class WirecardIPCheckListener
     protected $paymentMethodProvider;
 
     /**
-     * @var WirecardSeamlessConfigProvider
-     */
-    protected $configProvider;
-
-    /**
      * @var RequestStack
      */
     private $requestStack;
 
     /**
      * @param PaymentMethodProviderInterface $paymentMethodProvider
-     * @param WirecardSeamlessConfigProviderInterface $configProvider
      * @param RequestStack $requestStack
      */
     public function __construct(
         PaymentMethodProviderInterface $paymentMethodProvider,
-        WirecardSeamlessConfigProviderInterface $configProvider,
         RequestStack $requestStack
     ) {
         $this->paymentMethodProvider = $paymentMethodProvider;
-        $this->configProvider = $configProvider;
         $this->requestStack = $requestStack;
     }
 
@@ -67,13 +59,6 @@ class WirecardIPCheckListener
             return;
         }
 
-        if (false === $this->configProvider->hasPaymentConfig($paymentMethodIdentifier)) {
-            // Config must exist in case of payment method exist
-            throw new \InvalidArgumentException('Can not find config');
-        }
-
-        $config = $this->configProvider->getPaymentConfig($paymentMethodIdentifier);
-
         $masterRequest = $this->requestStack->getMasterRequest();
         if (null === $masterRequest) {
             $event->markFailed();
@@ -83,7 +68,7 @@ class WirecardIPCheckListener
 
         $requestIp = $masterRequest->getClientIp();
 
-        if (!$config->isTestMode() && !IpUtils::checkIp($requestIp, self::$allowedIPs)) {
+        if (!IpUtils::checkIp($requestIp, self::$allowedIPs)) {
             $event->markFailed();
         }
     }

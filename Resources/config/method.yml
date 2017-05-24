@@ -33,7 +33,7 @@ services:
             - '@oro_wirecard.method.generator.identifier.wirecard_seamless.credit_card'
 
     oro_wirecard.method.config.factory.wirecard_seamless.paypal:
-        class: 'Oro\Bundle\WirecardBundle\Method\Config\Factory\WirecardSeamlessPaypalConfigFactory'
+        class: 'Oro\Bundle\WirecardBundle\Method\Config\Factory\WirecardSeamlessPayPalConfigFactory'
         public: false
         arguments:
             - '@oro_security.encoder.mcrypt'
@@ -60,7 +60,7 @@ services:
             - '%oro_wirecard.method.wirecard_seamless%'
 
     oro_wirecard.method.config.provider.wirecard_seamless.paypal:
-        class: 'Oro\Bundle\WirecardBundle\Method\Config\Provider\WirecardSeamlessPaypalConfigProvider'
+        class: 'Oro\Bundle\WirecardBundle\Method\Config\Provider\WirecardSeamlessPayPalConfigProvider'
         public: false
         arguments:
             - '@doctrine'
@@ -95,7 +95,7 @@ services:
         parent: oro_wirecard.method.factory.wirecard_seamless
 
     oro_wirecard.method.factory.wirecard_seamless.paypal:
-        class: 'Oro\Bundle\WirecardBundle\Method\Factory\WirecardSeamlessPaypalPaymentMethodFactory'
+        class: 'Oro\Bundle\WirecardBundle\Method\Factory\WirecardSeamlessPayPalPaymentMethodFactory'
         public: false
         parent: oro_wirecard.method.factory.wirecard_seamless
 
@@ -117,7 +117,7 @@ services:
         parent: oro_wirecard.method.view.factory.wirecard_seamless
 
     oro_wirecard.method.view.factory.wirecard_seamless.paypal:
-        class: 'Oro\Bundle\WirecardBundle\Method\View\Factory\WirecardSeamlessPaypalViewFactory'
+        class: 'Oro\Bundle\WirecardBundle\Method\View\Factory\WirecardSeamlessPayPalViewFactory'
         public: false
         parent: oro_wirecard.method.view.factory.wirecard_seamless
 
@@ -136,7 +136,7 @@ services:
             - { name: oro_payment.payment_method_provider }
 
     oro_wirecard.method.provider.wirecard_seamless.paypal:
-        class: 'Oro\Bundle\WirecardBundle\Method\Provider\WirecardSeamlessPaypalMethodProvider'
+        class: 'Oro\Bundle\WirecardBundle\Method\Provider\WirecardSeamlessPayPalMethodProvider'
         public: false
         arguments:
             - '@oro_wirecard.method.config.provider.wirecard_seamless.paypal'
@@ -163,7 +163,7 @@ services:
             - { name: oro_payment.payment_method_view_provider }
 
     oro_wirecard.method.view.provider.wirecard_seamless.paypal:
-        class: 'Oro\Bundle\WirecardBundle\Method\View\Provider\WirecardSeamlessPaypalViewProvider'
+        class: 'Oro\Bundle\WirecardBundle\Method\View\Provider\WirecardSeamlessPayPalViewProvider'
         public: false
         arguments:
             - '@oro_wirecard.method.view.factory.wirecard_seamless.paypal'

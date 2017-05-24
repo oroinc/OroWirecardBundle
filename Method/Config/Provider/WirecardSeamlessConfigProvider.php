@@ -2,11 +2,12 @@
 
 namespace Oro\Bundle\WirecardBundle\Method\Config\Provider;
 
+use Psr\Log\LoggerInterface;
 use Doctrine\Common\Persistence\ManagerRegistry;
+
 use Oro\Bundle\WirecardBundle\Entity\WirecardSeamlessSettings;
 use Oro\Bundle\WirecardBundle\Method\Config\Factory\WirecardSeamlessConfigFactoryInterface;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessConfigInterface;
-use Psr\Log\LoggerInterface;
 
 abstract class WirecardSeamlessConfigProvider implements WirecardSeamlessConfigProviderInterface
 {
@@ -36,10 +37,10 @@ abstract class WirecardSeamlessConfigProvider implements WirecardSeamlessConfigP
     abstract public function getPaymentConfigs();
 
     /**
-     * @param ManagerRegistry                        $doctrine
-     * @param LoggerInterface                        $logger
+     * @param ManagerRegistry $doctrine
+     * @param LoggerInterface $logger
      * @param WirecardSeamlessConfigFactoryInterface $factory
-     * @param string                                 $type
+     * @param string $type
      */
     public function __construct(
         ManagerRegistry $doctrine,

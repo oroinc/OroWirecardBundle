@@ -25,7 +25,7 @@ class AjaxWirecardControllerTest extends WebTestCase
         $this->loadFixtures(
             [
                 LoadCustomerUserData::class,
-                LoadCheckoutData::class
+                LoadCheckoutData::class,
             ]
         );
     }
@@ -44,14 +44,14 @@ class AjaxWirecardControllerTest extends WebTestCase
                 'oro_wirecard_frontend_seamless_initiate',
                 [
                     'id' => $checkout->getId(),
-                    'paymentMethod' => $paymentMethodIdentifier
+                    'paymentMethod' => $paymentMethodIdentifier,
                 ]
             )
         );
 
         $expectedData = [
             'storageId' => WirecardSeamlessMethodStub::TEST_STORAGE_ID,
-            'javascriptURL' => WirecardSeamlessMethodStub::TEST_JAVASCRIPT_URL
+            'javascriptURL' => WirecardSeamlessMethodStub::TEST_JAVASCRIPT_URL,
         ];
 
         $result = $this->client->getResponse();

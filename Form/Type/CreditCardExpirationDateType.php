@@ -12,8 +12,7 @@ class CreditCardExpirationDateType extends AbstractType
     const YEAR_PERIOD = 10;
 
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -44,7 +43,7 @@ class CreditCardExpirationDateType extends AbstractType
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getName()
     {

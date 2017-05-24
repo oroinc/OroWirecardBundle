@@ -11,7 +11,7 @@ class PaymentTransactionProvider extends BasePaymentTransactionProvider
     /**
      * @param object $object
      * @param string $paymentMethod
-     * @return PaymentTransaction
+     * @return PaymentTransaction|null
      */
     public function getActiveInitiatePaymentTransaction($object, $paymentMethod)
     {
@@ -21,10 +21,10 @@ class PaymentTransactionProvider extends BasePaymentTransactionProvider
         }
 
         $criteria = [
-                'active' => true,
-                'action' => WirecardSeamlessInitiateAwarePaymentMethod::INITIATE,
-                'paymentMethod' => (string) $paymentMethod,
-                'frontendOwner' => $customerUser,
+            'active' => true,
+            'action' => WirecardSeamlessInitiateAwarePaymentMethod::INITIATE,
+            'paymentMethod' => (string)$paymentMethod,
+            'frontendOwner' => $customerUser,
         ];
 
         return $this->getPaymentTransaction($object, $criteria);
