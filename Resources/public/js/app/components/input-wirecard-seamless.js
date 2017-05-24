@@ -3,6 +3,7 @@ define(function(require) {
 
     var WirecardPaymentDataInputComponent;
     var _ = require('underscore');
+    var __ = require('orotranslation/js/translator');
     var $ = require('jquery');
     var mediator = require('oroui/js/mediator');
     var routing = require('routing');
