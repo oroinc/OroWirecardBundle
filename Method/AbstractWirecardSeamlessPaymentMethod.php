@@ -123,7 +123,7 @@ abstract class AbstractWirecardSeamlessPaymentMethod implements PaymentMethodInt
         }
 
         $paymentTransaction
-            ->setActive($response->isSuccessful())
+            ->setActive(false)
             ->setSuccessful($response->isSuccessful());
     }
 
