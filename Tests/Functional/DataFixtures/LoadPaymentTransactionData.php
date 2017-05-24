@@ -38,10 +38,10 @@ class LoadPaymentTransactionData extends AbstractFixture implements DependentFix
             'frontendOwner' => LoadCustomerUserData::EMAIL,
             'response' => [
                 'storageId' => 'storageId',
-                'javascriptUrl' => 'javascriptUrl'
+                'javascriptUrl' => 'javascriptUrl',
             ],
             'channel_reference' => 'wirecard:channel_1',
-            'method_prefix' => 'wirecard_seamless_credit_card'
+            'method_prefix' => 'wirecard_seamless_credit_card',
         ],
         self::WIRECARD_PURCHASE_TRANSACTION => [
             'amount' => '1000.00',
@@ -52,7 +52,7 @@ class LoadPaymentTransactionData extends AbstractFixture implements DependentFix
             'frontendOwner' => LoadCustomerUserData::EMAIL,
             'response' => [],
             'channel_reference' => 'wirecard:channel_1',
-            'method_prefix' => 'wirecard_seamless_credit_card'
+            'method_prefix' => 'wirecard_seamless_credit_card',
         ],
         self::WIRECARD_PURCHASE_TRANSACTION_IP_FILTER => [
             'amount' => '1000.00',
@@ -63,7 +63,7 @@ class LoadPaymentTransactionData extends AbstractFixture implements DependentFix
             'frontendOwner' => LoadCustomerUserData::EMAIL,
             'response' => [],
             'channel_reference' => 'wirecard:channel_1',
-            'method_prefix' => 'wirecard_seamless_credit_card'
+            'method_prefix' => 'wirecard_seamless_credit_card',
         ],
     ];
 

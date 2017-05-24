@@ -39,8 +39,10 @@ class PaymentMethodParamConverter implements ParamConverterInterface
 
         if ($this->methodProvider->hasPaymentMethod($paymentMethodIdentifier)) {
             $request->attributes->set($param, $this->methodProvider->getPaymentMethod($paymentMethodIdentifier));
+
             return true;
         }
+
         return false;
     }
 

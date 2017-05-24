@@ -2,36 +2,40 @@
 
 namespace Oro\Bundle\WirecardBundle\Method\View;
 
+use Symfony\Component\Form\FormFactoryInterface;
+
 use Oro\Bundle\PaymentBundle\Context\PaymentContextInterface;
 use Oro\Bundle\PaymentBundle\Method\View\PaymentMethodViewInterface;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessConfigInterface;
-use Symfony\Component\Form\FormFactoryInterface;
 
 abstract class WirecardSeamlessView implements PaymentMethodViewInterface
 {
     const INITIATE_ROUTE = 'oro_wirecard_frontend_seamless_initiate';
 
-    /** @var FormFactoryInterface */
+    /**
+     * @var FormFactoryInterface
+     */
     protected $formFactory;
 
-    /** @var WirecardSeamlessConfigInterface */
+    /**
+     * @var WirecardSeamlessConfigInterface
+     */
     protected $config;
 
-    public function __construct(
-        FormFactoryInterface $formFactory,
-        WirecardSeamlessConfigInterface $config
-    ) {
+    /**
+     * @param FormFactoryInterface $formFactory
+     * @param WirecardSeamlessConfigInterface $config
+     */
+    public function __construct(FormFactoryInterface $formFactory, WirecardSeamlessConfigInterface $config)
+    {
         $this->config = $config;
         $this->formFactory = $formFactory;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getFormTypeClass()
-    {
-        return null;
-    }
+    abstract public function getFormTypeClass();
 
     /**
      * @param PaymentContextInterface $context
@@ -43,14 +47,14 @@ abstract class WirecardSeamlessView implements PaymentMethodViewInterface
         $formTypeClass = $this->getFormTypeClass();
         $formView = null;
         if ($formTypeClass !== null) {
-            $formView = $this->formFactory->create($this->getFormTypeClass())->createView();
+            $formView = $this->formFactory->create($formTypeClass)->createView();
         }
 
         $viewOptions = [
             'formView' => $formView,
             'paymentMethod' => $this->config->getPaymentMethodIdentifier(),
             'sourceEntityId' => $context->getSourceEntityIdentifier(),
-            'initiatePaymentMethodRoute' => static::INITIATE_ROUTE
+            'initiatePaymentMethodRoute' => static::INITIATE_ROUTE,
         ];
 
         return $viewOptions;

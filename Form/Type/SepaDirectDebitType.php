@@ -14,8 +14,7 @@ class SepaDirectDebitType extends AbstractType
     const NAME = 'oro_wirecard_seamless_sepa_direct_debit';
 
     /**
-     * @param FormBuilderInterface $formBuilder
-     * @param array                $options
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $formBuilder, array $options)
     {
@@ -86,7 +85,7 @@ class SepaDirectDebitType extends AbstractType
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getName()
     {

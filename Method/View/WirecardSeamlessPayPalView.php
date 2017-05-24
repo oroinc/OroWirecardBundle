@@ -2,8 +2,16 @@
 
 namespace Oro\Bundle\WirecardBundle\Method\View;
 
-class WirecardSeamlessPaypalView extends WirecardSeamlessView
+class WirecardSeamlessPayPalView extends WirecardSeamlessView
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function getFormTypeClass()
+    {
+        return null;
+    }
+
     /**
      * {@inheritdoc}
      */

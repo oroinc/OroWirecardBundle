@@ -124,7 +124,7 @@ abstract class WirecardSeamlessConfigFactory
      *
      * @return string
      */
-    protected function getAdminLabel(Channel $channel, $suffix = '')
+    protected function getAdminLabel(Channel $channel, $suffix)
     {
         return sprintf('%s - %s', $channel->getName(), $suffix);
     }

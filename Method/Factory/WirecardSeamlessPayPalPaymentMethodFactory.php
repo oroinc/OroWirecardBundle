@@ -4,10 +4,10 @@ namespace Oro\Bundle\WirecardBundle\Method\Factory;
 
 use Oro\Bundle\PaymentBundle\Method\PaymentMethodInterface;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessPayPalConfigInterface;
-use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessPaypalPaymentMethod;
+use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessPayPalPaymentMethod;
 
-class WirecardSeamlessPaypalPaymentMethodFactory extends WirecardSeamlessPaymentMethodFactory implements
-    WirecardSeamlessPaypalPaymentMethodFactoryInterface
+class WirecardSeamlessPayPalPaymentMethodFactory extends WirecardSeamlessPaymentMethodFactory implements
+    WirecardSeamlessPayPalPaymentMethodFactoryInterface
 {
     /**
      * @param WirecardSeamlessPayPalConfigInterface $config
@@ -16,7 +16,7 @@ class WirecardSeamlessPaypalPaymentMethodFactory extends WirecardSeamlessPayment
      */
     public function create(WirecardSeamlessPayPalConfigInterface $config)
     {
-        return new WirecardSeamlessPaypalPaymentMethod(
+        return new WirecardSeamlessPayPalPaymentMethod(
             $config,
             $this->transactionProvider,
             $this->gateway,

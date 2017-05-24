@@ -3,9 +3,9 @@
 namespace Oro\Bundle\WirecardBundle\Method;
 
 use Oro\Bundle\PaymentBundle\Entity\PaymentTransaction;
-use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\InitPaypalPaymentRequest;
+use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\InitPayPalPaymentRequest;
 
-class WirecardSeamlessPaypalPaymentMethod extends AbstractWirecardSeamlessPaymentMethod
+class WirecardSeamlessPayPalPaymentMethod extends AbstractWirecardSeamlessPaymentMethod
 {
     const TYPE = 'PAYPAL';
 
@@ -18,9 +18,7 @@ class WirecardSeamlessPaypalPaymentMethod extends AbstractWirecardSeamlessPaymen
     }
 
     /**
-     * @param PaymentTransaction $paymentTransaction
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function purchase(PaymentTransaction $paymentTransaction)
     {
@@ -29,12 +27,13 @@ class WirecardSeamlessPaypalPaymentMethod extends AbstractWirecardSeamlessPaymen
             $this->getShippingInfo($paymentTransaction)
         );
 
-        $request = new InitPaypalPaymentRequest();
+        $request = new InitPayPalPaymentRequest();
 
         $response = $this->doRequest($request, $options);
 
         $paymentTransaction
             ->setRequest($options)
+            ->setActive(true)
             ->setResponse($response->getData());
 
         $redirectUrl = $response->getRedirectUrl();

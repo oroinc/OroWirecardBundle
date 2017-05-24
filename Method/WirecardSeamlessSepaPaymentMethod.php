@@ -36,6 +36,7 @@ class WirecardSeamlessSepaPaymentMethod extends WirecardSeamlessInitiateAwarePay
 
         $paymentTransaction
             ->setRequest($options)
+            ->setActive(true)
             ->setResponse($response->getData());
 
         $redirectUrl = $response->getRedirectUrl();

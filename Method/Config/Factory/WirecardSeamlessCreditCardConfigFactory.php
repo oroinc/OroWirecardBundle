@@ -27,7 +27,7 @@ class WirecardSeamlessCreditCardConfigFactory extends WirecardSeamlessConfigFact
             WirecardSeamlessCreditCardConfig::CREDENTIALS_KEY => $this->getCredentials($settings),
             WirecardSeamlessCreditCardConfig::LANGUAGE_KEY => $this->getLanguageCode(),
             WirecardSeamlessCreditCardConfig::HASHING_METHOD_KEY => $this->getHashingMethod(),
-            WirecardSeamlessCreditCardConfig::TEST_MODE_KEY => $settings->getTestMode(),
+            WirecardSeamlessCreditCardConfig::TEST_MODE_KEY => $settings->isWcTestMode(),
         ];
 
         return new WirecardSeamlessCreditCardConfig($params);

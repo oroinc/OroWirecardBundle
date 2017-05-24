@@ -3,7 +3,7 @@
 namespace Oro\Bundle\WirecardBundle\Wirecard\Seamless\Hochstrasser\NativeRequestBuilder;
 
 use Hochstrasser\Wirecard\Request\Seamless\Frontend\InitPaymentRequest as WirecardInitPaymentRequest;
-use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\InitPaypalPaymentRequest;
+use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\InitPayPalPaymentRequest;
 
 class InitPayPalPaymentNativeRequestBuilder extends AbstractNativeRequestBuilder
 {
@@ -27,6 +27,6 @@ class InitPayPalPaymentNativeRequestBuilder extends AbstractNativeRequestBuilder
      */
     public function getRequestIdentifier()
     {
-        return InitPaypalPaymentRequest::IDENTIFIER;
+        return InitPayPalPaymentRequest::IDENTIFIER;
     }
 }

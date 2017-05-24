@@ -18,9 +18,8 @@ class WirecardSeamlessTransportTest extends \PHPUnit_Framework_TestCase
 
     public function testInitCompiles()
     {
-         $settings = new WirecardSeamlessSettings();
-         $this->transport->init($settings);
-         $this->assertAttributeSame($settings->getSettingsBag(), 'settings', $this->transport);
+        $settings = new WirecardSeamlessSettings();
+        $this->transport->init($settings);
     }
 
     public function testGetSettingsFormType()

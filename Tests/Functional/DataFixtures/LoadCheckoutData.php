@@ -28,8 +28,8 @@ class LoadCheckoutData extends AbstractFixture implements DependentFixtureInterf
         [
             'name' => 'checkout1',
             'customerUserRef' => LoadCustomerUserData::EMAIL,
-            'reference' => 'wirecard:checkout_1'
-        ]
+            'reference' => 'wirecard:checkout_1',
+        ],
     ];
 
     /**

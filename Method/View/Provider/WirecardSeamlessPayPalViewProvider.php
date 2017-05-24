@@ -3,25 +3,25 @@
 namespace Oro\Bundle\WirecardBundle\Method\View\Provider;
 
 use Oro\Bundle\PaymentBundle\Method\View\AbstractPaymentMethodViewProvider;
-use Oro\Bundle\WirecardBundle\Method\Config\Provider\WirecardSeamlessPaypalConfigProviderInterface;
+use Oro\Bundle\WirecardBundle\Method\Config\Provider\WirecardSeamlessPayPalConfigProviderInterface;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessPayPalConfigInterface;
-use Oro\Bundle\WirecardBundle\Method\View\Factory\WirecardSeamlessPaypalViewFactoryInterface;
+use Oro\Bundle\WirecardBundle\Method\View\Factory\WirecardSeamlessPayPalViewFactoryInterface;
 
-class WirecardSeamlessPaypalViewProvider extends AbstractPaymentMethodViewProvider
+class WirecardSeamlessPayPalViewProvider extends AbstractPaymentMethodViewProvider
 {
-    /** @var WirecardSeamlessPaypalViewFactoryInterface */
+    /** @var WirecardSeamlessPayPalViewFactoryInterface */
     private $factory;
 
-    /** @var WirecardSeamlessPaypalConfigProviderInterface */
+    /** @var WirecardSeamlessPayPalConfigProviderInterface */
     private $configProvider;
 
     /**
-     * @param WirecardSeamlessPaypalViewFactoryInterface    $factory
-     * @param WirecardSeamlessPaypalConfigProviderInterface $configProvider
+     * @param WirecardSeamlessPayPalViewFactoryInterface $factory
+     * @param WirecardSeamlessPayPalConfigProviderInterface $configProvider
      */
     public function __construct(
-        WirecardSeamlessPaypalViewFactoryInterface $factory,
-        WirecardSeamlessPaypalConfigProviderInterface $configProvider
+        WirecardSeamlessPayPalViewFactoryInterface $factory,
+        WirecardSeamlessPayPalConfigProviderInterface $configProvider
     ) {
         $this->factory = $factory;
         $this->configProvider = $configProvider;
@@ -36,14 +36,14 @@ class WirecardSeamlessPaypalViewProvider extends AbstractPaymentMethodViewProvid
     {
         $configs = $this->configProvider->getPaymentConfigs();
         foreach ($configs as $config) {
-            $this->addPaypalView($config);
+            $this->addPayPalView($config);
         }
     }
 
     /**
      * @param WirecardSeamlessPayPalConfigInterface $config
      */
-    protected function addPaypalView(WirecardSeamlessPayPalConfigInterface $config)
+    protected function addPayPalView(WirecardSeamlessPayPalConfigInterface $config)
     {
         $this->addView(
             $config->getPaymentMethodIdentifier(),

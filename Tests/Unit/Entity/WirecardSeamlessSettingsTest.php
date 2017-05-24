@@ -16,9 +16,9 @@ class WirecardSeamlessSettingsTest extends \PHPUnit_Framework_TestCase
     public function testAccessors()
     {
         static::assertPropertyAccessors(new WirecardSeamlessSettings(), [
-            ['customerId', 'some string'],
-            ['shopId', 'some string'],
-            ['secret', 'some string'],
+            ['customerId', 'some string', false],
+            ['shopId', 'some string', false],
+            ['secret', 'some string', false],
             ['wcTestMode', false],
         ]);
         static::assertPropertyCollections(new WirecardSeamlessSettings(), [
@@ -40,7 +40,7 @@ class WirecardSeamlessSettingsTest extends \PHPUnit_Framework_TestCase
                 'customerId' => 'some customerId',
                 'shopId' => 'some shopId',
                 'secret' => 'some secret',
-                'testMode' => false,
+                'wcTestMode' => false,
                 'creditCardLabels' => [(new LocalizedFallbackValue())->setString('label')],
                 'creditCardShortLabels' => [(new LocalizedFallbackValue())->setString('lbl')],
                 'paypalLabels' => [(new LocalizedFallbackValue())->setString('label')],

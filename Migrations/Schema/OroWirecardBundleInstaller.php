@@ -28,16 +28,16 @@ class OroWirecardBundleInstaller implements Installation
         /** Tables generation **/
         $this->createOroWirecardSeamlessCreditCardLblTable($schema);
         $this->createOroWirecardSeamlessCreditCardShLblTable($schema);
-        $this->createOroWirecardSeamlessPaypalLblTable($schema);
-        $this->createOroWirecardSeamlessPaypalShLblTable($schema);
+        $this->createOroWirecardSeamlessPayPalLblTable($schema);
+        $this->createOroWirecardSeamlessPayPalShLblTable($schema);
         $this->createOroWirecardSeamlessSepaLblTable($schema);
         $this->createOroWirecardSeamlessSepaShLblTable($schema);
 
         /** Foreign keys generation **/
         $this->addOroWirecardSeamlessCreditCardLblForeignKeys($schema);
         $this->addOroWirecardSeamlessCreditCardShLblForeignKeys($schema);
-        $this->addOroWirecardSeamlessPaypalLblForeignKeys($schema);
-        $this->addOroWirecardSeamlessPaypalShLblForeignKeys($schema);
+        $this->addOroWirecardSeamlessPayPalLblForeignKeys($schema);
+        $this->addOroWirecardSeamlessPayPalShLblForeignKeys($schema);
         $this->addOroWirecardSeamlessSepaLblForeignKeys($schema);
         $this->addOroWirecardSeamlessSepaShLblForeignKeys($schema);
     }
@@ -87,7 +87,7 @@ class OroWirecardBundleInstaller implements Installation
      *
      * @param Schema $schema
      */
-    protected function createOroWirecardSeamlessPaypalLblTable(Schema $schema)
+    protected function createOroWirecardSeamlessPayPalLblTable(Schema $schema)
     {
         $table = $schema->createTable('oro_wcs_paypal_lbl');
         $table->addColumn('transport_id', 'integer', []);
@@ -101,7 +101,7 @@ class OroWirecardBundleInstaller implements Installation
      *
      * @param Schema $schema
      */
-    protected function createOroWirecardSeamlessPaypalShLblTable(Schema $schema)
+    protected function createOroWirecardSeamlessPayPalShLblTable(Schema $schema)
     {
         $table = $schema->createTable('oro_wcs_paypal_sh_lbl');
         $table->addColumn('transport_id', 'integer', []);
@@ -187,7 +187,7 @@ class OroWirecardBundleInstaller implements Installation
      *
      * @param Schema $schema
      */
-    protected function addOroWirecardSeamlessPaypalLblForeignKeys(Schema $schema)
+    protected function addOroWirecardSeamlessPayPalLblForeignKeys(Schema $schema)
     {
         $table = $schema->getTable('oro_wcs_paypal_lbl');
         $table->addForeignKeyConstraint(
@@ -209,7 +209,7 @@ class OroWirecardBundleInstaller implements Installation
      *
      * @param Schema $schema
      */
-    protected function addOroWirecardSeamlessPaypalShLblForeignKeys(Schema $schema)
+    protected function addOroWirecardSeamlessPayPalShLblForeignKeys(Schema $schema)
     {
         $table = $schema->getTable('oro_wcs_paypal_sh_lbl');
         $table->addForeignKeyConstraint(

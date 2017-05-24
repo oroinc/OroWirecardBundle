@@ -3,29 +3,29 @@
 namespace Oro\Bundle\WirecardBundle\Method\Provider;
 
 use Oro\Bundle\PaymentBundle\Method\Provider\AbstractPaymentMethodProvider;
-use Oro\Bundle\WirecardBundle\Method\Config\Provider\WirecardSeamlessPaypalConfigProviderInterface;
+use Oro\Bundle\WirecardBundle\Method\Config\Provider\WirecardSeamlessPayPalConfigProviderInterface;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessPayPalConfigInterface;
-use Oro\Bundle\WirecardBundle\Method\Factory\WirecardSeamlessPaypalPaymentMethodFactoryInterface;
+use Oro\Bundle\WirecardBundle\Method\Factory\WirecardSeamlessPayPalPaymentMethodFactoryInterface;
 
-class WirecardSeamlessPaypalMethodProvider extends AbstractPaymentMethodProvider
+class WirecardSeamlessPayPalMethodProvider extends AbstractPaymentMethodProvider
 {
     /**
-     * @var WirecardSeamlessPaypalPaymentMethodFactoryInterface
+     * @var WirecardSeamlessPayPalPaymentMethodFactoryInterface
      */
     private $factory;
 
     /**
-     * @var WirecardSeamlessPaypalConfigProviderInterface
+     * @var WirecardSeamlessPayPalConfigProviderInterface
      */
     private $configProvider;
 
     /**
-     * @param WirecardSeamlessPaypalConfigProviderInterface       $configProvider
-     * @param WirecardSeamlessPaypalPaymentMethodFactoryInterface $factory
+     * @param WirecardSeamlessPayPalConfigProviderInterface $configProvider
+     * @param WirecardSeamlessPayPalPaymentMethodFactoryInterface $factory
      */
     public function __construct(
-        WirecardSeamlessPaypalConfigProviderInterface $configProvider,
-        WirecardSeamlessPaypalPaymentMethodFactoryInterface $factory
+        WirecardSeamlessPayPalConfigProviderInterface $configProvider,
+        WirecardSeamlessPayPalPaymentMethodFactoryInterface $factory
     ) {
         parent::__construct();
         $this->configProvider = $configProvider;
@@ -39,14 +39,14 @@ class WirecardSeamlessPaypalMethodProvider extends AbstractPaymentMethodProvider
     {
         $configs = $this->configProvider->getPaymentConfigs();
         foreach ($configs as $config) {
-            $this->addPaypalMethod($config);
+            $this->addPayPalMethod($config);
         }
     }
 
     /**
      * @param WirecardSeamlessPayPalConfigInterface $config
      */
-    protected function addPaypalMethod(WirecardSeamlessPayPalConfigInterface $config)
+    protected function addPayPalMethod(WirecardSeamlessPayPalConfigInterface $config)
     {
         $this->addMethod(
             $config->getPaymentMethodIdentifier(),
