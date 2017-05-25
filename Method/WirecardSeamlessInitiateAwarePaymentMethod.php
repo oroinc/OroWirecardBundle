@@ -10,8 +10,6 @@ use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\InitPaymentRequest;
 abstract class WirecardSeamlessInitiateAwarePaymentMethod extends AbstractWirecardSeamlessPaymentMethod implements
     WirecardSeamlessInitiateAwarePaymentMethodInterface
 {
-    const INITIATE = 'initiate';
-
     /**
      * @param PaymentTransaction $paymentTransaction
      */

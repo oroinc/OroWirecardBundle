@@ -14,6 +14,7 @@ use Oro\Bundle\PaymentBundle\Provider\ExtractOptionsProvider;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessConfigInterface;
 use Oro\Bundle\WirecardBundle\Method\AbstractWirecardSeamlessPaymentMethod;
 use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessInitiateAwarePaymentMethod;
+use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessInitiateAwarePaymentMethodInterface;
 use Oro\Bundle\WirecardBundle\Provider\PaymentTransactionProvider;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\GatewayInterface;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option;
@@ -114,7 +115,7 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
     public function testExecute()
     {
         $transaction = new PaymentTransaction();
-        $transaction->setAction(WirecardSeamlessInitiateAwarePaymentMethod::INITIATE);
+        $transaction->setAction(WirecardSeamlessInitiateAwarePaymentMethodInterface::INITIATE);
 
         $this->configureCredentials();
         $this->configureLanguageCode();
@@ -163,7 +164,7 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
     public function supportsDataProvider()
     {
         return [
-            [true, WirecardSeamlessInitiateAwarePaymentMethod::INITIATE],
+            [true, WirecardSeamlessInitiateAwarePaymentMethodInterface::INITIATE],
             [true, PaymentMethodInterface::PURCHASE],
             [true, WirecardSeamlessInitiateAwarePaymentMethod::COMPLETE],
         ];
@@ -200,7 +201,7 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
         $this->configureLanguageCode();
 
         $transaction = new PaymentTransaction();
-        $transaction->setAction(WirecardSeamlessInitiateAwarePaymentMethod::INITIATE);
+        $transaction->setAction(WirecardSeamlessInitiateAwarePaymentMethodInterface::INITIATE);
         $transaction->setPaymentMethod('payment_method');
 
         $response = $this->getMockBuilder(WirecardResponse::class)
@@ -230,7 +231,7 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
         $this->configureLanguageCode();
 
         $transaction = new PaymentTransaction();
-        $transaction->setAction(WirecardSeamlessInitiateAwarePaymentMethod::INITIATE);
+        $transaction->setAction(WirecardSeamlessInitiateAwarePaymentMethodInterface::INITIATE);
         $transaction->setPaymentMethod('payment_method');
 
         $response = $this->getMockBuilder(WirecardResponse::class)
@@ -325,7 +326,7 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
             ->willReturn($order);
 
         $initiateTransaction = new PaymentTransaction();
-        $initiateTransaction->setAction(WirecardSeamlessInitiateAwarePaymentMethod::INITIATE);
+        $initiateTransaction->setAction(WirecardSeamlessInitiateAwarePaymentMethodInterface::INITIATE);
         $initiateTransaction->setPaymentMethod('payment_method');
         $initiateTransaction->setRequest([Option\OrderIdent::ORDERIDENT => 'orderIdent']);
         $initiateTransaction->setResponse([Option\StorageId::STORAGEID => 'storageId']);
@@ -417,7 +418,7 @@ abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_Test
             ->willReturn($order);
 
         $initiateTransaction = new PaymentTransaction();
-        $initiateTransaction->setAction(WirecardSeamlessInitiateAwarePaymentMethod::INITIATE);
+        $initiateTransaction->setAction(WirecardSeamlessInitiateAwarePaymentMethodInterface::INITIATE);
         $initiateTransaction->setPaymentMethod('payment_method');
         $initiateTransaction->setRequest([Option\OrderIdent::ORDERIDENT => 'orderIdent']);
         $initiateTransaction->setResponse([Option\StorageId::STORAGEID => 'storageId']);
