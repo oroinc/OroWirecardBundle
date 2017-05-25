@@ -4,11 +4,10 @@ namespace Oro\Bundle\WirecardBundle\Tests\Functional\Stub\Method;
 
 use Oro\Bundle\PaymentBundle\Context\PaymentContextInterface;
 use Oro\Bundle\PaymentBundle\Entity\PaymentTransaction;
-use Oro\Bundle\PaymentBundle\Method\PaymentMethodInterface;
 use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessInitiateAwarePaymentMethod;
-use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\RequestInterface;
+use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessInitiateAwarePaymentMethodInterface;
 
-class WirecardSeamlessMethodStub extends WirecardSeamlessInitiateAwarePaymentMethod implements PaymentMethodInterface
+class WirecardSeamlessMethodStub implements WirecardSeamlessInitiateAwarePaymentMethodInterface
 {
     const TYPE = 'test_wirecard_seamless';
 
@@ -16,6 +15,18 @@ class WirecardSeamlessMethodStub extends WirecardSeamlessInitiateAwarePaymentMet
 
     const TEST_STORAGE_ID = 'storageId';
     const TEST_JAVASCRIPT_URL = 'javascriptURL';
+
+    /**
+     * {@inheritdoc}
+     */
+    public function execute($action, PaymentTransaction $paymentTransaction)
+    {
+        if (!$this->supports($action)) {
+            throw new \InvalidArgumentException(sprintf('Unsupported action "%s"', $action));
+        }
+
+        return $this->{$action}($paymentTransaction) ?: [];
+    }
 
     /**
      * {@inheritDoc}
@@ -46,15 +57,6 @@ class WirecardSeamlessMethodStub extends WirecardSeamlessInitiateAwarePaymentMet
     /**
      * {@inheritDoc}
      */
-    protected function doRequest(RequestInterface $request, array $options)
-    {
-        throw new \RuntimeException('This method should never be calld in test env');
-    }
-
-
-    /**
-     * {@inheritDoc}
-     */
     public function getIdentifier()
     {
         return static::TYPE;
@@ -74,13 +76,5 @@ class WirecardSeamlessMethodStub extends WirecardSeamlessInitiateAwarePaymentMet
     public function supports($actionName)
     {
         return in_array($actionName, [WirecardSeamlessInitiateAwarePaymentMethod::INITIATE, self::PURCHASE], true);
-    }
-
-    /**
-     * @return string
-     */
-    public function getWirecardPaymentType()
-    {
-        return self::TYPE;
     }
 }
