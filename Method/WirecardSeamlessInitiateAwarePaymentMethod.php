@@ -2,13 +2,13 @@
 
 namespace Oro\Bundle\WirecardBundle\Method;
 
-use Oro\Bundle\CheckoutBundle\Entity\Checkout;
 use Oro\Bundle\PaymentBundle\Entity\PaymentTransaction;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\InitDataStorageRequest;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\InitPaymentRequest;
 
-abstract class WirecardSeamlessInitiateAwarePaymentMethod extends AbstractWirecardSeamlessPaymentMethod
+abstract class WirecardSeamlessInitiateAwarePaymentMethod extends AbstractWirecardSeamlessPaymentMethod implements
+    WirecardSeamlessInitiateAwarePaymentMethodInterface
 {
     const INITIATE = 'initiate';
 
