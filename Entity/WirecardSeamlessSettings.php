@@ -11,6 +11,7 @@ use Oro\Bundle\LocaleBundle\Entity\LocalizedFallbackValue;
 
 /**
  * @ORM\Entity(repositoryClass="Oro\Bundle\WirecardBundle\Entity\Repository\WirecardSeamlessSettingsRepository")
+ * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  */
 class WirecardSeamlessSettings extends Transport
 {

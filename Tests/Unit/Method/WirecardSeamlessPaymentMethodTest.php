@@ -27,6 +27,9 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
+/**
+ * @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ */
 abstract class WirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_TestCase
 {
     /** @var GatewayInterface|\PHPUnit_Framework_MockObject_MockObject */
