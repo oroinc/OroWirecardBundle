@@ -10,4 +10,5 @@ use Oro\Bundle\PaymentBundle\Method\PaymentMethodInterface;
  */
 interface WirecardSeamlessInitiateAwarePaymentMethodInterface extends PaymentMethodInterface
 {
+    const INITIATE = 'initiate';
 }

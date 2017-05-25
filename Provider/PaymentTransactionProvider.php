@@ -4,7 +4,7 @@ namespace Oro\Bundle\WirecardBundle\Provider;
 
 use Oro\Bundle\PaymentBundle\Entity\PaymentTransaction;
 use Oro\Bundle\PaymentBundle\Provider\PaymentTransactionProvider as BasePaymentTransactionProvider;
-use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessInitiateAwarePaymentMethod;
+use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessInitiateAwarePaymentMethodInterface;
 
 class PaymentTransactionProvider extends BasePaymentTransactionProvider
 {
@@ -22,7 +22,7 @@ class PaymentTransactionProvider extends BasePaymentTransactionProvider
 
         $criteria = [
             'active' => true,
-            'action' => WirecardSeamlessInitiateAwarePaymentMethod::INITIATE,
+            'action' => WirecardSeamlessInitiateAwarePaymentMethodInterface::INITIATE,
             'paymentMethod' => (string)$paymentMethod,
             'frontendOwner' => $customerUser,
         ];

@@ -75,6 +75,10 @@ class WirecardSeamlessMethodStub implements WirecardSeamlessInitiateAwarePayment
      */
     public function supports($actionName)
     {
-        return in_array($actionName, [WirecardSeamlessInitiateAwarePaymentMethod::INITIATE, self::PURCHASE], true);
+        return in_array(
+            $actionName,
+            [WirecardSeamlessInitiateAwarePaymentMethodInterface::INITIATE, self::PURCHASE],
+            true
+        );
     }
 }

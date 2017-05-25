@@ -5,7 +5,7 @@ namespace Oro\Bundle\WirecardBundle\Tests\Functional\DataFixtures;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessInitiateAwarePaymentMethod;
+use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessInitiateAwarePaymentMethodInterface;
 use Oro\Component\Testing\Unit\EntityTrait;
 use Oro\Bundle\PaymentBundle\Entity\PaymentTransaction;
 use Oro\Bundle\PaymentBundle\Method\PaymentMethodInterface;
@@ -32,7 +32,7 @@ class LoadPaymentTransactionData extends AbstractFixture implements DependentFix
         self::WIRECARD_INITIATE_TRANSACTION => [
             'amount' => '0.00',
             'currency' => 'EUR',
-            'action' => WirecardSeamlessInitiateAwarePaymentMethod::INITIATE,
+            'action' => WirecardSeamlessInitiateAwarePaymentMethodInterface::INITIATE,
             'entityIdentifier' => 1,
             'entityClass' => \stdClass::class,
             'frontendOwner' => LoadCustomerUserData::EMAIL,
