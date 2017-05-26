@@ -1,12 +1,12 @@
 {
     "name": "oro/commerce-wirecard",
     "description": "OroCommerce Wirecard integration",
-    "homepage": "",
+    "homepage": "https://github.com/orocommerce/OroWirecardBundle.git",
     "license": "OSL-3.0",
     "authors": [
         {
             "name": "Oro, Inc",
-            "homepage": "http://www.orocrm.com"
+            "homepage": "http://www.orocommerce.com"
         }
     ],
     "autoload": {
