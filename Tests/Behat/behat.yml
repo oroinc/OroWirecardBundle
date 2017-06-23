@@ -1,0 +1,52 @@
+oro_behat_extension:
+  elements:
+    WireCardForm:
+      selector: 'div#container'
+      class: Oro\Bundle\TestFrameworkBundle\Behat\Element\Form
+      options:
+        mapping:
+          Name: 'oro_integration_channel_form[name]'
+          Label: 'oro_integration_channel_form[transport][creditCardLabels][values][default]'
+          Credit Card Label: 'oro_integration_channel_form[transport][creditCardLabels][values][default]'
+          Credit Card Short Label: 'oro_integration_channel_form[transport][creditCardShortLabels][values][default]'
+          PayPal Label: 'oro_integration_channel_form[transport][paypalLabels][values][default]'
+          PayPal Short Label: 'oro_integration_channel_form[transport][paypalShortLabels][values][default]'
+          SEPA Direct Debit Label: 'oro_integration_channel_form[transport][sepaLabels][values][default]'
+          SEPA Direct Debit Short Label: 'oro_integration_channel_form[transport][sepaShortLabels][values][default]'
+          Customer Id: 'oro_integration_channel_form[transport][customerId]'
+          Shop Id: 'oro_integration_channel_form[transport][shopId]'
+          Secret: 'oro_integration_channel_form[transport][secret]'
+    WireCardCreditCardForm:
+      selector: 'div#container'
+      class: Oro\Bundle\TestFrameworkBundle\Behat\Element\Form
+      options:
+        mapping:
+          Cardholder Name: 'cardholderName'
+          Credit Card Number: 'creditCardNumber'
+          Month: 'oro_wirecard_seamless_credit_card[expirationDate][month]'
+          Year: 'oro_wirecard_seamless_credit_card[expirationDate][year]'
+          CVV: 'cvv'
+    WireCardSEPAForm:
+      selector: 'div#container'
+      class: Oro\Bundle\TestFrameworkBundle\Behat\Element\Form
+      options:
+        mapping:
+          Account owner: 'accountOwner'
+          IBAN: 'bankIban'
+          BIC: 'bankBic'
+
+  suites:
+    OroWirecardBundle:
+      contexts:
+        - Oro\Bundle\TestFrameworkBundle\Tests\Behat\Context\OroMainContext
+        - OroApplicationBundle::CommerceMainContext
+        - OroFormBundle::FeatureContext
+        - OroFormBundle::FormContext
+        - OroConfigBundle::FeatureContext
+        - OroAuthorizeNetBundle::FeatureContext
+        - OroWirecardBundle::FeatureContext
+        - OroCheckoutBundle::FeatureContext
+        - OroShoppingListBundle::ShoppingListContext
+        - OroDataGridBundle::GridContext
+      paths:
+        - '@OroWirecardBundle/Tests/Behat/Features'

@@ -14,7 +14,7 @@ class WirecardIPCheckListener
     /**
      * @var string[]
      */
-    private static $allowedIPs = [
+    protected $allowedIPs = [
         '195.93.244.97',
         '185.60.56.35',
         '185.60.56.36',
@@ -68,7 +68,7 @@ class WirecardIPCheckListener
 
         $requestIp = $masterRequest->getClientIp();
 
-        if (!IpUtils::checkIp($requestIp, self::$allowedIPs)) {
+        if (!IpUtils::checkIp($requestIp, $this->allowedIPs)) {
             $event->markFailed();
         }
     }

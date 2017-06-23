@@ -1,0 +1,40 @@
+services:
+    oro_wirecard.seamless.hochstrasser.client:
+        class: 'Oro\Bundle\WirecardBundle\Tests\Behat\Mock\Client\WirecardHttpClientMock'
+        public: false
+
+    oro_wirecard.event_listener.fake_wirecard_reponse_mock:
+         class: 'Oro\Bundle\WirecardBundle\Tests\Behat\Mock\EventListener\WirecardOuterRedirectEventListener'
+         arguments:
+             - '@router'
+             - '@oro_entity.doctrine_helper'
+             - '@http_kernel'
+         tags:
+             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+    oro_wirecard.event_listener.callback.ip_check.wirecard_seamless.credit_card:
+        class: 'Oro\Bundle\WirecardBundle\Tests\Behat\Mock\EventListener\Callback\WirecardIPCheckListenerMock'
+        lazy: true
+        arguments:
+            - '@oro_wirecard.method.provider.wirecard_seamless.credit_card'
+            - '@request_stack'
+        tags:
+            - { name: kernel.event_listener, event: oro_payment.callback.notify, method: onNotify, priority: 255 }
+
+    oro_wirecard.event_listener.callback.ip_check.wirecard_seamless.paypal:
+        class: 'Oro\Bundle\WirecardBundle\Tests\Behat\Mock\EventListener\Callback\WirecardIPCheckListenerMock'
+        lazy: true
+        arguments:
+            - '@oro_wirecard.method.provider.wirecard_seamless.paypal'
+            - '@request_stack'
+        tags:
+            - { name: kernel.event_listener, event: oro_payment.callback.notify, method: onNotify, priority: 255 }
+
+    oro_wirecard.event_listener.callback.ip_check.wirecard_seamless.sepa_direct_debit:
+        class: 'Oro\Bundle\WirecardBundle\Tests\Behat\Mock\EventListener\Callback\WirecardIPCheckListenerMock'
+        lazy: true
+        arguments:
+            - '@oro_wirecard.method.provider.wirecard_seamless.sepa_direct_debit'
+            - '@request_stack'
+        tags:
+            - { name: kernel.event_listener, event: oro_payment.callback.notify, method: onNotify, priority: 255 }
