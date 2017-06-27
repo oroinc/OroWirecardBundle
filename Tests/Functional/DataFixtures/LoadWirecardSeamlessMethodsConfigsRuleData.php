@@ -10,7 +10,7 @@ use Oro\Bundle\PaymentBundle\Tests\Functional\Entity\DataFixtures\LoadPaymentMet
 use Oro\Bundle\TestFrameworkBundle\Test\DataFixtures\AbstractFixture;
 use Oro\Bundle\WirecardBundle\Tests\Functional\Stub\Method\WirecardSeamlessMethodStub;
 
-class LoadWirecardMethodsConfigsRuleData extends AbstractFixture implements DependentFixtureInterface
+class LoadWirecardSeamlessMethodsConfigsRuleData extends AbstractFixture implements DependentFixtureInterface
 {
     /**
      * {@inheritDoc}
