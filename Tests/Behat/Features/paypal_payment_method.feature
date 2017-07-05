@@ -1,5 +1,5 @@
 @fixture-OroFlatRateShippingBundle:FlatRateIntegration.yml
-@fixture-WireCardPaymentFixture.yml
+@fixture-OroWirecardBundle:WireCardPaymentFixture.yml
 Feature: Process order submission with WireCard PayPal payment method
   Scenario: Create new  WireCard Integration
     Given I login as administrator
