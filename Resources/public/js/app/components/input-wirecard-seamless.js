@@ -70,24 +70,37 @@ define(function(require) {
          * @param {String} elementSelector
          */
         validate: function(elementSelector) {
-            var virtualForm = $('<form>');
-
             var appendElement;
             if (elementSelector) {
-                appendElement = this.$form.find(elementSelector).clone();
+                var element = this.$form.find(elementSelector);
+                var parentForm = element.closest('form');
+
+                if (parentForm.length) {
+                    return element.validate().form();
+                }
+
+                appendElement = element.clone();
             } else {
                 appendElement = this.$form.clone();
             }
 
+            var virtualForm = $('<form>');
             virtualForm.append(appendElement);
 
             var self = this;
-            // should be refactored in scope https://magecore.atlassian.net/browse/BB-10308
             var validator = virtualForm.validate({
                 ignore: '', // required to validate all fields in virtual form
                 errorPlacement: function(error, element) {
                     var $el = self.$form.find('#' + $(element).attr('id'));
-                    $.validator.defaults.errorPlacement(error, $el);
+                    var parentWithValidation = $el.parents(self.options.validationSelector);
+
+                    $el.addClass('error');
+
+                    if (parentWithValidation.length) {
+                        error.appendTo(parentWithValidation.first());
+                    } else {
+                        error.appendTo($el.parent());
+                    }
                 }
             });
 
