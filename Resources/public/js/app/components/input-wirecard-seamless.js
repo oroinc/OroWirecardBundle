@@ -75,7 +75,7 @@ define(function(require) {
                 var element = this.$form.find(elementSelector);
                 var parentForm = element.closest('form');
 
-                if (parentForm.length) {
+                if (elementSelector !== this.options.selectors.expirationDate && parentForm.length) {
                     return element.validate().form();
                 }
 
