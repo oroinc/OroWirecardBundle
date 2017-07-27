@@ -1,3 +1,0 @@
-config:
-    paths:
-        'orowirecard/js/app/components/input-wirecard-seamless-wirecard-datastorage-mock': 'bundles/orowirecard/js/stubs/wirecard-data-storage-mock.js'
