@@ -70,15 +70,21 @@ define(function(require) {
          * @param {String} elementSelector
          */
         validate: function(elementSelector) {
-            var virtualForm = $('<form>');
-
             var appendElement;
             if (elementSelector) {
-                appendElement = this.$form.find(elementSelector).clone();
+                var element = this.$form.find(elementSelector);
+                var parentForm = element.closest('form');
+
+                if (elementSelector !== this.options.selectors.expirationDate && parentForm.length) {
+                    return element.validate().form();
+                }
+
+                appendElement = element.clone();
             } else {
                 appendElement = this.$form.clone();
             }
 
+            var virtualForm = $('<form>');
             virtualForm.append(appendElement);
 
             var self = this;
