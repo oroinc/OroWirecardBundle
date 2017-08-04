@@ -11,12 +11,12 @@
 {% endblock %}
 
 {% block _payment_methods_wirecard_seamless_input_widget %}
-    <div class="{{ class_prefix }}__form__payment-methods"
+    <div class="{{ class_prefix }}-form__payment-methods"
          data-page-component-module="{{ pageComponent }}"
          data-page-component-options="{{ {sourceEntityId: options.sourceEntityId,
              paymentMethod: options.paymentMethod,
              initiatePaymentMethodRoute: options.initiatePaymentMethodRoute}|json_encode }}">
-        <div class="{{ class_prefix }}__form__payment-methods__form"
+        <div class="{{ class_prefix }}-form__payment-methods-form"
              data-wirecard-form="data-wirecard-form">
             {% for child in options.formView.children %}
                 <div class="{{ class_prefix }}__form__row">
@@ -29,8 +29,8 @@
 {% endblock %}
 
 {% block _payment_methods_wirecard_seamless_paypal_widget %}
-    <div class="{{ class_prefix }}__form__payment-methods">
-        <img src="{% image '@OroWirecardBundle/Resources/public/default/images/pp-express-checkout-method.png' %}{{ asset_url }}{% endimage %}">
+    <div class="{{ class_prefix }}-form__payment-methods">
+        <img class="checkout-form__img" src="{% image '@OroWirecardBundle/Resources/public/default/images/pp-express-checkout-method.png' %}{{ asset_url }}{% endimage %}">
         <div>{{ 'oro.wirecard.paypal.redirect_to_paypal'|trans|nl2br }}</div>
     </div>
 {% endblock %}
