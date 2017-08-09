@@ -19,9 +19,7 @@
         <div class="{{ class_prefix }}-form__payment-methods-form"
              data-wirecard-form="data-wirecard-form">
             {% for child in options.formView.children %}
-                <div class="{{ class_prefix }}__form__row">
-                    {{ form_row(child, {class_prefix: class_prefix}) }}
-                </div>
+                {{ form_row(child, {class_prefix: class_prefix}) }}
             {% endfor %}
             <div data-wirecard-errors></div>
         </div>
