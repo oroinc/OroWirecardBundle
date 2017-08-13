@@ -1,7 +1,7 @@
 oro_behat_extension:
   elements:
     WireCardForm:
-      selector: 'div#container'
+      selector: 'form[name="oro_integration_channel_form"]'
       class: Oro\Bundle\TestFrameworkBundle\Behat\Element\Form
       options:
         mapping:
@@ -17,7 +17,9 @@ oro_behat_extension:
           Shop Id: 'oro_integration_channel_form[transport][shopId]'
           Secret: 'oro_integration_channel_form[transport][secret]'
     WireCardCreditCardForm:
-      selector: 'div#container'
+      selector:
+        type: 'xpath'
+        locator: '//input[@id[starts-with(.,"oro_wirecard_seamless_credit_card_cardholderName")]]/ancestor::div[contains(@class,"checkout__form__payment-methods__form")]'
       class: Oro\Bundle\TestFrameworkBundle\Behat\Element\Form
       options:
         mapping:
@@ -27,7 +29,9 @@ oro_behat_extension:
           Year: 'oro_wirecard_seamless_credit_card[expirationDate][year]'
           CVV: 'cvv'
     WireCardSEPAForm:
-      selector: 'div#container'
+      selector:
+        type: 'xpath'
+        locator: '//input[@id[starts-with(.,"oro_wirecard_seamless_sepa_direct_debit_accountOwner")]]/ancestor::div[contains(@class,"checkout__form__payment-methods__form")]'
       class: Oro\Bundle\TestFrameworkBundle\Behat\Element\Form
       options:
         mapping:
