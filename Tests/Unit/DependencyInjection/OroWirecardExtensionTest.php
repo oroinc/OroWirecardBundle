@@ -32,4 +32,10 @@ class OroWirecardExtensionTest extends ExtensionTestCase
         ];
         $this->assertDefinitionsLoaded($expectedDefinitions);
     }
+
+    public function testGetAlias()
+    {
+        $extension = new OroWirecardExtension();
+        $this->assertEquals('oro_wirecard', $extension->getAlias());
+    }
 }

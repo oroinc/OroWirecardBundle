@@ -2,30 +2,41 @@
 
 namespace Oro\Bundle\WirecardBundle\Tests\Unit\Method\View;
 
-use Oro\Bundle\PaymentBundle\Context\PaymentContextInterface;
-use Oro\Bundle\PaymentBundle\Provider\PaymentTransactionProvider;
-use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessConfigInterface;
-use Oro\Bundle\WirecardBundle\Method\View\WirecardSeamlessView;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 
+use Oro\Bundle\PaymentBundle\Context\PaymentContextInterface;
+use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessConfigInterface;
+use Oro\Bundle\WirecardBundle\Method\View\WirecardSeamlessView;
+
 abstract class WirecardSeamlessViewTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var FormFactoryInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /**
+     * @var FormFactoryInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
     protected $formFactory;
 
-    /** @var WirecardSeamlessView */
+    /**
+     * @var WirecardSeamlessView
+     */
     protected $methodView;
 
-    /** @var WirecardSeamlessConfigInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /**
+     * @var WirecardSeamlessConfigInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
     protected $paymentConfig;
 
-    abstract protected function createView(
-        FormFactoryInterface $formFactory,
-        WirecardSeamlessConfigInterface $config
-    );
+    /**
+     * @param FormFactoryInterface $formFactory
+     * @param WirecardSeamlessConfigInterface $config
+     * @return WirecardSeamlessView
+     */
+    abstract protected function createView(FormFactoryInterface $formFactory, WirecardSeamlessConfigInterface $config);
 
+    /**
+     * @return string
+     */
     abstract protected function getInitiateRoute();
 
     protected function setUp()
@@ -34,13 +45,7 @@ abstract class WirecardSeamlessViewTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->paymentTransactionProvider = $this
-            ->getMockBuilder(PaymentTransactionProvider::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->paymentConfig =
-            $this->createMock(WirecardSeamlessConfigInterface::class);
+        $this->paymentConfig = $this->createMock(WirecardSeamlessConfigInterface::class);
 
         $this->methodView = $this->createView($this->formFactory, $this->paymentConfig);
     }

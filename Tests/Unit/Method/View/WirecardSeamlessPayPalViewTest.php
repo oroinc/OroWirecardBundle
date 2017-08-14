@@ -8,15 +8,20 @@ use Symfony\Component\Form\FormFactoryInterface;
 
 class WirecardSeamlessPayPalViewTest extends WirecardSeamlessViewTest
 {
-    protected function createView(
-        FormFactoryInterface $formFactory,
-        WirecardSeamlessConfigInterface $config
-    ) {
+    /** {@inheritdoc} */
+    protected function createView(FormFactoryInterface $formFactory, WirecardSeamlessConfigInterface $config)
+    {
         return new WirecardSeamlessPayPalView($formFactory, $config);
     }
 
+    /** {@inheritdoc} */
     protected function getInitiateRoute()
     {
         return WirecardSeamlessPayPalView::INITIATE_ROUTE;
+    }
+
+    public function testGetBlock()
+    {
+        $this->assertEquals('_payment_methods_wirecard_seamless_paypal_widget', $this->methodView->getBlock());
     }
 }

@@ -40,7 +40,6 @@ class Hashing implements OptionInterface
         }
 
         $resolver
-            ->setDefined(self::HASHING)
             ->setDefault(self::HASHING, self::HMAC)
             ->addAllowedValues(self::HASHING, self::$hashingAlgs);
     }
