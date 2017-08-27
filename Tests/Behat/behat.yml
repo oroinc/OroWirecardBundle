@@ -43,7 +43,7 @@ oro_behat_extension:
         - OroFormBundle::FeatureContext
         - OroFormBundle::FormContext
         - OroConfigBundle::FeatureContext
-        - OroAuthorizeNetBundle::FeatureContext
+        - OroProductBundle::FeatureContext
         - OroWirecardBundle::FeatureContext
         - OroCheckoutBundle::FeatureContext
         - OroShoppingListBundle::ShoppingListContext
