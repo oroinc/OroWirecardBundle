@@ -14,7 +14,7 @@ class WirecardHttpClientMock implements ClientInterface
         'redirectUrl' => self::WIRECARD_OUTER_REDIRECT_MOCK_LINK,
         'paymentState' => 'SUCCESS',
         'storageId' => 'e48fc6fa8e33c97cbc32d7ec91060132',
-        'javascriptUrl' => '/bundles/orowirecard/js/stubs/wirecard-data-storage-mock.js'
+        'javascriptUrl' => 'orowirecard/js/stubs/wirecard-data-storage-mock'
     ];
 
     /** {@inheritdoc} */

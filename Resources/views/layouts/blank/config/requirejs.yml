@@ -6,3 +6,7 @@ config:
         'orowirecard/js/app/components/wirecard-seamless-component': 'bundles/orowirecard/js/app/components/wirecard-seamless-component.js'
         'orowirecard/js/validator/sepa-iban': 'bundles/orowirecard/js/validator/sepa-iban.js'
         'orowirecard/js/validator/sepa-bic': 'bundles/orowirecard/js/validator/sepa-bic.js'
+
+build:
+    paths:
+        'orowirecard/js/stubs/wirecard-data-storage-mock': 'empty:'
