@@ -105,8 +105,8 @@ define(function(require) {
             });
 
             virtualForm.find('select').each(function(index, item) {
-                //set new select to value of old select
-                //http://stackoverflow.com/questions/742810/clone-isnt-cloning-select-values
+                // set new select to value of old select
+                // http://stackoverflow.com/questions/742810/clone-isnt-cloning-select-values
                 $(item).val(self.$form.find('select').eq(index).val());
             });
 
@@ -125,7 +125,6 @@ define(function(require) {
             errors.parent().find('.error').removeClass('error');
 
             return validator.form();
-
         },
 
         initializeDataStorage: function(successCallback, failCallback) {
@@ -156,9 +155,7 @@ define(function(require) {
                     return failCallback();
                 } else {
                     require([data.javascriptUrl], function() {
-                        // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
-                        self.dataStorage = new WirecardCEE_DataStorage(); // jshint ignore:line
-                        // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
+                        self.dataStorage = new WirecardCEE_DataStorage();
                         return successCallback();
                     });
                 }

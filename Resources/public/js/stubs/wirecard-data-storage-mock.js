@@ -1,5 +1,4 @@
-// jscs:disable
-// jshint ignore: start
+/* eslint-disable camelcase, no-unused-vars */
 function WirecardCEE_DataStorage() {
     this.storeCreditCardInformation = function(paymentTypeInformation, callback) {
         return this.storePaymentInformation(callback);
