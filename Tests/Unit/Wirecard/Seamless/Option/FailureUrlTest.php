@@ -3,9 +3,8 @@
 namespace Oro\Bundle\WirecardBundle\Tests\Unit\Wirecard\Seamless\Option;
 
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option;
-
-use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 
 class FailureUrlTest extends AbstractOptionTest
 {

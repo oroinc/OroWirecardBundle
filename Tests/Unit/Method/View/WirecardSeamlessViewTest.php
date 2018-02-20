@@ -2,13 +2,12 @@
 
 namespace Oro\Bundle\WirecardBundle\Tests\Unit\Method\View;
 
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormView;
-use Symfony\Component\Form\FormInterface;
-
 use Oro\Bundle\PaymentBundle\Context\PaymentContextInterface;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessConfigInterface;
 use Oro\Bundle\WirecardBundle\Method\View\WirecardSeamlessView;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 
 abstract class WirecardSeamlessViewTest extends \PHPUnit_Framework_TestCase
 {

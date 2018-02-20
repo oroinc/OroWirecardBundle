@@ -2,11 +2,11 @@
 
 namespace Oro\Bundle\WirecardBundle\Tests\Functional\Controller\Frontend;
 
+use Oro\Bundle\PaymentBundle\Entity\PaymentTransaction;
 use Oro\Bundle\TestFrameworkBundle\Test\WebTestCase;
 use Oro\Bundle\WirecardBundle\Tests\Functional\DataFixtures\LoadPaymentTransactionData;
-use Oro\Bundle\PaymentBundle\Entity\PaymentTransaction;
-use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Response\Response;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option;
+use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Response\Response;
 
 class CallbackControllerTest extends WebTestCase
 {

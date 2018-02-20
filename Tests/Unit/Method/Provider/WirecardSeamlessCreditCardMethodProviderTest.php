@@ -3,9 +3,9 @@
 namespace Oro\Bundle\WirecardBundle\Tests\Unit\Method\Provider;
 
 use Oro\Bundle\PaymentBundle\Tests\Unit\Method\Provider\AbstractMethodProviderTest;
+use Oro\Bundle\WirecardBundle\Method\Config\Provider\WirecardSeamlessCreditCardConfigProviderInterface;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessCreditCardConfig;
 use Oro\Bundle\WirecardBundle\Method\Factory\WirecardSeamlessCreditCardPaymentMethodFactoryInterface;
-use Oro\Bundle\WirecardBundle\Method\Config\Provider\WirecardSeamlessCreditCardConfigProviderInterface;
 use Oro\Bundle\WirecardBundle\Method\Provider\WirecardSeamlessCreditCardMethodProvider;
 
 class WirecardSeamlessCreditCardMethodProviderTest extends AbstractMethodProviderTest

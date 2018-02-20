@@ -2,14 +2,13 @@
 
 namespace Oro\Bundle\WirecardBundle\Validator\Constraints;
 
+use Oro\Bundle\PaymentBundle\Entity\PaymentMethodsConfigsRule;
+use Oro\Bundle\PaymentBundle\Form\Type\PaymentMethodsConfigsRuleType;
+use Oro\Bundle\WirecardBundle\Method\Config\Provider\WirecardSeamlessSepaConfigProvider;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
-
-use Oro\Bundle\PaymentBundle\Entity\PaymentMethodsConfigsRule;
-use Oro\Bundle\PaymentBundle\Form\Type\PaymentMethodsConfigsRuleType;
-use Oro\Bundle\WirecardBundle\Method\Config\Provider\WirecardSeamlessSepaConfigProvider;
 
 class PaymentMethodsConfigsRuleConstraintValidator extends ConstraintValidator
 {

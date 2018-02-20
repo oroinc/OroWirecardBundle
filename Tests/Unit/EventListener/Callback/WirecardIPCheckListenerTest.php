@@ -3,13 +3,13 @@
 namespace Oro\Bundle\WirecardBundle\Tests\Unit\DependencyInjection\EventListener\Callback;
 
 use Oro\Bundle\PaymentBundle\Entity\PaymentTransaction;
+use Oro\Bundle\PaymentBundle\Event\CallbackNotifyEvent;
 use Oro\Bundle\PaymentBundle\Method\Provider\PaymentMethodProviderInterface;
 use Oro\Bundle\WirecardBundle\EventListener\Callback\WirecardIPCheckListener;
 use Oro\Bundle\WirecardBundle\Method\Config\Provider\WirecardSeamlessConfigProvider;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessConfig;
-use Oro\Bundle\PaymentBundle\Event\CallbackNotifyEvent;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class WirecardIPCheckListenerTest extends \PHPUnit_Framework_TestCase
 {

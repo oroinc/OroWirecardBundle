@@ -4,8 +4,8 @@ namespace Oro\Bundle\WirecardBundle\Tests\Unit\Method;
 
 use Oro\Bundle\CheckoutBundle\Entity\Checkout;
 use Oro\Bundle\OrderBundle\Entity\OrderAddress;
-use Oro\Bundle\PaymentBundle\Method\PaymentMethodInterface;
 use Oro\Bundle\PaymentBundle\Entity\PaymentTransaction;
+use Oro\Bundle\PaymentBundle\Method\PaymentMethodInterface;
 use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessInitiateAwarePaymentMethod;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Response\Response;

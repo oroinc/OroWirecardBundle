@@ -3,7 +3,6 @@
 namespace Oro\Bundle\WirecardBundle\Tests\Unit\Method\Config\Factory;
 
 use Doctrine\Common\Collections\Collection;
-use Oro\Component\Testing\Unit\EntityTrait;
 use Oro\Bundle\IntegrationBundle\Entity\Channel;
 use Oro\Bundle\IntegrationBundle\Generator\IntegrationIdentifierGeneratorInterface;
 use Oro\Bundle\LocaleBundle\Entity\Localization;
@@ -16,6 +15,7 @@ use Oro\Bundle\WirecardBundle\Method\Config\Mapping\WirecardLanguageCodeMapper;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessConfig;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessConfigInterface;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option;
+use Oro\Component\Testing\Unit\EntityTrait;
 
 abstract class AbstractWirecardSeamlessConfigFactoryTestCase extends \PHPUnit_Framework_TestCase
 {

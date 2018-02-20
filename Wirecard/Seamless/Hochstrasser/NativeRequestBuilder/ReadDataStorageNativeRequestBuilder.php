@@ -2,8 +2,8 @@
 
 namespace Oro\Bundle\WirecardBundle\Wirecard\Seamless\Hochstrasser\NativeRequestBuilder;
 
-use Hochstrasser\Wirecard\Request\WirecardRequestInterface;
 use Hochstrasser\Wirecard\Request\Seamless\Frontend\ReadDataStorageRequest as WirecardReadDataStorageRequest;
+use Hochstrasser\Wirecard\Request\WirecardRequestInterface;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\ReadDataStorageRequest;
 

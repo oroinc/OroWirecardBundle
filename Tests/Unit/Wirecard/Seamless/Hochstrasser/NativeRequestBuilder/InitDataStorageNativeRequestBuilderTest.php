@@ -3,10 +3,9 @@
 namespace Oro\Bundle\WirecardBundle\Tests\Unit\Wirecard\Seamless\Hochstrasser\NativeRequestBuilder;
 
 use Hochstrasser\Wirecard\Request\Seamless\Frontend\InitDataStorageRequest as WirecardInitDataStorageRequest;
-
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Hochstrasser\NativeRequestBuilder\InitDataStorageNativeRequestBuilder;
-use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\InitDataStorageRequest;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option;
+use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\InitDataStorageRequest;
 
 class InitDataStorageNativeRequestBuilderTest extends AbstractNativeRequestBuilderTest
 {

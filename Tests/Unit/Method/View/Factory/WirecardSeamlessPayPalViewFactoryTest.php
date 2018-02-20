@@ -2,11 +2,10 @@
 
 namespace Oro\Bundle\WirecardBundle\Tests\Unit\Method\View\Factory;
 
-use Symfony\Component\Form\FormFactoryInterface;
-
-use Oro\Bundle\WirecardBundle\Method\View\Factory\WirecardSeamlessPayPalViewFactory;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessPayPalConfigInterface;
+use Oro\Bundle\WirecardBundle\Method\View\Factory\WirecardSeamlessPayPalViewFactory;
 use Oro\Bundle\WirecardBundle\Method\View\WirecardSeamlessPayPalView;
+use Symfony\Component\Form\FormFactoryInterface;
 
 class WirecardSeamlessPayPalViewFactoryTest extends \PHPUnit_Framework_TestCase
 {

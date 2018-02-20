@@ -2,9 +2,9 @@
 
 namespace Oro\Bundle\WirecardBundle\Tests\Unit\Wirecard\Seamless\Request;
 
+use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option as Option;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\AbstractRequest;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\InitPaymentRequest;
-use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option as Option;
 
 class InitPaymentRequestTest extends AbstractRequestTest
 {

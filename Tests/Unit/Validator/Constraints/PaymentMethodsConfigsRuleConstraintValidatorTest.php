@@ -2,9 +2,6 @@
 
 namespace Oro\Bundle\WirecardBundle\Tests\Unit\Validator\Constraints;
 
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
-
 use Oro\Bundle\PaymentBundle\Entity\PaymentMethodConfig;
 use Oro\Bundle\PaymentBundle\Entity\PaymentMethodsConfigsRule;
 use Oro\Bundle\PaymentBundle\Form\Type\PaymentMethodsConfigsRuleType;
@@ -12,6 +9,8 @@ use Oro\Bundle\PaymentBundle\Method\Config\PaymentConfigInterface;
 use Oro\Bundle\WirecardBundle\Method\Config\Provider\WirecardSeamlessSepaConfigProvider;
 use Oro\Bundle\WirecardBundle\Validator\Constraints\PaymentMethodsConfigsRuleConstraint;
 use Oro\Bundle\WirecardBundle\Validator\Constraints\PaymentMethodsConfigsRuleConstraintValidator;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
 class PaymentMethodsConfigsRuleConstraintValidatorTest extends \PHPUnit_Framework_TestCase
 {

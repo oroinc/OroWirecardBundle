@@ -2,9 +2,8 @@
 
 namespace Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option\Sepa;
 
-use Symfony\Component\OptionsResolver\OptionsResolver;
-
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option\OptionInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class Currency implements OptionInterface
 {

@@ -2,26 +2,25 @@
 
 namespace Oro\Bundle\WirecardBundle\Tests\Unit\Method;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Routing\RouterInterface;
-
-use Oro\Component\Testing\Unit\EntityTrait;
-use Oro\Bundle\OrderBundle\Entity\OrderAddress;
 use Oro\Bundle\CheckoutBundle\Entity\Checkout;
 use Oro\Bundle\EntityBundle\ORM\DoctrineHelper;
-use Oro\Bundle\PaymentBundle\Model\AddressOptionModel;
-use Oro\Bundle\PaymentBundle\Provider\ExtractOptionsProvider;
+use Oro\Bundle\OrderBundle\Entity\OrderAddress;
 use Oro\Bundle\PaymentBundle\Context\PaymentContextInterface;
 use Oro\Bundle\PaymentBundle\Entity\PaymentTransaction;
 use Oro\Bundle\PaymentBundle\Method\PaymentMethodInterface;
-use Oro\Bundle\WirecardBundle\Provider\PaymentTransactionProvider;
+use Oro\Bundle\PaymentBundle\Model\AddressOptionModel;
+use Oro\Bundle\PaymentBundle\Provider\ExtractOptionsProvider;
 use Oro\Bundle\WirecardBundle\Method\AbstractWirecardSeamlessPaymentMethod;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessConfigInterface;
+use Oro\Bundle\WirecardBundle\Provider\PaymentTransactionProvider;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\GatewayInterface;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\AbstractRequest;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Response\Response;
+use Oro\Component\Testing\Unit\EntityTrait;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Routing\RouterInterface;
 
 abstract class AbstractWirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_TestCase
 {

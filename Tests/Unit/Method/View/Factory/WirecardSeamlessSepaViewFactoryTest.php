@@ -2,11 +2,10 @@
 
 namespace Oro\Bundle\WirecardBundle\Tests\Unit\Method\View\Factory;
 
-use Symfony\Component\Form\FormFactoryInterface;
-
-use Oro\Bundle\WirecardBundle\Method\View\Factory\WirecardSeamlessSepaViewFactory;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessSepaConfigInterface;
+use Oro\Bundle\WirecardBundle\Method\View\Factory\WirecardSeamlessSepaViewFactory;
 use Oro\Bundle\WirecardBundle\Method\View\WirecardSeamlessSepaView;
+use Symfony\Component\Form\FormFactoryInterface;
 
 class WirecardSeamlessSepaViewFactoryTest extends \PHPUnit_Framework_TestCase
 {

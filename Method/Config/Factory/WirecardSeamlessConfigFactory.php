@@ -8,8 +8,8 @@ use Oro\Bundle\IntegrationBundle\Generator\IntegrationIdentifierGeneratorInterfa
 use Oro\Bundle\LocaleBundle\Helper\LocalizationHelper;
 use Oro\Bundle\SecurityBundle\Encoder\SymmetricCrypterInterface;
 use Oro\Bundle\WirecardBundle\Entity\WirecardSeamlessSettings;
-use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option;
 use Oro\Bundle\WirecardBundle\Method\Config\Mapping\WirecardLanguageCodeMapper;
+use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option;
 
 abstract class WirecardSeamlessConfigFactory
 {

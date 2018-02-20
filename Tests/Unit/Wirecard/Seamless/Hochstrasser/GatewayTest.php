@@ -2,20 +2,16 @@
 
 namespace Oro\Bundle\WirecardBundle\Tests\Unit\Wirecard\Seamless\Hochstrasser;
 
+use \Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\ClientInterface;
-
-use Symfony\Component\OptionsResolver\OptionsResolver;
-
 use Hochstrasser\Wirecard\Request\WirecardRequestInterface;
 use Hochstrasser\Wirecard\Response\WirecardResponse;
-
-use \Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\RequestInterface as PsrRequestInterface;
-
-use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\RequestInterface;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Hochstrasser\Gateway;
-use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Hochstrasser\NativeRequestBuilder\NativeRequestBuilderRegistry;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Hochstrasser\NativeRequestBuilder\NativeRequestBuilderInterface;
+use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Hochstrasser\NativeRequestBuilder\NativeRequestBuilderRegistry;
+use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\RequestInterface;
+use Psr\Http\Message\RequestInterface as PsrRequestInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class GatewayTest extends \PHPUnit_Framework_TestCase
 {

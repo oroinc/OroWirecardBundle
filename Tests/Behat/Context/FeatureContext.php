@@ -4,7 +4,6 @@ namespace Oro\Bundle\WirecardBundle\Tests\Behat\Context;
 
 use Behat\Symfony2Extension\Context\KernelAwareContext;
 use Behat\Symfony2Extension\Context\KernelDictionary;
-
 use Oro\Bundle\TestFrameworkBundle\Behat\Context\OroFeatureContext;
 
 class FeatureContext extends OroFeatureContext implements KernelAwareContext

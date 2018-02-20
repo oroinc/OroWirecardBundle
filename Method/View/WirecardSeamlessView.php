@@ -2,11 +2,10 @@
 
 namespace Oro\Bundle\WirecardBundle\Method\View;
 
-use Symfony\Component\Form\FormFactoryInterface;
-
 use Oro\Bundle\PaymentBundle\Context\PaymentContextInterface;
 use Oro\Bundle\PaymentBundle\Method\View\PaymentMethodViewInterface;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessConfigInterface;
+use Symfony\Component\Form\FormFactoryInterface;
 
 abstract class WirecardSeamlessView implements PaymentMethodViewInterface
 {

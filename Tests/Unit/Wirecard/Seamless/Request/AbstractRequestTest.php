@@ -2,9 +2,8 @@
 
 namespace Oro\Bundle\WirecardBundle\Tests\Unit\Wirecard\Seamless\Request;
 
-use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\AbstractRequest;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option as Option;
-
+use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\AbstractRequest;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class AbstractRequestTest extends \PHPUnit_Framework_TestCase

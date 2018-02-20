@@ -3,8 +3,8 @@
 namespace Oro\Bundle\WirecardBundle\Tests\Unit\Method\Config;
 
 use Oro\Bundle\PaymentBundle\Tests\Unit\Method\Config\AbstractPaymentConfigTestCase;
-use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessConfigInterface;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessConfig;
+use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessConfigInterface;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option;
 
 abstract class AbstractWirecardConfigTestCase extends AbstractPaymentConfigTestCase

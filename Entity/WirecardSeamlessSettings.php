@@ -5,9 +5,9 @@ namespace Oro\Bundle\WirecardBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\ParameterBag;
 use Oro\Bundle\IntegrationBundle\Entity\Transport;
 use Oro\Bundle\LocaleBundle\Entity\LocalizedFallbackValue;
+use Symfony\Component\HttpFoundation\ParameterBag;
 
 /**
  * @ORM\Entity(repositoryClass="Oro\Bundle\WirecardBundle\Entity\Repository\WirecardSeamlessSettingsRepository")

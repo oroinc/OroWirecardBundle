@@ -2,13 +2,12 @@
 
 namespace Oro\Bundle\WirecardBundle\Tests\Unit\Form\Type;
 
+use Oro\Bundle\WirecardBundle\Form\Type\SepaDirectDebitType;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\Test\FormIntegrationTestCase;
 use Symfony\Component\Validator\Validation;
-
-use Oro\Bundle\WirecardBundle\Form\Type\SepaDirectDebitType;
 
 class SepaDirectDebitTypeTest extends FormIntegrationTestCase
 {

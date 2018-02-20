@@ -2,12 +2,11 @@
 
 namespace Oro\Bundle\WirecardBundle\Method\Config\Provider;
 
-use Psr\Log\LoggerInterface;
 use Doctrine\Common\Persistence\ManagerRegistry;
-
 use Oro\Bundle\WirecardBundle\Entity\WirecardSeamlessSettings;
 use Oro\Bundle\WirecardBundle\Method\Config\Factory\WirecardSeamlessConfigFactoryInterface;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessConfigInterface;
+use Psr\Log\LoggerInterface;
 
 abstract class WirecardSeamlessConfigProvider implements WirecardSeamlessConfigProviderInterface
 {

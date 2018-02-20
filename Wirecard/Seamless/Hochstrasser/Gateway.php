@@ -3,12 +3,11 @@
 namespace Oro\Bundle\WirecardBundle\Wirecard\Seamless\Hochstrasser;
 
 use GuzzleHttp\ClientInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\GatewayInterface;
+use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Hochstrasser\NativeRequestBuilder\NativeRequestBuilderRegistry;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\RequestInterface;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Response\Response;
-use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Hochstrasser\NativeRequestBuilder\NativeRequestBuilderRegistry;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class Gateway implements GatewayInterface
 {

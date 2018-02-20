@@ -2,10 +2,9 @@
 
 namespace Oro\Bundle\WirecardBundle\Tests\Unit\Wirecard\Seamless\Hochstrasser\NativeRequestBuilder;
 
+use Hochstrasser\Wirecard\Context;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Hochstrasser\NativeRequestBuilder\NativeRequestBuilderInterface;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option;
-
-use Hochstrasser\Wirecard\Context;
 
 abstract class AbstractNativeRequestBuilderTest extends \PHPUnit_Framework_TestCase
 {

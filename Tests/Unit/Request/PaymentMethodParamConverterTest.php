@@ -2,10 +2,9 @@
 
 namespace Oro\Bundle\WirecardBundle\Tests\Unit\Request;
 
-use Oro\Bundle\WirecardBundle\Request\PaymentMethodParamConverter;
-use Oro\Bundle\PaymentBundle\Method\Provider\PaymentMethodProviderInterface;
 use Oro\Bundle\PaymentBundle\Method\PaymentMethodInterface;
-
+use Oro\Bundle\PaymentBundle\Method\Provider\PaymentMethodProviderInterface;
+use Oro\Bundle\WirecardBundle\Request\PaymentMethodParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;

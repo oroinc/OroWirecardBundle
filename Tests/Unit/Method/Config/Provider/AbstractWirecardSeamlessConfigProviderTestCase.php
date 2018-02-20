@@ -2,15 +2,13 @@
 
 namespace Oro\Bundle\WirecardBundle\Tests\Unit\Method\Config\Provider;
 
-use Psr\Log\LoggerInterface;
-
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\Persistence\ObjectManager;
-
+use Oro\Bundle\WirecardBundle\Entity\Repository\WirecardSeamlessSettingsRepository;
 use Oro\Bundle\WirecardBundle\Entity\WirecardSeamlessSettings;
 use Oro\Bundle\WirecardBundle\Method\Config\Factory\WirecardSeamlessConfigFactoryInterface;
-use Oro\Bundle\WirecardBundle\Entity\Repository\WirecardSeamlessSettingsRepository;
 use Oro\Bundle\WirecardBundle\Method\Config\Provider\WirecardSeamlessConfigProviderInterface;
+use Psr\Log\LoggerInterface;
 
 abstract class AbstractWirecardSeamlessConfigProviderTestCase extends \PHPUnit_Framework_TestCase
 {

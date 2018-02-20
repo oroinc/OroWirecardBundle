@@ -4,13 +4,12 @@ namespace Oro\Bundle\WirecardBundle\Tests\Unit\Method\Factory;
 
 use Oro\Bundle\EntityBundle\ORM\DoctrineHelper;
 use Oro\Bundle\PaymentBundle\Provider\ExtractOptionsProvider;
-use Oro\Bundle\WirecardBundle\Method\Factory\WirecardSeamlessSepaPaymentMethodFactory;
-use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessSepaPaymentMethod;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessSepaConfig;
+use Oro\Bundle\WirecardBundle\Method\Factory\WirecardSeamlessSepaPaymentMethodFactory;
+use Oro\Bundle\WirecardBundle\Method\Factory\WirecardSeamlessSepaPaymentMethodFactoryInterface;
+use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessSepaPaymentMethod;
 use Oro\Bundle\WirecardBundle\Provider\PaymentTransactionProvider;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\GatewayInterface;
-use Oro\Bundle\WirecardBundle\Method\Factory\WirecardSeamlessSepaPaymentMethodFactoryInterface;
-
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
 
