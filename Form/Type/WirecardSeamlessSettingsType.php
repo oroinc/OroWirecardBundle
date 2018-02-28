@@ -26,32 +26,32 @@ class WirecardSeamlessSettingsType extends AbstractType
             ->add('creditCardLabels', LocalizedFallbackValueCollectionType::NAME, [
                 'label' => 'oro.wirecard.settings.wirecard_seamless.credit_card_labels.label',
                 'required' => true,
-                'options' => ['constraints' => [new NotBlank()]],
+                'entry_options' => ['constraints' => [new NotBlank()]],
             ])
             ->add('creditCardShortLabels', LocalizedFallbackValueCollectionType::NAME, [
                 'label' => 'oro.wirecard.settings.wirecard_seamless.credit_card_short_labels.label',
                 'required' => true,
-                'options' => ['constraints' => [new NotBlank()]],
+                'entry_options' => ['constraints' => [new NotBlank()]],
             ])
             ->add('paypalLabels', LocalizedFallbackValueCollectionType::NAME, [
                 'label' => 'oro.wirecard.settings.wirecard_seamless.paypal_labels.label',
                 'required' => true,
-                'options' => ['constraints' => [new NotBlank()]],
+                'entry_options' => ['constraints' => [new NotBlank()]],
             ])
             ->add('paypalShortLabels', LocalizedFallbackValueCollectionType::NAME, [
                 'label' => 'oro.wirecard.settings.wirecard_seamless.paypal_short_labels.label',
                 'required' => true,
-                'options' => ['constraints' => [new NotBlank()]],
+                'entry_options' => ['constraints' => [new NotBlank()]],
             ])
             ->add('sepaLabels', LocalizedFallbackValueCollectionType::NAME, [
                 'label' => 'oro.wirecard.settings.wirecard_seamless.sepa_labels.label',
                 'required' => true,
-                'options' => ['constraints' => [new NotBlank()]],
+                'entry_options' => ['constraints' => [new NotBlank()]],
             ])
             ->add('sepaShortLabels', LocalizedFallbackValueCollectionType::NAME, [
                 'label' => 'oro.wirecard.settings.wirecard_seamless.sepa_short_labels.label',
                 'required' => true,
-                'options' => ['constraints' => [new NotBlank()]],
+                'entry_options' => ['constraints' => [new NotBlank()]],
             ])
             ->add('customerId', TextType::class, [
                 'label' => 'oro.wirecard.settings.wirecard_seamless.customer_id.label',
