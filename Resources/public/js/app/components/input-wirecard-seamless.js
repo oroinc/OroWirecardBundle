@@ -43,6 +43,16 @@ define(function(require) {
          */
         disposable: true,
 
+        /**
+         * @inheritDoc
+         */
+        constructor: function WirecardPaymentDataInputComponent() {
+            WirecardPaymentDataInputComponent.__super__.constructor.apply(this, arguments);
+        },
+
+        /**
+         * @inheritDoc
+         */
         initialize: function(options) {
             this.options = _.extend({}, this.options, options);
 

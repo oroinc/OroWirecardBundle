@@ -17,6 +17,13 @@ define(function(require) {
         /**
          * @inheritDoc
          */
+        constructor: function WirecardSeamlessComponent() {
+            WirecardSeamlessComponent.__super__.constructor.apply(this, arguments);
+        },
+
+        /**
+         * @inheritDoc
+         */
         initialize: function(options) {
             this.options = _.extend({}, this.options, options);
             mediator.on('checkout:place-order:response', this.handleSubmit, this);

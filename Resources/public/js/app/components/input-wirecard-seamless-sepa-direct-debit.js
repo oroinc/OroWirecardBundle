@@ -8,7 +8,6 @@ define(function(require) {
     var WirecardPaymentDataInputComponent = require('orowirecard/js/app/components/input-wirecard-seamless');
 
     WirecardSepaDataInputComponent = WirecardPaymentDataInputComponent.extend({
-
         options: _.extend({}, WirecardPaymentDataInputComponent.prototype.options, {
             selectors: {
                 accountOwner: '[data-account-owner]',
@@ -17,6 +16,16 @@ define(function(require) {
             }
         }),
 
+        /**
+         * @inheritDoc
+         */
+        constructor: function WirecardSepaDataInputComponent() {
+            WirecardSepaDataInputComponent.__super__.constructor.apply(this, arguments);
+        },
+
+        /**
+         * @inheritDoc
+         */
         initialize: function(options) {
             this.options = _.extend({}, this.options, options);
 
