@@ -1,8 +1,8 @@
 # OroWirecardBundle
 
-This Bundle provides integration with [Wirecard](https://www.wirecard.com/) for OroCommerce.
-It provides payment processing through Wirecard payment provider services.
+OroWirecardBundle provides [integration](https://github.com/oroinc/platform/tree/master/src/Oro/Bundle/IntegrationBundle) with [Wirecard](https://www.wirecard.com/) Payment Gateway.
 
+The bundle helps admin users to enable and configure **Wirecard Checkout Seamless** [payment method](https://github.com/oroinc/orocommerce/tree/master/src/Oro/Bundle/PaymentBundle) and therefore enable customers to pay for orders with [SEPA](https://en.wikipedia.org/wiki/Single_Euro_Payments_Area) direct debit, [PayPal](https://www.paypal.com/) payments, Credit and Debit cards.
 
 ## Setting Up the integration
 
