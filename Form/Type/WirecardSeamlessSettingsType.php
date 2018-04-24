@@ -23,32 +23,32 @@ class WirecardSeamlessSettingsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('creditCardLabels', LocalizedFallbackValueCollectionType::NAME, [
+            ->add('creditCardLabels', LocalizedFallbackValueCollectionType::class, [
                 'label' => 'oro.wirecard.settings.wirecard_seamless.credit_card_labels.label',
                 'required' => true,
                 'entry_options' => ['constraints' => [new NotBlank()]],
             ])
-            ->add('creditCardShortLabels', LocalizedFallbackValueCollectionType::NAME, [
+            ->add('creditCardShortLabels', LocalizedFallbackValueCollectionType::class, [
                 'label' => 'oro.wirecard.settings.wirecard_seamless.credit_card_short_labels.label',
                 'required' => true,
                 'entry_options' => ['constraints' => [new NotBlank()]],
             ])
-            ->add('paypalLabels', LocalizedFallbackValueCollectionType::NAME, [
+            ->add('paypalLabels', LocalizedFallbackValueCollectionType::class, [
                 'label' => 'oro.wirecard.settings.wirecard_seamless.paypal_labels.label',
                 'required' => true,
                 'entry_options' => ['constraints' => [new NotBlank()]],
             ])
-            ->add('paypalShortLabels', LocalizedFallbackValueCollectionType::NAME, [
+            ->add('paypalShortLabels', LocalizedFallbackValueCollectionType::class, [
                 'label' => 'oro.wirecard.settings.wirecard_seamless.paypal_short_labels.label',
                 'required' => true,
                 'entry_options' => ['constraints' => [new NotBlank()]],
             ])
-            ->add('sepaLabels', LocalizedFallbackValueCollectionType::NAME, [
+            ->add('sepaLabels', LocalizedFallbackValueCollectionType::class, [
                 'label' => 'oro.wirecard.settings.wirecard_seamless.sepa_labels.label',
                 'required' => true,
                 'entry_options' => ['constraints' => [new NotBlank()]],
             ])
-            ->add('sepaShortLabels', LocalizedFallbackValueCollectionType::NAME, [
+            ->add('sepaShortLabels', LocalizedFallbackValueCollectionType::class, [
                 'label' => 'oro.wirecard.settings.wirecard_seamless.sepa_short_labels.label',
                 'required' => true,
                 'entry_options' => ['constraints' => [new NotBlank()]],

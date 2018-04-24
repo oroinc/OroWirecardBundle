@@ -11,26 +11,6 @@ use Symfony\Component\Validator\Validation;
 
 class SepaDirectDebitTypeTest extends FormIntegrationTestCase
 {
-    /**
-     * @var SepaDirectDebitType
-     */
-    protected $formType;
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->formType = new SepaDirectDebitType();
-    }
-
-    public function testGetName()
-    {
-        $this->assertEquals('oro_wirecard_seamless_sepa_direct_debit', $this->formType->getName());
-    }
-
     public function testFinishView()
     {
         /** @var FormInterface|\PHPUnit_Framework_MockObject_MockObject $form */
@@ -44,7 +24,8 @@ class SepaDirectDebitTypeTest extends FormIntegrationTestCase
         ];
         $formView->children = [$formChildrenView];
 
-        $this->formType->finishView($formView, $form, []);
+        $formType = new SepaDirectDebitType();
+        $formType->finishView($formView, $form, []);
 
         foreach ($formView->children as $formItemData) {
             $this->assertEquals('name', $formItemData->vars['full_name']);
@@ -53,7 +34,7 @@ class SepaDirectDebitTypeTest extends FormIntegrationTestCase
 
     public function testFormConfiguration()
     {
-        $form = $this->factory->create($this->formType);
+        $form = $this->factory->create(SepaDirectDebitType::class);
 
         $this->assertTrue($form->has('accountOwner'));
         $this->assertTrue($form->has('bankIban'));

@@ -9,21 +9,6 @@ use Symfony\Component\Form\Test\FormIntegrationTestCase;
 class CreditCardExpirationDateTypeTest extends FormIntegrationTestCase
 {
     /**
-     * @var CreditCardExpirationDateType
-     */
-    protected $formType;
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->formType = new CreditCardExpirationDateType();
-    }
-
-    /**
      * @dataProvider formConfigurationProvider
      *
      * @param array $formFields
@@ -31,7 +16,7 @@ class CreditCardExpirationDateTypeTest extends FormIntegrationTestCase
      */
     public function testFormConfiguration(array $formFields, array $formOptions)
     {
-        $form = $this->factory->create($this->formType);
+        $form = $this->factory->create(CreditCardExpirationDateType::class);
         $this->assertFormOptions($form->getConfig(), $formOptions);
         foreach ($formFields as $fieldname => $fieldData) {
             $this->assertTrue($form->has($fieldname));
@@ -85,10 +70,5 @@ class CreditCardExpirationDateTypeTest extends FormIntegrationTestCase
             $this->assertTrue($formConfig->hasOption($formOptionName));
             $this->assertEquals($formOptionData, $options[$formOptionName]);
         }
-    }
-
-    public function testGetName()
-    {
-        $this->assertEquals(CreditCardExpirationDateType::NAME, $this->formType->getName());
     }
 }

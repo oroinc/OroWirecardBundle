@@ -3,6 +3,7 @@
 namespace Oro\Bundle\WirecardBundle\Form\Type;
 
 use Oro\Bundle\ValidationBundle\Validator\Constraints\Integer;
+use Oro\Bundle\WirecardBundle\Form\Type\CreditCardExpirationDateType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -65,7 +66,7 @@ class CreditCardType extends AbstractType
             )
             ->add(
                 'expirationDate',
-                'oro_wirecard_seamless_credit_card_expiration_date',
+                CreditCardExpirationDateType::class,
                 [
                     'required' => true,
                     'label' => 'oro.wirecard.credit_card.expiration_date.label',

@@ -4,31 +4,16 @@ namespace Oro\Bundle\WirecardBundle\Tests\Unit\Form\Type;
 
 use Oro\Bundle\WirecardBundle\Form\Type\CreditCardExpirationDateType;
 use Oro\Bundle\WirecardBundle\Form\Type\CreditCardType;
+use Oro\Component\Testing\Unit\PreloadedExtension;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\FormIntegrationTestCase;
 use Symfony\Component\Validator\Validation;
 
 class CreditCardTypeTest extends FormIntegrationTestCase
 {
-    /**
-     * @var CreditCardType
-     */
-    protected $formType;
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->formType = new CreditCardType();
-    }
-
     /**
      * @return array
      */
@@ -37,17 +22,12 @@ class CreditCardTypeTest extends FormIntegrationTestCase
         return [
             new PreloadedExtension(
                 [
-                    CreditCardExpirationDateType::NAME => new CreditCardExpirationDateType(),
+                    CreditCardExpirationDateType::class => new CreditCardExpirationDateType(),
                 ],
                 []
             ),
             new ValidatorExtension(Validation::createValidator()),
         ];
-    }
-
-    public function testGetName()
-    {
-        $this->assertEquals('oro_wirecard_seamless_credit_card', $this->formType->getName());
     }
 
     public function testFinishView()
@@ -63,7 +43,8 @@ class CreditCardTypeTest extends FormIntegrationTestCase
         ];
         $formView->children = [$formChildrenView];
 
-        $this->formType->finishView($formView, $form, []);
+        $formType = new CreditCardType();
+        $formType->finishView($formView, $form, []);
 
         foreach ($formView->children as $formItemData) {
             $this->assertEquals('name', $formItemData->vars['full_name']);
@@ -72,7 +53,7 @@ class CreditCardTypeTest extends FormIntegrationTestCase
 
     public function testFormConfiguration()
     {
-        $form = $this->factory->create($this->formType);
+        $form = $this->factory->create(CreditCardType::class);
 
         $this->assertTrue($form->has('cardholderName'));
         $this->assertTrue($form->has('creditCardNumber'));

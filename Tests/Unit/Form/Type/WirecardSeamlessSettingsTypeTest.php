@@ -3,13 +3,14 @@
 namespace Oro\Bundle\WirecardBundle\Tests\Unit\Form\Type;
 
 use Oro\Bundle\FormBundle\Form\Type\OroEncodedPlaceholderPasswordType;
+use Oro\Bundle\LocaleBundle\Form\Type\LocalizedFallbackValueCollectionType;
 use Oro\Bundle\LocaleBundle\Tests\Unit\Form\Type\Stub\LocalizedFallbackValueCollectionTypeStub;
 use Oro\Bundle\SecurityBundle\Encoder\SymmetricCrypterInterface;
 use Oro\Bundle\WirecardBundle\Entity\WirecardSeamlessSettings;
 use Oro\Bundle\WirecardBundle\Form\Type\WirecardSeamlessSettingsType;
 use Oro\Component\Testing\Unit\FormIntegrationTestCase;
+use Oro\Component\Testing\Unit\PreloadedExtension;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
-use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Validator\Validation;
@@ -51,8 +52,9 @@ class WirecardSeamlessSettingsTypeTest extends FormIntegrationTestCase
         return [
             new PreloadedExtension(
                 [
-                    $localizedType->getName() => $localizedType,
-                    $oroEncodedPasswordType->getName() => $oroEncodedPasswordType,
+                    WirecardSeamlessSettingsType::class => $this->formType,
+                    LocalizedFallbackValueCollectionType::class => $localizedType,
+                    OroEncodedPlaceholderPasswordType::class => $oroEncodedPasswordType,
                 ],
                 []
             ),
@@ -89,7 +91,7 @@ class WirecardSeamlessSettingsTypeTest extends FormIntegrationTestCase
 
         $wcsSettings = new WirecardSeamlessSettings();
 
-        $form = $this->factory->create($this->formType, $wcsSettings);
+        $form = $this->factory->create(WirecardSeamlessSettingsType::class, $wcsSettings);
 
         $form->submit($submitData);
 
