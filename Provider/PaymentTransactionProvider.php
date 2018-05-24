@@ -15,7 +15,7 @@ class PaymentTransactionProvider extends BasePaymentTransactionProvider
      */
     public function getActiveInitiatePaymentTransaction($object, $paymentMethod)
     {
-        $customerUser = $this->getLoggedCustomerUser();
+        $customerUser = $this->customerUserProvider->getLoggedUserIncludingGuest();
         if (!$customerUser) {
             return null;
         }
