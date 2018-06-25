@@ -6,7 +6,7 @@ use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option as Option;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\AbstractRequest;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-abstract class AbstractRequestTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractRequestTest extends \PHPUnit\Framework\TestCase
 {
     const DEFAULT_REQUEST_OPTIONS = [
         Option\CustomerId::CUSTOMERID => 'test_customer_id',

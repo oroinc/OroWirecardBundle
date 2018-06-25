@@ -6,7 +6,7 @@ use Hochstrasser\Wirecard\Context;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Hochstrasser\NativeRequestBuilder\NativeRequestBuilderInterface;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option;
 
-abstract class AbstractNativeRequestBuilderTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractNativeRequestBuilderTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var  NativeRequestBuilderInterface

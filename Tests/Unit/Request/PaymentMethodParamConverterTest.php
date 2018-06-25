@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 
-class PaymentMethodParamConverterTest extends \PHPUnit_Framework_TestCase
+class PaymentMethodParamConverterTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var PaymentMethodParamConverter
@@ -17,12 +17,12 @@ class PaymentMethodParamConverterTest extends \PHPUnit_Framework_TestCase
     protected $paymentMethodParamConverter;
 
     /**
-     * @var ParamConverter|\PHPUnit_Framework_MockObject_MockObject
+     * @var ParamConverter|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $configuration;
 
     /**
-     * @var ParameterBag|\PHPUnit_Framework_MockObject_MockObject
+     * @var ParameterBag|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $requestAttributes;
 
@@ -32,7 +32,7 @@ class PaymentMethodParamConverterTest extends \PHPUnit_Framework_TestCase
     protected $request;
 
     /**
-     * @var PaymentMethodProviderInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var PaymentMethodProviderInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $paymentMethodProvider;
 

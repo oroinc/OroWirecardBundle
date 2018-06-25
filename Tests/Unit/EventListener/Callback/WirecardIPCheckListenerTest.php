@@ -11,9 +11,9 @@ use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessConfig;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class WirecardIPCheckListenerTest extends \PHPUnit_Framework_TestCase
+class WirecardIPCheckListenerTest extends \PHPUnit\Framework\TestCase
 {
-    /** @var PaymentMethodProviderInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var PaymentMethodProviderInterface|\PHPUnit\Framework\MockObject\MockObject */
     protected $paymentMethodProvider;
 
 
@@ -60,11 +60,11 @@ class WirecardIPCheckListenerTest extends \PHPUnit_Framework_TestCase
         $masterRequest = $this->createMock(Request::class);
         $masterRequest->method('getClientIp')->will($this->returnValue($remoteAddress));
 
-        /** @var RequestStack|\PHPUnit_Framework_MockObject_MockObject $requestStack */
+        /** @var RequestStack|\PHPUnit\Framework\MockObject\MockObject $requestStack */
         $requestStack = $this->createMock(RequestStack::class);
         $requestStack->method('getMasterRequest')->will($this->returnValue($masterRequest));
 
-        /** @var CallbackNotifyEvent|\PHPUnit_Framework_MockObject_MockObject $event */
+        /** @var CallbackNotifyEvent|\PHPUnit\Framework\MockObject\MockObject $event */
         $event = $this->createMock(CallbackNotifyEvent::class);
         $event
             ->expects($this->never())
@@ -100,11 +100,11 @@ class WirecardIPCheckListenerTest extends \PHPUnit_Framework_TestCase
         $masterRequest = $this->createMock(Request::class);
         $masterRequest->method('getClientIp')->will($this->returnValue($remoteAddress));
 
-        /** @var RequestStack|\PHPUnit_Framework_MockObject_MockObject $requestStack */
+        /** @var RequestStack|\PHPUnit\Framework\MockObject\MockObject $requestStack */
         $requestStack = $this->createMock(RequestStack::class);
         $requestStack->method('getMasterRequest')->will($this->returnValue($masterRequest));
 
-        /** @var CallbackNotifyEvent|\PHPUnit_Framework_MockObject_MockObject $event */
+        /** @var CallbackNotifyEvent|\PHPUnit\Framework\MockObject\MockObject $event */
         $event = $this->createMock(CallbackNotifyEvent::class);
         $event
             ->expects($this->once())
@@ -135,11 +135,11 @@ class WirecardIPCheckListenerTest extends \PHPUnit_Framework_TestCase
 
         $masterRequest = null;
 
-        /** @var RequestStack|\PHPUnit_Framework_MockObject_MockObject $requestStack */
+        /** @var RequestStack|\PHPUnit\Framework\MockObject\MockObject $requestStack */
         $requestStack = $this->createMock(RequestStack::class);
         $requestStack->method('getMasterRequest')->will($this->returnValue($masterRequest));
 
-        /** @var CallbackNotifyEvent|\PHPUnit_Framework_MockObject_MockObject $event */
+        /** @var CallbackNotifyEvent|\PHPUnit\Framework\MockObject\MockObject $event */
         $event = $this->createMock(CallbackNotifyEvent::class);
         $event
             ->expects($this->once())

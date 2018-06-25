@@ -5,12 +5,12 @@ namespace Oro\Bundle\WirecardBundle\Tests\Unit\Wirecard\Seamless\Hochstrasser\Na
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Hochstrasser\NativeRequestBuilder\NativeRequestBuilderInterface;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Hochstrasser\NativeRequestBuilder\NativeRequestBuilderRegistry;
 
-class NativeRequestBuilderRegistryTest extends \PHPUnit_Framework_TestCase
+class NativeRequestBuilderRegistryTest extends \PHPUnit\Framework\TestCase
 {
     /** @var NativeRequestBuilderRegistry */
     protected $nativeRequestBuilderRegistry;
 
-    /** @var  NativeRequestBuilderInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var  NativeRequestBuilderInterface|\PHPUnit\Framework\MockObject\MockObject */
     protected $nativeRequestBuilder;
 
     public function setUp()

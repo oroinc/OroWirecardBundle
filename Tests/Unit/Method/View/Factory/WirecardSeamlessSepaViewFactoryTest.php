@@ -7,9 +7,9 @@ use Oro\Bundle\WirecardBundle\Method\View\Factory\WirecardSeamlessSepaViewFactor
 use Oro\Bundle\WirecardBundle\Method\View\WirecardSeamlessSepaView;
 use Symfony\Component\Form\FormFactoryInterface;
 
-class WirecardSeamlessSepaViewFactoryTest extends \PHPUnit_Framework_TestCase
+class WirecardSeamlessSepaViewFactoryTest extends \PHPUnit\Framework\TestCase
 {
-    /** @var FormFactoryInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var FormFactoryInterface|\PHPUnit\Framework\MockObject\MockObject */
     protected $formFactory;
 
     /** @var WirecardSeamlessSepaViewFactory */

@@ -7,9 +7,9 @@ use Oro\Bundle\WirecardBundle\Method\View\Factory\WirecardSeamlessCreditCardView
 use Oro\Bundle\WirecardBundle\Method\View\WirecardSeamlessCreditCardView;
 use Symfony\Component\Form\FormFactoryInterface;
 
-class WirecardSeamlessCreditCardViewFactoryTest extends \PHPUnit_Framework_TestCase
+class WirecardSeamlessCreditCardViewFactoryTest extends \PHPUnit\Framework\TestCase
 {
-    /** @var FormFactoryInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var FormFactoryInterface|\PHPUnit\Framework\MockObject\MockObject */
     protected $formFactory;
 
     /** @var WirecardSeamlessCreditCardViewFactory */

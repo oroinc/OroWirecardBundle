@@ -9,10 +9,10 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 
-abstract class WirecardSeamlessViewTest extends \PHPUnit_Framework_TestCase
+abstract class WirecardSeamlessViewTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var FormFactoryInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var FormFactoryInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $formFactory;
 
@@ -22,7 +22,7 @@ abstract class WirecardSeamlessViewTest extends \PHPUnit_Framework_TestCase
     protected $methodView;
 
     /**
-     * @var WirecardSeamlessConfigInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var WirecardSeamlessConfigInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $paymentConfig;
 
@@ -104,7 +104,7 @@ abstract class WirecardSeamlessViewTest extends \PHPUnit_Framework_TestCase
             ->method('getPaymentMethodIdentifier')
             ->willReturn('identifier');
 
-        /** @var PaymentContextInterface|\PHPUnit_Framework_MockObject_MockObject $context */
+        /** @var PaymentContextInterface|\PHPUnit\Framework\MockObject\MockObject $context */
         $context = $this->createMock(PaymentContextInterface::class);
         $context
             ->expects($this->once())

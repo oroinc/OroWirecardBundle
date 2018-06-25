@@ -4,7 +4,7 @@ namespace Oro\Bundle\WirecardBundle\Tests\Unit\Wirecard\Seamless\Response;
 
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Response\Response;
 
-class ResponseTest extends \PHPUnit_Framework_TestCase
+class ResponseTest extends \PHPUnit\Framework\TestCase
 {
     /** @var  Response */
     protected $response;
