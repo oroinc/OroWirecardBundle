@@ -17,20 +17,20 @@ use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessConfigInterface;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option;
 use Oro\Component\Testing\Unit\EntityTrait;
 
-abstract class AbstractWirecardSeamlessConfigFactoryTestCase extends \PHPUnit_Framework_TestCase
+abstract class AbstractWirecardSeamlessConfigFactoryTestCase extends \PHPUnit\Framework\TestCase
 {
     use EntityTrait;
 
-    /** @var SymmetricCrypterInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var SymmetricCrypterInterface|\PHPUnit\Framework\MockObject\MockObject */
     protected $encoder;
 
-    /** @var LocalizationHelper|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var LocalizationHelper|\PHPUnit\Framework\MockObject\MockObject */
     protected $localizationHelper;
 
-    /** @var IntegrationIdentifierGeneratorInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var IntegrationIdentifierGeneratorInterface|\PHPUnit\Framework\MockObject\MockObject */
     protected $identifierGenerator;
 
-    /** @var WirecardLanguageCodeMapper|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var WirecardLanguageCodeMapper|\PHPUnit\Framework\MockObject\MockObject */
     protected $languageCodeMapper;
 
     /** @var WirecardSeamlessConfigFactoryInterface */

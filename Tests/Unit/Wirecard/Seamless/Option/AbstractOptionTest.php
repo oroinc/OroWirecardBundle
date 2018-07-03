@@ -5,7 +5,7 @@ namespace Oro\Bundle\WirecardBundle\Tests\Unit\Wirecard\Seamless\Option;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-abstract class AbstractOptionTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractOptionTest extends \PHPUnit\Framework\TestCase
 {
     /** @var Option\AbstractOption[] */
     protected $options;

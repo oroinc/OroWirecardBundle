@@ -5,7 +5,7 @@ namespace Oro\Bundle\WirecardBundle\Tests\Unit\Method\Config\Mapping;
 use Oro\Bundle\WirecardBundle\Method\Config\Mapping\WirecardLanguageCodeMapper;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option\Language;
 
-class WirecardLanguageCodeMapperTest extends \PHPUnit_Framework_TestCase
+class WirecardLanguageCodeMapperTest extends \PHPUnit\Framework\TestCase
 {
     /** @var WirecardLanguageCodeMapper */
     protected $languageCodeMapper;

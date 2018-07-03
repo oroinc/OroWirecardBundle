@@ -4,7 +4,7 @@ namespace Oro\Bundle\WirecardBundle\Tests\Unit\Integration;
 
 use Oro\Bundle\WirecardBundle\Integration\WirecardSeamlessChannelType;
 
-class WirecardSeamlessChannelTypeTest extends \PHPUnit_Framework_TestCase
+class WirecardSeamlessChannelTypeTest extends \PHPUnit\Framework\TestCase
 {
     /** @var WirecardSeamlessChannelType */
     private $channel;

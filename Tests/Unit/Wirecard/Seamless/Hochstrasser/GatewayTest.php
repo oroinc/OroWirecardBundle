@@ -13,15 +13,15 @@ use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\RequestInterface;
 use Psr\Http\Message\RequestInterface as PsrRequestInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class GatewayTest extends \PHPUnit_Framework_TestCase
+class GatewayTest extends \PHPUnit\Framework\TestCase
 {
     /** @var Gateway */
     protected $gateway;
 
-    /** @var ClientInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var ClientInterface|\PHPUnit\Framework\MockObject\MockObject */
     protected $client;
 
-    /** @var NativeRequestBuilderRegistry |\PHPUnit_Framework_MockObject_MockObject */
+    /** @var NativeRequestBuilderRegistry |\PHPUnit\Framework\MockObject\MockObject */
     protected $nativeRequestBuilderRegistry;
 
     public function setUp()

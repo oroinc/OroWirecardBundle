@@ -12,14 +12,14 @@ use Oro\Bundle\WirecardBundle\Validator\Constraints\PaymentMethodsConfigsRuleCon
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
-class PaymentMethodsConfigsRuleConstraintValidatorTest extends \PHPUnit_Framework_TestCase
+class PaymentMethodsConfigsRuleConstraintValidatorTest extends \PHPUnit\Framework\TestCase
 {
     const SEPA_ID = 'sepa';
 
-    /** @var WirecardSeamlessSepaConfigProvider|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var WirecardSeamlessSepaConfigProvider|\PHPUnit\Framework\MockObject\MockObject */
     protected $provider;
 
-    /** @var ExecutionContextInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var ExecutionContextInterface|\PHPUnit\Framework\MockObject\MockObject */
     protected $context;
 
     /** @var PaymentMethodsConfigsRuleConstraintValidator */
@@ -28,7 +28,7 @@ class PaymentMethodsConfigsRuleConstraintValidatorTest extends \PHPUnit_Framewor
     /** @var PaymentMethodsConfigsRuleConstraint */
     protected $constraint;
 
-    /** @var ConstraintViolationBuilderInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var ConstraintViolationBuilderInterface|\PHPUnit\Framework\MockObject\MockObject */
     protected $builder;
 
     public function setUp()

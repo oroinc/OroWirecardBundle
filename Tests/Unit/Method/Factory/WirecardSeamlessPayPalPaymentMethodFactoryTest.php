@@ -13,27 +13,27 @@ use Oro\Bundle\WirecardBundle\Wirecard\Seamless\GatewayInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
 
-class WirecardSeamlessPayPalPaymentMethodFactoryTest extends \PHPUnit_Framework_TestCase
+class WirecardSeamlessPayPalPaymentMethodFactoryTest extends \PHPUnit\Framework\TestCase
 {
     /** @var WirecardSeamlessPayPalPaymentMethodFactoryInterface */
     protected $factory;
 
-    /** @var PaymentTransactionProvider|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var PaymentTransactionProvider|\PHPUnit\Framework\MockObject\MockObject */
     protected $transactionProvider;
 
-    /** @var GatewayInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var GatewayInterface|\PHPUnit\Framework\MockObject\MockObject */
     protected $gateway;
 
-    /** @var RouterInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var RouterInterface|\PHPUnit\Framework\MockObject\MockObject */
     protected $router;
 
-    /** @var DoctrineHelper|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var DoctrineHelper|\PHPUnit\Framework\MockObject\MockObject */
     protected $doctrineHelper;
 
-    /** @var RequestStack|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var RequestStack|\PHPUnit\Framework\MockObject\MockObject */
     protected $requestStack;
 
-    /** @var ExtractOptionsProvider|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var ExtractOptionsProvider|\PHPUnit\Framework\MockObject\MockObject */
     protected $optionsProvider;
 
     protected function setUp()

@@ -13,7 +13,7 @@ class SepaDirectDebitTypeTest extends FormIntegrationTestCase
 {
     public function testFinishView()
     {
-        /** @var FormInterface|\PHPUnit_Framework_MockObject_MockObject $form */
+        /** @var FormInterface|\PHPUnit\Framework\MockObject\MockObject $form */
         $form = $this->createMock(FormInterface::class);
 
         $formView = new FormView();

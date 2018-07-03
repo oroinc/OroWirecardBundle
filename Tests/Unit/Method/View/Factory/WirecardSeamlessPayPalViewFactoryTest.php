@@ -7,9 +7,9 @@ use Oro\Bundle\WirecardBundle\Method\View\Factory\WirecardSeamlessPayPalViewFact
 use Oro\Bundle\WirecardBundle\Method\View\WirecardSeamlessPayPalView;
 use Symfony\Component\Form\FormFactoryInterface;
 
-class WirecardSeamlessPayPalViewFactoryTest extends \PHPUnit_Framework_TestCase
+class WirecardSeamlessPayPalViewFactoryTest extends \PHPUnit\Framework\TestCase
 {
-    /** @var FormFactoryInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var FormFactoryInterface|\PHPUnit\Framework\MockObject\MockObject */
     protected $formFactory;
 
     /** @var WirecardSeamlessPayPalViewFactory */

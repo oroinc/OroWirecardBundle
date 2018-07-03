@@ -10,21 +10,21 @@ use Oro\Bundle\WirecardBundle\Method\Config\Factory\WirecardSeamlessConfigFactor
 use Oro\Bundle\WirecardBundle\Method\Config\Provider\WirecardSeamlessConfigProviderInterface;
 use Psr\Log\LoggerInterface;
 
-abstract class AbstractWirecardSeamlessConfigProviderTestCase extends \PHPUnit_Framework_TestCase
+abstract class AbstractWirecardSeamlessConfigProviderTestCase extends \PHPUnit\Framework\TestCase
 {
     /** @var  WirecardSeamlessConfigProviderInterface */
     protected $configProvider;
 
-    /**@var ManagerRegistry|\PHPUnit_Framework_MockObject_MockObject */
+    /**@var ManagerRegistry|\PHPUnit\Framework\MockObject\MockObject */
     protected $doctrine;
 
-    /** @var WirecardSeamlessConfigFactoryInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var WirecardSeamlessConfigFactoryInterface|\PHPUnit\Framework\MockObject\MockObject */
     protected $factory;
 
-    /** @var LoggerInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
     protected $logger;
 
-    /** @var  @var WirecardSeamlessSettings|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var  @var WirecardSeamlessSettings|\PHPUnit\Framework\MockObject\MockObject */
     protected $wireCardSettings;
 
     /** @var string */

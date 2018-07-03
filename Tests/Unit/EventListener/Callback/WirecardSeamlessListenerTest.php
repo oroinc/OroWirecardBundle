@@ -10,15 +10,15 @@ use Oro\Bundle\WirecardBundle\EventListener\Callback\WirecardSeamlessListener;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-class WirecardSeamlessListenerTest extends \PHPUnit_Framework_TestCase
+class WirecardSeamlessListenerTest extends \PHPUnit\Framework\TestCase
 {
-    /** @var PaymentMethodProviderInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var PaymentMethodProviderInterface|\PHPUnit\Framework\MockObject\MockObject */
     protected $paymentMethodProvider;
 
     /** @var WirecardSeamlessListener */
     protected $listener;
 
-    /** @var LoggerInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
     protected $logger;
 
     protected function setUp()

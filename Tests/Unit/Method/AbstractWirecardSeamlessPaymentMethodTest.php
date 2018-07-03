@@ -22,42 +22,42 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
 
-abstract class AbstractWirecardSeamlessPaymentMethodTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractWirecardSeamlessPaymentMethodTest extends \PHPUnit\Framework\TestCase
 {
     use EntityTrait;
 
     /**
-     * @var WirecardSeamlessConfigInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var WirecardSeamlessConfigInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $config;
 
     /**
-     * @var PaymentTransactionProvider|\PHPUnit_Framework_MockObject_MockObject
+     * @var PaymentTransactionProvider|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $transactionProvider;
 
     /**
-     * @var GatewayInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var GatewayInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $gateway;
 
     /**
-     * @var RouterInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var RouterInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $router;
 
     /**
-     * @var DoctrineHelper|\PHPUnit_Framework_MockObject_MockObject
+     * @var DoctrineHelper|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $doctrineHelper;
 
     /**
-     * @var RequestStack|\PHPUnit_Framework_MockObject_MockObject
+     * @var RequestStack|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $requestStack;
 
     /**
-     * @var ExtractOptionsProvider|\PHPUnit_Framework_MockObject_MockObject
+     * @var ExtractOptionsProvider|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $optionsProvider;
 

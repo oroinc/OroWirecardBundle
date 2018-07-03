@@ -6,7 +6,7 @@ use Oro\Bundle\WirecardBundle\Entity\WirecardSeamlessSettings;
 use Oro\Bundle\WirecardBundle\Form\Type\WirecardSeamlessSettingsType;
 use Oro\Bundle\WirecardBundle\Integration\WirecardSeamlessTransport;
 
-class WirecardSeamlessTransportTest extends \PHPUnit_Framework_TestCase
+class WirecardSeamlessTransportTest extends \PHPUnit\Framework\TestCase
 {
     /** @var WirecardSeamlessTransport */
     private $transport;
