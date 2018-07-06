@@ -6,6 +6,9 @@ use Oro\Bundle\PaymentBundle\Entity\PaymentTransaction;
 use Oro\Bundle\PaymentBundle\Provider\PaymentTransactionProvider as BasePaymentTransactionProvider;
 use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessInitiateAwarePaymentMethodInterface;
 
+/**
+ * This provider searches active initiate payment transaction
+ */
 class PaymentTransactionProvider extends BasePaymentTransactionProvider
 {
     /**
