@@ -1,3 +1,4 @@
+@regression
 @fixture-OroFlatRateShippingBundle:FlatRateIntegration.yml
 @fixture-OroWirecardBundle:WireCardPaymentFixture.yml
 @ticket-BB-13976
@@ -7,7 +8,7 @@ Feature: Process order submission with WireCard PayPal payment method single pag
   As a Customer
   I want to enter and complete checkout without registration with payment via WireCard
 
-  Scenario: Create different window session
+  Scenario: Feature Background
     Given sessions active:
       | Admin | first_session  |
       | User  | second_session |
@@ -19,17 +20,17 @@ Feature: Process order submission with WireCard PayPal payment method single pag
     And I click "Create Integration"
     And I select "Wirecard Seamless Checkout" from "Type"
     And I fill "WireCardForm" with:
-      | Name                          | WireCard              |
-      | Label                         | WireCard              |
-      | Credit Card Label             | WireCardCreditCard    |
-      | Credit Card Short Label       | WCC                   |
-      | PayPal Label                  | WireCardPayPal        |
-      | PayPal Short Label            | WCPL                  |
-      | SEPA Direct Debit Label       | WireCardSEPA          |
-      | SEPA Direct Debit Short Label | WCSEPA                |
-      | Customer Id                   | 123                   |
-      | Shop Id                       | 123                   |
-      | Secret                        | secredWord123         |
+      | Name                          | WireCard           |
+      | Label                         | WireCard           |
+      | Credit Card Label             | WireCardCreditCard |
+      | Credit Card Short Label       | WCC                |
+      | PayPal Label                  | WireCardPayPal     |
+      | PayPal Short Label            | WCPL               |
+      | SEPA Direct Debit Label       | WireCardSEPA       |
+      | SEPA Direct Debit Short Label | WCSEPA             |
+      | Customer Id                   | 123                |
+      | Shop Id                       | 123                |
+      | Secret                        | secredWord123      |
     And I save and close form
     Then I should see "Integration saved" flash message
     And I should see Wirecard Seamless Checkout in grid
@@ -43,7 +44,7 @@ Feature: Process order submission with WireCard PayPal payment method single pag
     And I select "€" from "Currency"
     And I select "WireCard - PayPal" from "Method"
     And I press "Add Method Button"
-    And I save and close form
+    When I save and close form
     Then I should see "Payment rule has been saved" flash message
 
   Scenario: Enable SinglePage checkout

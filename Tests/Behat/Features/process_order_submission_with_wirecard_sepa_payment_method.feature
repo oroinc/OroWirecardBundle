@@ -1,3 +1,4 @@
+@regression
 @fixture-OroFlatRateShippingBundle:FlatRateIntegration.yml
 @fixture-OroWirecardBundle:WireCardPaymentFixture.yml
 Feature: Process order submission with WireCard SEPA payment method
