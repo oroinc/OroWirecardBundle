@@ -32,7 +32,7 @@ Feature: Process order submission with WireCard Credit Card payment method
     And I fill in "Sort Order" with "1"
     And I select "€" from "Currency"
     And I select "WireCard - Credit Card" from "Method"
-    And I press "Add Method Button"
+    And I click "Add Method Button"
     And I save and close form
     Then I should see "Payment rule has been saved" flash message
 
@@ -41,7 +41,7 @@ Feature: Process order submission with WireCard Credit Card payment method
     And There is EUR currency in the system configuration
     And I signed in as AmandaRCole@example.org on the store frontend
     When I open page with shopping list List 2
-    And I press "Create Order"
+    And I click "Create Order"
     And I select "Fifth avenue, 10115 Berlin, Germany" on the "Billing Information" checkout step and press Continue
     And I select "Fifth avenue, 10115 Berlin, Germany" on the "Shipping Information" checkout step and press Continue
     And I check "Flat Rate" on the "Shipping Method" checkout step and press Continue
@@ -52,14 +52,14 @@ Feature: Process order submission with WireCard Credit Card payment method
       | Year               | 2027             |
       | CVV                | 123              |
     And I click "Continue"
-    And I press "Submit Order"
+    And I click "Submit Order"
     Then I should see "We were unable to process your payment. Please verify your payment information and try again." flash message
 
   Scenario: Successful order payment with WireCard Credit Card payment method
     Given There are products in the system available for order
     And There is EUR currency in the system configuration
     When I open page with shopping list List 1
-    And I press "Create Order"
+    And I click "Create Order"
     And I select "Fifth avenue, 10115 Berlin, Germany" on the "Billing Information" checkout step and press Continue
     And I select "Fifth avenue, 10115 Berlin, Germany" on the "Shipping Information" checkout step and press Continue
     And I check "Flat Rate" on the "Shipping Method" checkout step and press Continue
@@ -70,7 +70,7 @@ Feature: Process order submission with WireCard Credit Card payment method
       | Year               | 2027             |
       | CVV                | 123              |
     And I click "Continue"
-    And I press "Submit Order"
+    And I click "Submit Order"
     Then I see the "Thank You" page with "Thank You For Your Purchase!" title
     And I login as administrator
     And I go to Sales/Orders
