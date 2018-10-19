@@ -27,7 +27,7 @@ services:
         class: 'Oro\Bundle\WirecardBundle\Method\Config\Factory\WirecardSeamlessCreditCardConfigFactory'
         public: false
         arguments:
-            - '@oro_security.encoder.mcrypt'
+            - '@oro_security.encoder.default'
             - '@oro_locale.helper.localization'
             - '@oro_wirecard.method.config.mapping.language_code_mapper'
             - '@oro_wirecard.method.generator.identifier.wirecard_seamless.credit_card'
@@ -36,7 +36,7 @@ services:
         class: 'Oro\Bundle\WirecardBundle\Method\Config\Factory\WirecardSeamlessPayPalConfigFactory'
         public: false
         arguments:
-            - '@oro_security.encoder.mcrypt'
+            - '@oro_security.encoder.default'
             - '@oro_locale.helper.localization'
             - '@oro_wirecard.method.config.mapping.language_code_mapper'
             - '@oro_wirecard.method.generator.identifier.wirecard_seamless.paypal'
@@ -45,7 +45,7 @@ services:
         class: 'Oro\Bundle\WirecardBundle\Method\Config\Factory\WirecardSeamlessSepaConfigFactory'
         public: false
         arguments:
-            - '@oro_security.encoder.mcrypt'
+            - '@oro_security.encoder.default'
             - '@oro_locale.helper.localization'
             - '@oro_wirecard.method.config.mapping.language_code_mapper'
             - '@oro_wirecard.method.generator.identifier.wirecard_seamless.sepa_direct_debit'
