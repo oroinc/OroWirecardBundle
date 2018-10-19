@@ -76,7 +76,8 @@ Feature: Process order submission with WireCard PayPal payment method guest chec
     Then I should see "product1"
 
   Scenario: Successful order payment with WireCard PayPal payment method
-    Given I press "Create Order"
+    Given I click "View Details"
+    And I click "Create Order"
     And I click "Continue as a Guest"
     When I fill form with:
       | First Name      | Tester1         |
