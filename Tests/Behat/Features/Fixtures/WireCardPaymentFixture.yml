@@ -74,11 +74,13 @@ Oro\Bundle\ProductBundle\Entity\Product:
 Oro\Bundle\ShoppingListBundle\Entity\ShoppingList:
     shoppinglist:
         label: 'List 1'
+        customer: '@customer'
         customerUser: '@amanda'
         organization: '@organization'
         website: '@website1'
     shoppinglist2:
         label: 'List 2'
+        customer: '@customer'
         customerUser: '@amanda'
         organization: '@organization'
         website: '@website1'
@@ -156,6 +158,11 @@ Oro\Bundle\PricingBundle\Entity\CombinedPriceList:
     combinedPriceList:
         name: 'combinedPriceList'
         enabled: true
+
+Oro\Bundle\PricingBundle\Entity\CombinedPriceListCurrency:
+    combinedPriceListCurrency:
+        pricelist: '@combinedPriceList'
+        currency: 'EUR'
 
 Oro\Bundle\PricingBundle\Entity\CombinedProductPrice:
    combinedProductPrice:
