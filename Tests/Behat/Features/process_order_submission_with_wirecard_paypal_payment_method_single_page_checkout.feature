@@ -12,6 +12,7 @@ Feature: Process order submission with WireCard PayPal payment method single pag
     Given sessions active:
       | Admin | first_session  |
       | User  | second_session |
+    And I activate "Single Page Checkout" workflow
 
   Scenario: Create new  WireCard Integration
     Given I proceed as the Admin
@@ -46,12 +47,6 @@ Feature: Process order submission with WireCard PayPal payment method single pag
     And I press "Add Method Button"
     When I save and close form
     Then I should see "Payment rule has been saved" flash message
-
-  Scenario: Enable SinglePage checkout
-    Given go to System/Workflows
-    When I click "Activate" on row "Single Page Checkout" in grid
-    And I click "Activate"
-    Then I should see "Workflow activated" flash message
 
   Scenario: Successful order payment with WireCard PayPal payment method
     Given I proceed as the User

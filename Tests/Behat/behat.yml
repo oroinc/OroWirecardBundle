@@ -52,5 +52,6 @@ oro_behat_extension:
         - OroCheckoutBundle::FeatureContext
         - OroShoppingListBundle::ShoppingListContext
         - OroDataGridBundle::GridContext
+        - OroWorkflowBundle::FeatureContext
       paths:
         - '@OroWirecardBundle/Tests/Behat/Features'
