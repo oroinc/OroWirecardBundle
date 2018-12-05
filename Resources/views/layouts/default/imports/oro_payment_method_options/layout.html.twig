@@ -28,7 +28,7 @@
 
 {% block _payment_methods_wirecard_seamless_paypal_widget %}
     <div class="{{ class_prefix }}-form__payment-methods">
-        <img class="checkout-form__img" src="{% image '@OroWirecardBundle/Resources/public/default/images/pp-express-checkout-method.png' %}{{ asset_url }}{% endimage %}">
+        <img class="checkout-form__img" src="{{ asset('bundles/orowirecard/default/images/pp-express-checkout-method.png') }}">
         <div>{{ 'oro.wirecard.paypal.redirect_to_paypal'|trans|nl2br }}</div>
     </div>
 {% endblock %}
