@@ -9,6 +9,9 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+/**
+ * Wirecard SEPA form
+ */
 class SepaDirectDebitType extends AbstractType
 {
     const NAME = 'oro_wirecard_seamless_sepa_direct_debit';
@@ -23,6 +26,7 @@ class SepaDirectDebitType extends AbstractType
                 'accountOwner',
                 TextType::class,
                 [
+                    'label' => 'oro.wirecard.sepa.account_owner',
                     'required' => true,
                     'attr' => [
                         'placeholder' => false,
