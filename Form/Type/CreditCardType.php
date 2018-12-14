@@ -71,8 +71,8 @@ class CreditCardType extends AbstractType
                     'label' => 'oro.wirecard.credit_card.expiration_date.label',
                     'mapped' => false,
                     'placeholder' => [
-                        'year' => 'Year',
-                        'month' => 'Month',
+                        'year' => 'oro.wirecard.credit_card.expiration_date.year',
+                        'month' => 'oro.wirecard.credit_card.expiration_date.month',
                     ],
                     'attr' => [
                         'data-expiration-date' => true,

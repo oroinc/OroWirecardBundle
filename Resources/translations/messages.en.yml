@@ -21,6 +21,9 @@ oro:
                 connection.title: 'Connection Options'
                 advanced_settings.title: 'Advanced Settings'
         credit_card:
+            expiration_date:
+                year: 'Year'
+                month: 'Month'
             card_holder_name.label: "Cardholder's Name"
             cvv.label: 'CVV'
             expiration_date.label: 'Expiration Date'
@@ -32,6 +35,7 @@ oro:
                 The American Express security code is a 4-digit
                 number printed on the front of your card.
         sepa:
+            account_owner: 'Account owner'
             iban.label: 'IBAN'
             bic.label: 'BIC'
         paypal:

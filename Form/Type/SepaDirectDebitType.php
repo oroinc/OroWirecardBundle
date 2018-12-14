@@ -23,6 +23,7 @@ class SepaDirectDebitType extends AbstractType
                 'accountOwner',
                 TextType::class,
                 [
+                    'label' => 'oro.wirecard.sepa.account_owner',
                     'required' => true,
                     'attr' => [
                         'placeholder' => false,
