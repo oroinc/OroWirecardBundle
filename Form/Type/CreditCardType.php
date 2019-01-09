@@ -3,7 +3,6 @@
 namespace Oro\Bundle\WirecardBundle\Form\Type;
 
 use Oro\Bundle\ValidationBundle\Validator\Constraints\Integer;
-use Oro\Bundle\WirecardBundle\Form\Type\CreditCardExpirationDateType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -13,6 +12,9 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+/**
+ * Credit card form
+ */
 class CreditCardType extends AbstractType
 {
     const NAME = 'oro_wirecard_seamless_credit_card';
@@ -72,8 +74,8 @@ class CreditCardType extends AbstractType
                     'label' => 'oro.wirecard.credit_card.expiration_date.label',
                     'mapped' => false,
                     'placeholder' => [
-                        'year' => 'Year',
-                        'month' => 'Month',
+                        'year' => 'oro.wirecard.credit_card.expiration_date.year',
+                        'month' => 'oro.wirecard.credit_card.expiration_date.month',
                     ],
                     'attr' => [
                         'data-expiration-date' => true,
