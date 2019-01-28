@@ -6,7 +6,6 @@ use Oro\Bundle\PaymentBundle\Event\CallbackNotifyEvent;
 use Oro\Bundle\PaymentBundle\Method\Provider\PaymentMethodProviderInterface;
 use Oro\Bundle\WirecardBundle\Method\AbstractWirecardSeamlessPaymentMethod;
 use Oro\Bundle\WirecardBundle\Method\Config\Provider\WirecardSeamlessConfigProviderInterface;
-use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessConfig;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\FingerprintCheckerInterface;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option\Secret;
 use Psr\Log\LoggerAwareTrait;

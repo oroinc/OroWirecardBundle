@@ -3,7 +3,6 @@
 namespace Oro\Bundle\WirecardBundle\Validator\Constraints;
 
 use Oro\Bundle\PaymentBundle\Entity\PaymentMethodsConfigsRule;
-use Oro\Bundle\PaymentBundle\Form\Type\PaymentMethodsConfigsRuleType;
 use Oro\Bundle\WirecardBundle\Method\Config\Provider\WirecardSeamlessSepaConfigProvider;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;

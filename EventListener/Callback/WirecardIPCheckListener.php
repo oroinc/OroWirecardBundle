@@ -4,8 +4,6 @@ namespace Oro\Bundle\WirecardBundle\EventListener\Callback;
 
 use Oro\Bundle\PaymentBundle\Event\AbstractCallbackEvent;
 use Oro\Bundle\PaymentBundle\Method\Provider\PaymentMethodProviderInterface;
-use Oro\Bundle\WirecardBundle\Method\Config\Provider\WirecardSeamlessConfigProvider;
-use Oro\Bundle\WirecardBundle\Method\Config\Provider\WirecardSeamlessConfigProviderInterface;
 use Symfony\Component\HttpFoundation\IpUtils;
 use Symfony\Component\HttpFoundation\RequestStack;
 

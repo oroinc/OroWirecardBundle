@@ -4,7 +4,6 @@ namespace Oro\Bundle\WirecardBundle\Tests\Functional\Stub\Method;
 
 use Oro\Bundle\PaymentBundle\Context\PaymentContextInterface;
 use Oro\Bundle\PaymentBundle\Entity\PaymentTransaction;
-use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessInitiateAwarePaymentMethod;
 use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessInitiateAwarePaymentMethodInterface;
 
 class WirecardSeamlessMethodStub implements WirecardSeamlessInitiateAwarePaymentMethodInterface
