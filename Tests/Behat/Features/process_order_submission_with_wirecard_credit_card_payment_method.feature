@@ -49,8 +49,12 @@ Feature: Process order submission with WireCard Credit Card payment method
       | Cardholder Name    | John Doe         |
       | Credit Card Number | 5105105105105100 |
       | Month              | 11               |
-      | Year               | 2027             |
       | CVV                | 123              |
+    Then I should not see "Invalid Expiration date."
+    When I click "Continue"
+    Then I should see "Invalid Expiration date."
+    When I fill "WireCardCreditCardForm" with:
+      | Year | 2027 |
     And I click "Continue"
     And I click "Submit Order"
     Then I should see "We were unable to process your payment. Please verify your payment information and try again." flash message

@@ -1,6 +1,7 @@
 @regression
 @fixture-OroFlatRateShippingBundle:FlatRateIntegration.yml
 @fixture-OroWirecardBundle:WireCardPaymentFixture.yml
+@ticket-BB-11915
 @ticket-BB-13976
 
 Feature: Process order submission with WireCard Credit Card payment method single page checkout
@@ -17,7 +18,7 @@ Feature: Process order submission with WireCard Credit Card payment method singl
   Scenario: Create new  WireCard Integration
     Given I proceed as the Admin
     And I login as administrator
-    And I go to System/Integrations/Manage Integrations
+    When I go to System/Integrations/Manage Integrations
     And I click "Create Integration"
     And I select "Wirecard Seamless Checkout" from "Type"
     And I fill "WireCardForm" with:
@@ -32,50 +33,46 @@ Feature: Process order submission with WireCard Credit Card payment method singl
       | Customer Id                   | 123                |
       | Shop Id                       | 123                |
       | Secret                        | secredWord123      |
-    When I save and close form
+    And I save and close form
     Then I should see "Integration saved" flash message
     And I should see Wirecard Seamless Checkout in grid
 
-  Scenario: Create new Payment Rule for WireCard integration with WireCard Credit Card payment method
+  Scenario: Create new Payment Rule for WireCard Credit Card payment method
     Given I go to System/Payment Rules
     And I click "Create Payment Rule"
     And I check "Enabled"
-    And I fill in "Name" with "WireCardCreditCard"
+    And I fill in "Name" with "WireCardCredit"
     And I fill in "Sort Order" with "1"
     And I select "€" from "Currency"
     And I select "WireCard - Credit Card" from "Method"
-    And I press "Add Method Button"
-    When I save and close form
+    And I click "Add Method Button"
+    And I save and close form
     Then I should see "Payment rule has been saved" flash message
 
-  Scenario: Validation error should not appear if expiration date is valid
+  Scenario: Successful order payment with WireCard Credit Card payment method
     Given I proceed as the User
     And There are products in the system available for order
     And There is EUR currency in the system configuration
-    And I signed in as AmandaRCole@example.org on the store frontend
+    When I signed in as AmandaRCole@example.org on the store frontend
     And I open page with shopping list List 1
     And I click "Create Order"
-    When I fill "WireCardCreditCardForm" with:
-      | Month | 10 |
-    Then I should see "Invalid Expiration date"
-    When I fill "WireCardCreditCardForm" with:
-      | Year | 2029 |
-    Then I should not see "Invalid Expiration date"
-
-  Scenario: Successful order payment with WireCard Credit Card payment method
-    Given I select "Fifth avenue, 10115 Berlin, Germany" from "Select Billing Address"
+    And I select "Fifth avenue, 10115 Berlin, Germany" from "Select Billing Address"
     And I select "Fifth avenue, 10115 Berlin, Germany" from "Select Shipping Address"
     And I check "Flat Rate" on the checkout page
     And I fill "WireCardCreditCardForm" with:
       | Cardholder Name    | John Doe         |
       | Credit Card Number | 5105105105105100 |
       | Month              | 11               |
-      | Year               | 2027             |
       | CVV                | 123              |
+    Then I should not see "Invalid Expiration date."
     When I click "Submit Order"
+    Then I should see "Invalid Expiration date."
+    When I fill "WireCardCreditCardForm" with:
+      | Year | 2027 |
+    And I click "Submit Order"
     Then I see the "Thank You" page with "Thank You For Your Purchase!" title
 
   Scenario: Check order status in admin panel
-    Given I proceed as the Admin
-    When I go to Sales/Orders
+    When I proceed as the Admin
+    And I go to Sales/Orders
     Then I should see Paid in full in grid

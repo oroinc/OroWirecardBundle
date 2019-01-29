@@ -52,11 +52,6 @@ define(function(require) {
                     $.proxy(this.validate, this, this.options.selectors.pan)
                 )
                 .on(
-                    'change',
-                    this.options.selectors.expirationDate,
-                    $.proxy(this.validate, this, this.options.selectors.expirationDate)
-                )
-                .on(
                     'focusout',
                     this.options.selectors.cardVerifyCode,
                     $.proxy(this.validate, this, this.options.selectors.cardVerifyCode)
