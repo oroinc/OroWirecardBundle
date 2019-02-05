@@ -79,6 +79,7 @@ class CreditCardType extends AbstractType
                     ],
                     'attr' => [
                         'data-expiration-date' => true,
+                        'data-validation-ignore-onblur' => true,
                     ],
                 ]
             )
