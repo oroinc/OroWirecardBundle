@@ -23,6 +23,7 @@ Oro\Bundle\ShippingBundle\Entity\ShippingMethodsConfigsRule:
         rule: '@shippingRule'
         methodConfigs: ['@shippingMethodConfig']
         currency: 'EUR'
+        organization: '@organization'
 
 Oro\Bundle\CurrencyBundle\Entity\Price(local):
     price:
