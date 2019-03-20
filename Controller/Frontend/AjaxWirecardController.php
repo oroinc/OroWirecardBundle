@@ -2,16 +2,20 @@
 
 namespace Oro\Bundle\WirecardBundle\Controller\Frontend;
 
+use Oro\Bundle\CheckoutBundle\Entity\Checkout;
+use Oro\Bundle\PaymentBundle\Method\PaymentMethodInterface;
+use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
+use Oro\Bundle\SecurityBundle\Annotation\CsrfProtection;
+use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessInitiateAwarePaymentMethodInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
-use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
-use Oro\Bundle\CheckoutBundle\Entity\Checkout;
-use Oro\Bundle\PaymentBundle\Method\PaymentMethodInterface;
-use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessInitiateAwarePaymentMethodInterface;
-
+/**
+ * Ajax Wirecard Controller
+ */
 class AjaxWirecardController extends Controller
 {
     /**
@@ -21,6 +25,8 @@ class AjaxWirecardController extends Controller
      *      requirements={"id"="\d+"}
      * )
      * @AclAncestor("oro_checkout_frontend_checkout")
+     * @Method("POST")
+     * @CsrfProtection()
      *
      * @param Checkout $checkout
      * @param PaymentMethodInterface $paymentMethod

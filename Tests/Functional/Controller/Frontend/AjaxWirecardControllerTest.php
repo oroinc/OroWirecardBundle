@@ -38,8 +38,8 @@ class AjaxWirecardControllerTest extends WebTestCase
         /** @var Checkout $checkout */
         $checkout = $this->getReference('wirecard:checkout_1');
 
-        $this->client->request(
-            'GET',
+        $this->ajaxRequest(
+            'POST',
             $this->getUrl(
                 'oro_wirecard_frontend_seamless_initiate',
                 [
