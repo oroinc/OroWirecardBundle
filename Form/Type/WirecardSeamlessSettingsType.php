@@ -12,6 +12,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+/**
+ * Wirecard Seamless integration settings form type.
+ */
 class WirecardSeamlessSettingsType extends AbstractType
 {
     const BLOCK_PREFIX = 'oro_wirecard_seamless_settings';
@@ -65,7 +68,6 @@ class WirecardSeamlessSettingsType extends AbstractType
             ->add('secret', OroEncodedPlaceholderPasswordType::class, [
                 'label' => 'oro.wirecard.settings.wirecard_seamless.secret.label',
                 'required' => true,
-                'attr' => ['autocomplete' => 'new-password'],
             ])
             ->add('wcTestMode', CheckboxType::class, [
                 'label' => 'oro.wirecard.settings.wirecard_seamless.test_mode.label',
