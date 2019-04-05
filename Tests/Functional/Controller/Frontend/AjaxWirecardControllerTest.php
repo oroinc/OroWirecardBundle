@@ -1,6 +1,6 @@
 <?php
 
-namespace Oro\Bundle\WirecardBundle\Tests\Unit\Controller\Frontend;
+namespace Oro\Bundle\WirecardBundle\Tests\Functional\Controller\Frontend;
 
 use Oro\Bundle\CheckoutBundle\Entity\Checkout;
 use Oro\Bundle\CustomerBundle\Tests\Functional\DataFixtures\LoadCustomerUserData;
@@ -16,7 +16,10 @@ class AjaxWirecardControllerTest extends WebTestCase
      */
     protected $stubMethodProvider;
 
-    protected function setUp()
+    /**
+     * {@inheritdoc}
+     */
+    protected function setUp(): void
     {
         $this->initClient(
             [],
@@ -30,8 +33,7 @@ class AjaxWirecardControllerTest extends WebTestCase
         );
     }
 
-
-    public function testInitiateWirecardSeamless()
+    public function testInitiateWirecardSeamless(): void
     {
         $paymentMethodIdentifier = WirecardSeamlessMethodStub::TYPE;
 

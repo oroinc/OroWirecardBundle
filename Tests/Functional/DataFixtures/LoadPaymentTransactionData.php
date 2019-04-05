@@ -5,7 +5,11 @@ namespace Oro\Bundle\WirecardBundle\Tests\Functional\DataFixtures;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Oro\Bundle\ChannelBundle\Entity\Channel;
+use Oro\Bundle\CustomerBundle\Entity\CustomerUser;
 use Oro\Bundle\CustomerBundle\Tests\Functional\DataFixtures\LoadCustomerUserData;
+use Oro\Bundle\OrderBundle\Entity\Order;
+use Oro\Bundle\OrderBundle\Tests\Functional\DataFixtures\LoadOrders;
 use Oro\Bundle\PaymentBundle\Entity\PaymentTransaction;
 use Oro\Bundle\PaymentBundle\Method\PaymentMethodInterface;
 use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessInitiateAwarePaymentMethodInterface;
@@ -20,73 +24,26 @@ class LoadPaymentTransactionData extends AbstractFixture implements DependentFix
     const WIRECARD_PURCHASE_TRANSACTION_IP_FILTER = 'wirecard_purchase_transaction_ip_filter';
 
     /** {@inheritdoc} */
-    public function getDependencies()
+    public function getDependencies(): array
     {
-        return [LoadCustomerUserData::class, LoadWirecardSeamlessChannelData::class];
+        return [
+            LoadCustomerUserData::class,
+            LoadWirecardSeamlessChannelData::class,
+            LoadOrders::class
+        ];
     }
-
-    /**
-     * @var array
-     */
-    protected $data = [
-        self::WIRECARD_INITIATE_TRANSACTION => [
-            'amount' => '0.00',
-            'currency' => 'EUR',
-            'action' => WirecardSeamlessInitiateAwarePaymentMethodInterface::INITIATE,
-            'entityIdentifier' => 1,
-            'entityClass' => \stdClass::class,
-            'frontendOwner' => LoadCustomerUserData::EMAIL,
-            'response' => [
-                'storageId' => 'storageId',
-                'javascriptUrl' => 'javascriptUrl',
-            ],
-            'channel_reference' => 'wirecard:channel_1',
-            'method_prefix' => 'wirecard_seamless_credit_card',
-        ],
-        self::WIRECARD_PURCHASE_TRANSACTION => [
-            'amount' => '1000.00',
-            'currency' => 'EUR',
-            'action' => PaymentMethodInterface::PURCHASE,
-            'entityIdentifier' => 1,
-            'entityClass' => \stdClass::class,
-            'frontendOwner' => LoadCustomerUserData::EMAIL,
-            'response' => [],
-            'channel_reference' => 'wirecard:channel_1',
-            'method_prefix' => 'wirecard_seamless_credit_card',
-        ],
-        self::WIRECARD_PURCHASE_TRANSACTION_IP_FILTER => [
-            'amount' => '1000.00',
-            'currency' => 'EUR',
-            'action' => PaymentMethodInterface::PURCHASE,
-            'entityIdentifier' => 1,
-            'entityClass' => \stdClass::class,
-            'frontendOwner' => LoadCustomerUserData::EMAIL,
-            'response' => [],
-            'channel_reference' => 'wirecard:channel_1',
-            'method_prefix' => 'wirecard_seamless_credit_card',
-        ],
-    ];
 
     /**
      * {@inheritdoc}
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
-        foreach ($this->data as $reference => $data) {
+        foreach ($this->getData() as $reference => $data) {
             $paymentTransaction = new PaymentTransaction();
 
-            $data['frontendOwner'] = $this->getReference($data['frontendOwner']);
-
             foreach ($data as $property => $value) {
-                if ($this->getPropertyAccessor()->isWritable($paymentTransaction, $property)) {
-                    $this->setValue($paymentTransaction, $property, $value);
-                }
+                $this->setValue($paymentTransaction, $property, $value);
             }
-
-            $channel = $this->getReference($data['channel_reference']);
-            $paymentMethod = sprintf('%s_%s', $data['method_prefix'], $channel->getId());
-
-            $paymentTransaction->setPaymentMethod($paymentMethod);
 
             $this->setReference($reference, $paymentTransaction);
 
@@ -94,5 +51,58 @@ class LoadPaymentTransactionData extends AbstractFixture implements DependentFix
         }
 
         $manager->flush();
+    }
+
+    /**
+     * @return array
+     */
+    private function getData()
+    {
+        /** @var CustomerUser $owner */
+        $owner = $this->getReference(LoadCustomerUserData::EMAIL);
+
+        /** @var Order $order */
+        $order = $this->getReference(LoadOrders::ORDER_1);
+
+        /** @var Channel $channel */
+        $channel = $this->getReference(LoadWirecardSeamlessChannelData::WIRECARD_SEAMLESS1);
+
+        $paymentMethod = 'wirecard_seamless_credit_card_' . $channel->getId();
+
+        return [
+            self::WIRECARD_INITIATE_TRANSACTION => [
+                'amount' => '0.00',
+                'currency' => 'EUR',
+                'action' => WirecardSeamlessInitiateAwarePaymentMethodInterface::INITIATE,
+                'entityIdentifier' => $order->getId(),
+                'entityClass' => Order::class,
+                'frontendOwner' => $owner,
+                'response' => [
+                    'storageId' => 'storageId',
+                    'javascriptUrl' => 'javascriptUrl',
+                ],
+                'paymentMethod' => $paymentMethod,
+            ],
+            self::WIRECARD_PURCHASE_TRANSACTION => [
+                'amount' => '1000.00',
+                'currency' => 'EUR',
+                'action' => PaymentMethodInterface::PURCHASE,
+                'entityIdentifier' => $order->getId(),
+                'entityClass' => Order::class,
+                'frontendOwner' => $owner,
+                'response' => [],
+                'paymentMethod' => $paymentMethod,
+            ],
+            self::WIRECARD_PURCHASE_TRANSACTION_IP_FILTER => [
+                'amount' => '1000.00',
+                'currency' => 'EUR',
+                'action' => PaymentMethodInterface::PURCHASE,
+                'entityIdentifier' => $order->getId(),
+                'entityClass' => Order::class,
+                'frontendOwner' => $owner,
+                'response' => [],
+                'paymentMethod' => $paymentMethod,
+            ],
+        ];
     }
 }

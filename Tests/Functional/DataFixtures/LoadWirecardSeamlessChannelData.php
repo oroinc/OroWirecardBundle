@@ -12,33 +12,34 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class LoadWirecardSeamlessChannelData extends AbstractFixture implements ContainerAwareInterface
 {
+    public const WIRECARD_SEAMLESS1 = 'wirecard:channel_1';
+    public const WIRECARD_SEAMLESS2 = 'wirecard:channel_2';
+    public const WIRECARD_SEAMLESS3 = 'wirecard:channel_3';
+    public const WIRECARD_SEAMLESS4 = 'wirecard:channel_4';
+
     /**
      * @var array Channels configuration
      */
     protected $channelData = [
-        [
+        self::WIRECARD_SEAMLESS1 => [
             'name' => 'Wirecard1',
             'type' => 'wirecard_seamless',
             'enabled' => true,
-            'reference' => 'wirecard:channel_1',
         ],
-        [
+        self::WIRECARD_SEAMLESS2 => [
             'name' => 'Wirecard2',
             'type' => 'wirecard_seamless',
             'enabled' => false,
-            'reference' => 'wirecard:channel_2',
         ],
-        [
+        self::WIRECARD_SEAMLESS3 => [
             'name' => 'Wirecard3',
             'type' => 'wirecard_seamless',
             'enabled' => true,
-            'reference' => 'wirecard:channel_3',
         ],
-        [
+        self::WIRECARD_SEAMLESS4 => [
             'name' => 'Wirecard4',
             'type' => 'wirecard_seamless',
             'enabled' => true,
-            'reference' => 'wirecard:channel_4',
         ],
     ];
 
@@ -64,7 +65,7 @@ class LoadWirecardSeamlessChannelData extends AbstractFixture implements Contain
         $admin = $userManager->findUserByEmail(LoadAdminUserData::DEFAULT_ADMIN_EMAIL);
         $organization = $manager->getRepository('OroOrganizationBundle:Organization')->getFirst();
 
-        foreach ($this->channelData as $data) {
+        foreach ($this->channelData as $reference => $data) {
             $entity = new Channel();
             $entity->setName($data['name']);
             $entity->setType($data['type']);
@@ -72,7 +73,7 @@ class LoadWirecardSeamlessChannelData extends AbstractFixture implements Contain
             $entity->setDefaultUserOwner($admin);
             $entity->setOrganization($organization);
             $entity->setTransport(new WirecardSeamlessSettings());
-            $this->setReference($data['reference'], $entity);
+            $this->setReference($reference, $entity);
 
             $manager->persist($entity);
         }
