@@ -7,8 +7,8 @@ use Oro\Bundle\EntityBundle\ORM\DoctrineHelper;
 use Oro\Bundle\PaymentBundle\Context\PaymentContextInterface;
 use Oro\Bundle\PaymentBundle\Entity\PaymentTransaction;
 use Oro\Bundle\PaymentBundle\Method\PaymentMethodInterface;
-use Oro\Bundle\PaymentBundle\Provider\ExtractOptionsProvider;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessConfigInterface;
+use Oro\Bundle\WirecardBundle\OptionsProvider\OptionsProviderInterface;
 use Oro\Bundle\WirecardBundle\Provider\PaymentTransactionProvider;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\GatewayInterface;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option;
@@ -19,6 +19,9 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
+/**
+ * Base payment method for Wirecard Seamless.
+ */
 abstract class AbstractWirecardSeamlessPaymentMethod implements PaymentMethodInterface
 {
     const COMPLETE = 'complete';
@@ -54,7 +57,7 @@ abstract class AbstractWirecardSeamlessPaymentMethod implements PaymentMethodInt
     protected $requestStack;
 
     /**
-     * @var ExtractOptionsProvider
+     * @var OptionsProviderInterface
      */
     protected $optionsProvider;
 
@@ -65,7 +68,7 @@ abstract class AbstractWirecardSeamlessPaymentMethod implements PaymentMethodInt
      * @param RouterInterface $router
      * @param DoctrineHelper $doctrineHelper
      * @param RequestStack $requestStack
-     * @param ExtractOptionsProvider $optionsProvider
+     * @param OptionsProviderInterface $optionsProvider
      */
     public function __construct(
         WirecardSeamlessConfigInterface $config,
@@ -74,7 +77,7 @@ abstract class AbstractWirecardSeamlessPaymentMethod implements PaymentMethodInt
         RouterInterface $router,
         DoctrineHelper $doctrineHelper,
         RequestStack $requestStack,
-        ExtractOptionsProvider $optionsProvider
+        OptionsProviderInterface $optionsProvider
     ) {
         $this->config = $config;
         $this->transactionProvider = $transactionProvider;
@@ -131,7 +134,7 @@ abstract class AbstractWirecardSeamlessPaymentMethod implements PaymentMethodInt
      * @param array $options
      * @return ResponseInterface
      */
-    protected function doRequest(RequestInterface $request, array $options)
+    protected function doRequest(RequestInterface $request, array $options): ResponseInterface
     {
         return $this->gateway->request($request, array_merge($this->config->getCredentials(), $options));
     }
@@ -165,7 +168,7 @@ abstract class AbstractWirecardSeamlessPaymentMethod implements PaymentMethodInt
      *
      * @return string
      */
-    protected function createConfirmUrl(PaymentTransaction $paymentTransaction)
+    protected function createConfirmUrl(PaymentTransaction $paymentTransaction): string
     {
         return
             $this->router->generate(
@@ -183,7 +186,7 @@ abstract class AbstractWirecardSeamlessPaymentMethod implements PaymentMethodInt
      *
      * @return string
      */
-    protected function createSuccessUrl(PaymentTransaction $paymentTransaction)
+    protected function createSuccessUrl(PaymentTransaction $paymentTransaction): string
     {
         return
             $this->router->generate(
@@ -200,7 +203,7 @@ abstract class AbstractWirecardSeamlessPaymentMethod implements PaymentMethodInt
      *
      * @return string
      */
-    protected function createFailureUrl(PaymentTransaction $paymentTransaction)
+    protected function createFailureUrl(PaymentTransaction $paymentTransaction): string
     {
         return
             $this->router->generate(
@@ -217,9 +220,8 @@ abstract class AbstractWirecardSeamlessPaymentMethod implements PaymentMethodInt
      *
      * @return string
      */
-    protected function createReturnUrl(PaymentTransaction $paymentTransaction)
+    protected function createReturnUrl(PaymentTransaction $paymentTransaction): string
     {
-        // TODO: BB-9385 need to correctly handle this case
         $returnURL = $this->router->generate(
             'oro_checkout_frontend_checkout',
             [
@@ -234,7 +236,7 @@ abstract class AbstractWirecardSeamlessPaymentMethod implements PaymentMethodInt
     /**
      * @return string
      */
-    protected function createServiceUrl()
+    protected function createServiceUrl(): string
     {
         $serviceURL = $this->router->generate(
             'oro_frontend_root',
@@ -248,7 +250,7 @@ abstract class AbstractWirecardSeamlessPaymentMethod implements PaymentMethodInt
     /**
      * @return string
      */
-    protected function getUserAgent()
+    protected function getUserAgent(): string
     {
         $masterRequest = $this->requestStack->getMasterRequest();
 
@@ -260,9 +262,9 @@ abstract class AbstractWirecardSeamlessPaymentMethod implements PaymentMethodInt
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    protected function getClientIp()
+    protected function getClientIp(): ?string
     {
         $masterRequest = $this->requestStack->getMasterRequest();
 
@@ -277,7 +279,7 @@ abstract class AbstractWirecardSeamlessPaymentMethod implements PaymentMethodInt
      * @param PaymentTransaction $paymentTransaction
      * @return string
      */
-    protected function getOrderDescription(PaymentTransaction $paymentTransaction)
+    protected function getOrderDescription(PaymentTransaction $paymentTransaction): string
     {
         $transactionOptions = $paymentTransaction->getTransactionOptions();
 
@@ -293,7 +295,7 @@ abstract class AbstractWirecardSeamlessPaymentMethod implements PaymentMethodInt
      * @param PaymentTransaction $paymentTransaction
      * @return array
      */
-    protected function getBaseOptions(PaymentTransaction $paymentTransaction)
+    protected function getBaseOptions(PaymentTransaction $paymentTransaction): array
     {
         return [
             Option\Language::LANGUAGE => $this->config->getLanguageCode(),
@@ -315,7 +317,7 @@ abstract class AbstractWirecardSeamlessPaymentMethod implements PaymentMethodInt
      * @param PaymentTransaction $transaction
      * @return array
      */
-    protected function getShippingInfo(PaymentTransaction $transaction)
+    protected function getShippingInfo(PaymentTransaction $transaction): array
     {
         $checkout = $this->extractCheckout($transaction);
         if (!$checkout) {
@@ -327,10 +329,7 @@ abstract class AbstractWirecardSeamlessPaymentMethod implements PaymentMethodInt
             return [];
         }
 
-        $addressOption = $this->optionsProvider->getShippingAddressOptions(
-            $this->doctrineHelper->getEntityClass($address),
-            $address
-        );
+        $addressOption = $this->optionsProvider->getShippingAddressOptions($address);
 
         return [
             Option\ConsumerShippingAddress::CONSUMERSHIPPINGFIRSTNAME => $addressOption->getFirstName(),
@@ -348,7 +347,7 @@ abstract class AbstractWirecardSeamlessPaymentMethod implements PaymentMethodInt
      * @param PaymentTransaction $transaction
      * @return null|Checkout
      */
-    protected function extractCheckout(PaymentTransaction $transaction)
+    protected function extractCheckout(PaymentTransaction $transaction): ?Checkout
     {
         $transactionOptions = $transaction->getTransactionOptions();
         if (!isset($transactionOptions['checkoutId'])) {
