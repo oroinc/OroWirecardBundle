@@ -3,11 +3,11 @@
 namespace Oro\Bundle\WirecardBundle\Tests\Unit\Method\Factory;
 
 use Oro\Bundle\EntityBundle\ORM\DoctrineHelper;
-use Oro\Bundle\PaymentBundle\Provider\ExtractOptionsProvider;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessCreditCardConfig;
 use Oro\Bundle\WirecardBundle\Method\Factory\WirecardSeamlessCreditCardPaymentMethodFactory;
 use Oro\Bundle\WirecardBundle\Method\Factory\WirecardSeamlessCreditCardPaymentMethodFactoryInterface;
 use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessCreditCardPaymentMethod;
+use Oro\Bundle\WirecardBundle\OptionsProvider\OptionsProviderInterface;
 use Oro\Bundle\WirecardBundle\Provider\PaymentTransactionProvider;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\GatewayInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -33,7 +33,7 @@ class WirecardSeamlessCreditCardPaymentMethodFactoryTest extends \PHPUnit\Framew
     /** @var RequestStack|\PHPUnit\Framework\MockObject\MockObject */
     protected $requestStack;
 
-    /** @var ExtractOptionsProvider|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var OptionsProviderInterface|\PHPUnit\Framework\MockObject\MockObject */
     protected $optionsProvider;
 
     protected function setUp()
@@ -43,7 +43,7 @@ class WirecardSeamlessCreditCardPaymentMethodFactoryTest extends \PHPUnit\Framew
         $this->router = $this->createMock(RouterInterface::class);
         $this->doctrineHelper = $this->createMock(DoctrineHelper::class);
         $this->requestStack = $this->createMock(RequestStack::class);
-        $this->optionsProvider = $this->createMock(ExtractOptionsProvider::class);
+        $this->optionsProvider = $this->createMock(OptionsProviderInterface::class);
         $this->factory = new WirecardSeamlessCreditCardPaymentMethodFactory(
             $this->transactionProvider,
             $this->gateway,

@@ -29,3 +29,9 @@ services:
             - '@oro_wirecard.method.config.provider.wirecard_seamless.sepa_direct_debit'
         tags:
             - { name: validator.constraint_validator }
+
+    oro_wirecard.options_provider.options:
+        class: 'Oro\Bundle\WirecardBundle\OptionsProvider\OptionsProvider'
+        public: false
+        arguments:
+            - '@oro_payment.provider.payment_order_shipping_address_options'

@@ -9,9 +9,9 @@ use Oro\Bundle\PaymentBundle\Context\PaymentContextInterface;
 use Oro\Bundle\PaymentBundle\Entity\PaymentTransaction;
 use Oro\Bundle\PaymentBundle\Method\PaymentMethodInterface;
 use Oro\Bundle\PaymentBundle\Model\AddressOptionModel;
-use Oro\Bundle\PaymentBundle\Provider\ExtractOptionsProvider;
 use Oro\Bundle\WirecardBundle\Method\AbstractWirecardSeamlessPaymentMethod;
 use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessConfigInterface;
+use Oro\Bundle\WirecardBundle\OptionsProvider\OptionsProviderInterface;
 use Oro\Bundle\WirecardBundle\Provider\PaymentTransactionProvider;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\GatewayInterface;
 use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Option;
@@ -57,7 +57,7 @@ abstract class AbstractWirecardSeamlessPaymentMethodTest extends \PHPUnit\Framew
     protected $requestStack;
 
     /**
-     * @var ExtractOptionsProvider|\PHPUnit\Framework\MockObject\MockObject
+     * @var OptionsProviderInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $optionsProvider;
 
@@ -79,7 +79,7 @@ abstract class AbstractWirecardSeamlessPaymentMethodTest extends \PHPUnit\Framew
         $this->router = $this->createMock(RouterInterface::class);
         $this->doctrineHelper = $this->createMock(DoctrineHelper::class);
         $this->requestStack = $this->createMock(RequestStack::class);
-        $this->optionsProvider = $this->createMock(ExtractOptionsProvider::class);
+        $this->optionsProvider = $this->createMock(OptionsProviderInterface::class);
 
         $this->method = $this->createMethod();
     }
@@ -152,11 +152,6 @@ abstract class AbstractWirecardSeamlessPaymentMethodTest extends \PHPUnit\Framew
             ->with(Checkout::class, 123)
             ->willReturn($checkout);
 
-        $this->doctrineHelper->expects($this->atLeastOnce())
-            ->method('getEntityClass')
-            ->with($address)
-            ->willReturn(OrderAddress::class);
-
         $addressOptions = new AddressOptionModel();
         $addressOptions->setFirstName('test first name');
         $addressOptions->setLastName('test last name');
@@ -169,7 +164,7 @@ abstract class AbstractWirecardSeamlessPaymentMethodTest extends \PHPUnit\Framew
 
         $this->optionsProvider->expects($this->atLeastOnce())
             ->method('getShippingAddressOptions')
-            ->with(OrderAddress::class, $address)
+            ->with($address)
             ->willReturn($addressOptions);
     }
 
