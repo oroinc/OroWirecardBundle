@@ -9,7 +9,7 @@
 
     {%- set type = type|default('text') -%}
     <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
-    <a href="javascript: void(0);"
+    <a href="#"
        data-toggle="tooltip"
        data-title="{{ 'oro.paypal.credit_card.tooltip'|trans }}"
        data-html="true"
