@@ -96,6 +96,7 @@ class WirecardSeamlessSettingsTypeTest extends FormIntegrationTestCase
         $form->submit($submitData);
 
         static::assertTrue($form->isValid());
+        static::assertTrue($form->isSynchronized());
         static::assertEquals($wcsSettings, $form->getData());
     }
 
