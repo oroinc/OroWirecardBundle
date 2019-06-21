@@ -38,19 +38,19 @@ define(function(require) {
 
             this.$el
                 .on(
-                    'focusout',
+                    'focusout.' + this.cid,
                     this.options.selectors.accountOwner,
-                    $.proxy(this.validate, this, this.options.selectors.accountOwner)
+                    this.validate.bind(this, this.options.selectors.accountOwner)
                 )
                 .on(
-                    'focusout',
+                    'focusout.' + this.cid,
                     this.options.selectors.iban,
-                    $.proxy(this.validate, this, this.options.selectors.iban)
+                    this.validate.bind(this, this.options.selectors.iban)
                 )
                 .on(
-                    'focusout',
+                    'focusout.' + this.cid,
                     this.options.selectors.bic,
-                    $.proxy(this.validate, this, this.options.selectors.bic)
+                    this.validate.bind(this, this.options.selectors.bic)
                 );
         },
 
@@ -111,7 +111,7 @@ define(function(require) {
                 return;
             }
 
-            this.$el.off();
+            this.$el.off('.' + this.cid);
             mediator.off('checkout:payment:before-transit', this.beforeTransit, this);
             WirecardSepaDataInputComponent.__super__.dispose.call(this);
         }

@@ -42,19 +42,19 @@ define(function(require) {
 
             this.$el
                 .on(
-                    'focusout',
+                    'focusout.' + this.cid,
                     this.options.selectors.holdername,
-                    $.proxy(this.validate, this, this.options.selectors.holdername)
+                    this.validate.bind(this, this.options.selectors.holdername)
                 )
                 .on(
-                    'focusout',
+                    'focusout.' + this.cid,
                     this.options.selectors.pan,
-                    $.proxy(this.validate, this, this.options.selectors.pan)
+                    this.validate.bind(this, this.options.selectors.pan)
                 )
                 .on(
-                    'focusout',
+                    'focusout.' + this.cid,
                     this.options.selectors.cardVerifyCode,
-                    $.proxy(this.validate, this, this.options.selectors.cardVerifyCode)
+                    this.validate.bind(this, this.options.selectors.cardVerifyCode)
                 );
         },
 
@@ -117,7 +117,7 @@ define(function(require) {
                 return;
             }
 
-            this.$el.off();
+            this.$el.off('.' + this.cid);
             mediator.off('checkout:payment:before-transit', this.beforeTransit, this);
             WirecardCreditCardDataInputComponent.__super__.dispose.call(this);
         }
