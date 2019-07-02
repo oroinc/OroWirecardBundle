@@ -13,7 +13,8 @@ services:
     oro_wirecard.provider.payment_transaction:
         class: 'Oro\Bundle\WirecardBundle\Provider\PaymentTransactionProvider'
         parent: oro_payment.provider.payment_transaction
-        public: false
+        # This service marked as public (origin private) for compatibility with Symfony 4. All dependencies must be refactored after BAP-17037
+        public: true
 
     oro_wirecard.request.payment_method_param_converter:
         class: 'Oro\Bundle\WirecardBundle\Request\PaymentMethodParamConverter'
