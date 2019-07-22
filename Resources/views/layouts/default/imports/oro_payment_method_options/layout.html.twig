@@ -28,7 +28,11 @@
 
 {% block _payment_methods_wirecard_seamless_paypal_widget %}
     <div class="{{ class_prefix }}-form__payment-methods">
-        <img class="checkout-form__img" src="{{ asset('bundles/orowirecard/default/images/pp-express-checkout-method.png') }}">
-        <div>{{ 'oro.wirecard.paypal.redirect_to_paypal'|trans|nl2br }}</div>
+        <ul class="{{ class_prefix }}-form__payment-methods-list">
+            {% for cc_name in ['paypal', 'mastercard', 'visa', 'discover', 'american_express'] %}
+                <li class="{{ class_prefix }}-form__payment-methods-item"><i class="credit-card-icon credit-card-icon_{{ cc_name }}"></i></li>
+            {% endfor %}
+        </ul>
+        <div class="{{ class_prefix }}-form__payment-methods-form">{{ 'oro.wirecard.paypal.redirect_to_paypal'|trans|nl2br }}</div>
     </div>
 {% endblock %}
