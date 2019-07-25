@@ -12,7 +12,6 @@ use Oro\Component\Testing\Unit\FormIntegrationTestCase;
 use Oro\Component\Testing\Unit\PreloadedExtension;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Validator\Validation;
 
 class WirecardSeamlessSettingsTypeTest extends FormIntegrationTestCase
@@ -29,14 +28,8 @@ class WirecardSeamlessSettingsTypeTest extends FormIntegrationTestCase
 
     public function setUp()
     {
-        /** @var TranslatorInterface|\PHPUnit\Framework\MockObject\MockObject $translator */
-        $translator = $this->createMock(TranslatorInterface::class);
-
         $this->encoder = $this->createMock(SymmetricCrypterInterface::class);
-        $this->formType = new WirecardSeamlessSettingsType(
-            $translator,
-            $this->encoder
-        );
+        $this->formType = new WirecardSeamlessSettingsType();
 
         parent::setUp();
     }
