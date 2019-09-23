@@ -7,11 +7,10 @@ use Oro\Bundle\PaymentBundle\Method\PaymentMethodInterface;
 use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
 use Oro\Bundle\SecurityBundle\Annotation\CsrfProtection;
 use Oro\Bundle\WirecardBundle\Method\WirecardSeamlessInitiateAwarePaymentMethodInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Ajax Wirecard Controller
@@ -22,10 +21,10 @@ class AjaxWirecardController extends Controller
      * @Route(
      *      "/seamless/initiate/{id}/{paymentMethod}",
      *      name="oro_wirecard_frontend_seamless_initiate",
-     *      requirements={"id"="\d+"}
+     *      requirements={"id"="\d+"},
+     *      methods={"POST"}
      * )
      * @AclAncestor("oro_checkout_frontend_checkout")
-     * @Method("POST")
      * @CsrfProtection()
      *
      * @param Checkout $checkout
