@@ -8,6 +8,7 @@ define(function(require) {
     var $ = require('jquery');
     var mediator = require('oroui/js/mediator');
     var routing = require('routing');
+    var scriptjs = require('scriptjs');
     var BaseComponent = require('oroui/js/app/components/base/component');
     require('jquery.validate');
 
@@ -165,7 +166,7 @@ define(function(require) {
                     }
                     return failCallback();
                 } else {
-                    require([data.javascriptUrl], function() {
+                    scriptjs(data.javascriptUrl, function() {
                         self.dataStorage = new WirecardCEE_DataStorage();
                         return successCallback();
                     });
