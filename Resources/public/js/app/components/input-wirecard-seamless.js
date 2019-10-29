@@ -2,17 +2,16 @@
 define(function(require) {
     'use strict';
 
-    var WirecardPaymentDataInputComponent;
-    var _ = require('underscore');
-    var __ = require('orotranslation/js/translator');
-    var $ = require('jquery');
-    var mediator = require('oroui/js/mediator');
-    var routing = require('routing');
-    var scriptjs = require('scriptjs');
-    var BaseComponent = require('oroui/js/app/components/base/component');
+    const _ = require('underscore');
+    const __ = require('orotranslation/js/translator');
+    const $ = require('jquery');
+    const mediator = require('oroui/js/mediator');
+    const routing = require('routing');
+    const scriptjs = require('scriptjs');
+    const BaseComponent = require('oroui/js/app/components/base/component');
     require('jquery.validate');
 
-    WirecardPaymentDataInputComponent = BaseComponent.extend({
+    const WirecardPaymentDataInputComponent = BaseComponent.extend({
         options: {
             messages: {
                 communication_err: 'oro.wirecard.communication_err'
@@ -48,8 +47,8 @@ define(function(require) {
         /**
          * @inheritDoc
          */
-        constructor: function WirecardPaymentDataInputComponent() {
-            WirecardPaymentDataInputComponent.__super__.constructor.apply(this, arguments);
+        constructor: function WirecardPaymentDataInputComponent(options) {
+            WirecardPaymentDataInputComponent.__super__.constructor.call(this, options);
         },
 
         /**
@@ -82,10 +81,10 @@ define(function(require) {
          * @param {String} elementSelector
          */
         validate: function(elementSelector) {
-            var appendElement;
+            let appendElement;
             if (elementSelector) {
-                var element = this.$form.find(elementSelector);
-                var parentForm = element.closest('form');
+                const element = this.$form.find(elementSelector);
+                const parentForm = element.closest('form');
 
                 if (elementSelector !== this.options.selectors.expirationDate && parentForm.length) {
                     return element.validate().form();
@@ -96,15 +95,15 @@ define(function(require) {
                 appendElement = this.$form.clone();
             }
 
-            var virtualForm = $('<form>');
+            const virtualForm = $('<form>');
             virtualForm.append(appendElement);
 
-            var self = this;
-            var validator = virtualForm.validate({
+            const self = this;
+            const validator = virtualForm.validate({
                 ignore: '', // required to validate all fields in virtual form
                 errorPlacement: function(error, element) {
-                    var $el = self.$form.find('#' + $(element).attr('id'));
-                    var parentWithValidation = $el.parents(self.options.validationSelector);
+                    const $el = self.$form.find('#' + $(element).attr('id'));
+                    const parentWithValidation = $el.parents(self.options.validationSelector);
 
                     $el.addClass('error');
 
@@ -125,7 +124,7 @@ define(function(require) {
             // Add validator to form
             $.data(virtualForm, 'validator', validator);
 
-            var errors;
+            let errors;
 
             if (elementSelector) {
                 errors = this.$form.find(elementSelector).parent();
@@ -144,7 +143,7 @@ define(function(require) {
                 return successCallback();
             }
 
-            var self = this;
+            const self = this;
             $.ajax({
                 url: routing.generate(
                     this.options.initiatePaymentMethodRoute,
@@ -156,8 +155,8 @@ define(function(require) {
                 type: 'POST'
             }).done(function(data) {
                 if (data.errors) {
-                    var numberOfErrors = parseInt(data.errors);
-                    for (var i = 1; i <= numberOfErrors; i++) {
+                    const numberOfErrors = parseInt(data.errors);
+                    for (let i = 1; i <= numberOfErrors; i++) {
                         mediator.execute(
                             'showErrorMessage',
                             data.error[i].consumerMessage,

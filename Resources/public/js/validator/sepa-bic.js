@@ -4,7 +4,7 @@ define([
 ], function(_, __) {
     'use strict';
 
-    var defaultParam = {
+    const defaultParam = {
         message: 'oro.wirecard.validation.bic'
     };
 
@@ -14,9 +14,9 @@ define([
     return [
         'sepa-bic',
         function(value, element) {
-            var bic = value.replace(/ /g, '').toUpperCase();
-            var patternBic = '^([a-zA-Z]){4}([a-zA-Z]){2}([0-9a-zA-Z]){2}([0-9a-zA-Z]{3})?$';
-            var bicRegexp = new RegExp(patternBic, '');
+            const bic = value.replace(/ /g, '').toUpperCase();
+            const patternBic = '^([a-zA-Z]){4}([a-zA-Z]){2}([0-9a-zA-Z]){2}([0-9a-zA-Z]{3})?$';
+            const bicRegexp = new RegExp(patternBic, '');
 
             return bicRegexp.test(bic);
         },

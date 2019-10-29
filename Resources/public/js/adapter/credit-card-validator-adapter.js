@@ -7,18 +7,18 @@ define([
 ], function(_, __, $) {
     'use strict';
 
-    var defaultOptions = {
+    const defaultOptions = {
         allowedCreditCards: []
     };
 
     return {
         validate: function(element, options) {
             options = _.extend({}, defaultOptions, options);
-            var allowedCCTypes = _.values(options.allowedCreditCards);
-            var validateOptions = {};
+            const allowedCCTypes = _.values(options.allowedCreditCards);
+            const validateOptions = {};
 
             if (allowedCCTypes.length) {
-                var amexIndex = allowedCCTypes.indexOf('american_express');
+                const amexIndex = allowedCCTypes.indexOf('american_express');
                 if (amexIndex !== -1) {
                     allowedCCTypes[amexIndex] = 'amex';
                 }

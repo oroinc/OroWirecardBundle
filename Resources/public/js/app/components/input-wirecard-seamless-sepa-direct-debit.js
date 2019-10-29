@@ -1,13 +1,12 @@
 define(function(require) {
     'use strict';
 
-    var WirecardSepaDataInputComponent;
-    var _ = require('underscore');
-    var $ = require('jquery');
-    var mediator = require('oroui/js/mediator');
-    var WirecardPaymentDataInputComponent = require('orowirecard/js/app/components/input-wirecard-seamless');
+    const _ = require('underscore');
+    const $ = require('jquery');
+    const mediator = require('oroui/js/mediator');
+    const WirecardPaymentDataInputComponent = require('orowirecard/js/app/components/input-wirecard-seamless');
 
-    WirecardSepaDataInputComponent = WirecardPaymentDataInputComponent.extend({
+    const WirecardSepaDataInputComponent = WirecardPaymentDataInputComponent.extend({
         options: _.extend({}, WirecardPaymentDataInputComponent.prototype.options, {
             selectors: {
                 accountOwner: '[data-account-owner]',
@@ -19,8 +18,8 @@ define(function(require) {
         /**
          * @inheritDoc
          */
-        constructor: function WirecardSepaDataInputComponent() {
-            WirecardSepaDataInputComponent.__super__.constructor.apply(this, arguments);
+        constructor: function WirecardSepaDataInputComponent(options) {
+            WirecardSepaDataInputComponent.__super__.constructor.call(this, options);
         },
 
         /**
@@ -32,7 +31,7 @@ define(function(require) {
             $.validator.loadMethod('orowirecard/js/validator/sepa-iban');
             $.validator.loadMethod('orowirecard/js/validator/sepa-bic');
 
-            WirecardSepaDataInputComponent.__super__.initialize.apply(this, arguments);
+            WirecardSepaDataInputComponent.__super__.initialize.call(this, options);
 
             mediator.on('checkout:payment:before-transit', this.beforeTransit, this);
 
@@ -80,7 +79,7 @@ define(function(require) {
          * @param {function} resumeCallback
          */
         dataStorageSuccess: function(resumeCallback) {
-            var self = this;
+            const self = this;
 
             this.dataStorage.storeSepaDdInformation(
                 {
@@ -89,14 +88,14 @@ define(function(require) {
                     bankBic: self.$form.find(self.options.selectors.bic).val()
                 },
                 function(response) {
-                    var errorList = self.$form.find(self.options.wirecardErrorsSelector);
+                    const errorList = self.$form.find(self.options.wirecardErrorsSelector);
                     mediator.execute('hideLoading');
                     if (response.getStatus() === 0) {
                         errorList.html('');
                         return resumeCallback();
                     } else {
                         self.logError(response);
-                        var errorOutput = '';
+                        let errorOutput = '';
                         response.getErrors().forEach(function(errorObject) {
                             errorOutput += '<li class="validation-failed">' + errorObject.consumerMessage + '</li>';
                         });

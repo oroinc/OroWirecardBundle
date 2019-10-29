@@ -7,7 +7,7 @@ define([
 ], function(_, __, $) {
     'use strict';
 
-    var defaultParam = {
+    const defaultParam = {
         message: 'oro.wirecard.validation.iban'
     };
 
@@ -16,8 +16,8 @@ define([
      */
     return [
         'sepa-iban',
-        function() {
-            return $.validator.methods.iban.apply(this, arguments);
+        function(...args) {
+            return $.validator.methods.iban.apply(this, args);
         },
         function(param) {
             param = _.extend({}, defaultParam, param);

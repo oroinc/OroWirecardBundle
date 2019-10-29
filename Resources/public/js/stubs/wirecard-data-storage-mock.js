@@ -1,4 +1,4 @@
-/* eslint-disable camelcase, no-unused-vars */
+/* eslint-disable camelcase, no-unused-vars, no-var */
 function WirecardCEE_DataStorage() {
     this.storeCreditCardInformation = function(paymentTypeInformation, callback) {
         return this.storePaymentInformation(callback);

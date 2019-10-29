@@ -1,13 +1,12 @@
 define(function(require) {
     'use strict';
 
-    var WirecardCreditCardDataInputComponent;
-    var _ = require('underscore');
-    var $ = require('jquery');
-    var mediator = require('oroui/js/mediator');
-    var WirecardPaymentDataInputComponent = require('orowirecard/js/app/components/input-wirecard-seamless');
+    const _ = require('underscore');
+    const $ = require('jquery');
+    const mediator = require('oroui/js/mediator');
+    const WirecardPaymentDataInputComponent = require('orowirecard/js/app/components/input-wirecard-seamless');
 
-    WirecardCreditCardDataInputComponent = WirecardPaymentDataInputComponent.extend({
+    const WirecardCreditCardDataInputComponent = WirecardPaymentDataInputComponent.extend({
         options: _.extend({}, WirecardPaymentDataInputComponent.prototype.options, {
             selectors: {
                 pan: '[data-pan]',
@@ -22,8 +21,8 @@ define(function(require) {
         /**
          * @inheritDoc
          */
-        constructor: function WirecardCreditCardDataInputComponent() {
-            WirecardCreditCardDataInputComponent.__super__.constructor.apply(this, arguments);
+        constructor: function WirecardCreditCardDataInputComponent(options) {
+            WirecardCreditCardDataInputComponent.__super__.constructor.call(this, options);
         },
 
         /**
@@ -36,7 +35,7 @@ define(function(require) {
             $.validator.loadMethod('oropayment/js/validator/credit-card-expiration-date');
             $.validator.loadMethod('oropayment/js/validator/credit-card-expiration-date-not-blank');
 
-            WirecardCreditCardDataInputComponent.__super__.initialize.apply(this, arguments);
+            WirecardCreditCardDataInputComponent.__super__.initialize.call(this, options);
 
             mediator.on('checkout:payment:before-transit', this.beforeTransit, this);
 
@@ -84,7 +83,7 @@ define(function(require) {
          * @param {function} resumeCallback
          */
         dataStorageSuccess: function(resumeCallback) {
-            var self = this;
+            const self = this;
 
             this.dataStorage.storeCreditCardInformation(
                 {
@@ -95,14 +94,14 @@ define(function(require) {
                     cardverifycode: self.$form.find(self.options.selectors.cardVerifyCode).val()
                 },
                 function(response) {
-                    var errorList = self.$form.find(self.options.wirecardErrorsSelector);
+                    const errorList = self.$form.find(self.options.wirecardErrorsSelector);
                     mediator.execute('hideLoading');
                     if (response.getStatus() === 0) {
                         errorList.html('');
                         return resumeCallback();
                     } else {
                         self.logError(response);
-                        var errorOutput = '';
+                        let errorOutput = '';
                         response.getErrors().forEach(function(errorObject) {
                             errorOutput += '<li class="validation-failed">' + errorObject.consumerMessage + '</li>';
                         });
