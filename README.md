@@ -17,3 +17,9 @@ Select integration type "Wirecard Seamless Checkout" and fill required fields.
 ## Test settings
 
 For testing purposes use Wirecard test credentials. Check [Wirecard Seameless documentation](https://guides.wirecard.at/wcs:start)
+
+Resources
+---------
+
+  * [OroCommerce Documentation](https://doc.oroinc.com)
+  * [Contributing](https://doc.oroinc.com/community/contribute/)
