@@ -14,7 +14,7 @@
         "exclude-from-classmap": ["/Tests/"]
     },
     "require": {
-        "oro/commerce": "4.1.*",
+        "oro/commerce": "4.2.*",
         "guzzlehttp/guzzle": "^6.0.0",
         "hochstrasserio/wirecard": "^1.0"
     },
@@ -28,7 +28,7 @@
     "prefer-stable": true,
     "extra": {
         "branch-alias": {
-            "dev-master": "4.1-dev"
+            "dev-master": "4.2-dev"
         }
     }
 }
