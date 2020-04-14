@@ -71,7 +71,7 @@ abstract class AbstractWirecardSeamlessPaymentMethodTest extends \PHPUnit\Framew
      */
     abstract protected function createMethod();
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->config = $this->createMock(WirecardSeamlessConfigInterface::class);
         $this->transactionProvider = $this->createMock(PaymentTransactionProvider::class);

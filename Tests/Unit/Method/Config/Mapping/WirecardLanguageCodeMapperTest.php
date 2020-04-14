@@ -10,7 +10,7 @@ class WirecardLanguageCodeMapperTest extends \PHPUnit\Framework\TestCase
     /** @var WirecardLanguageCodeMapper */
     protected $languageCodeMapper;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->languageCodeMapper = new WirecardLanguageCodeMapper();
     }

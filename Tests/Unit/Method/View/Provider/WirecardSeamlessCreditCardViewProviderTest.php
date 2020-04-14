@@ -10,7 +10,7 @@ use Oro\Bundle\WirecardBundle\Method\View\Provider\WirecardSeamlessCreditCardVie
 
 class WirecardSeamlessCreditCardViewProviderTest extends AbstractMethodViewProviderTest
 {
-    public function setUp()
+    protected function setUp(): void
     {
         $this->factory = $this->createMock(WirecardSeamlessCreditCardViewFactoryInterface::class);
         $this->configProvider = $this->createMock(WirecardSeamlessCreditCardConfigProviderInterface::class);

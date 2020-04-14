@@ -24,7 +24,7 @@ class GatewayTest extends \PHPUnit\Framework\TestCase
     /** @var NativeRequestBuilderRegistry |\PHPUnit\Framework\MockObject\MockObject */
     protected $nativeRequestBuilderRegistry;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->client = $this->createMock(ClientInterface::class);
         $this->nativeRequestBuilderRegistry = $this->createMock(NativeRequestBuilderRegistry::class);

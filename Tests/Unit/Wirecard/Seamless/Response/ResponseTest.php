@@ -12,7 +12,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
     /** @var  array */
     protected $params;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->params =[
             Response::FINGERPRINT_FIELD => 'responseFingerprint',

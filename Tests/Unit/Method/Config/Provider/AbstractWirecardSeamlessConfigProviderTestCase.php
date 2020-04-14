@@ -33,7 +33,7 @@ abstract class AbstractWirecardSeamlessConfigProviderTestCase extends \PHPUnit\F
     /** @return array */
     abstract public function expectedConfigDataProvider(): array;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->doctrine = $this->createMock(ManagerRegistry::class);
         $this->logger = $this->createMock(LoggerInterface::class);

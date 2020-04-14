@@ -8,7 +8,7 @@ use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\InitPayPalPaymentRequest
 
 class InitPayPalPaymentNativeRequestBuilderTest extends AbstractNativeRequestBuilderTest
 {
-    public function setUp()
+    protected function setUp(): void
     {
         $this->nativeRequestBuilder = new InitPayPalPaymentNativeRequestBuilder();
     }

@@ -10,7 +10,7 @@ use Oro\Bundle\WirecardBundle\Method\View\Provider\WirecardSeamlessPayPalViewPro
 
 class WirecardSeamlessPayPalViewProviderTest extends AbstractMethodViewProviderTest
 {
-    public function setUp()
+    protected function setUp(): void
     {
         $this->factory = $this->createMock(WirecardSeamlessPayPalViewFactoryInterface::class);
         $this->configProvider = $this->createMock(WirecardSeamlessPayPalConfigProviderInterface::class);

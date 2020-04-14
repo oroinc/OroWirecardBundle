@@ -9,7 +9,7 @@ use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\InitDataStorageRequest;
 
 class InitDataStorageNativeRequestBuilderTest extends AbstractNativeRequestBuilderTest
 {
-    public function setUp()
+    protected function setUp(): void
     {
         $this->options[Option\OrderIdent::ORDERIDENT] = 'indent';
         $this->options[Option\ReturnUrl::RETURNURL] = 'returnUrl';

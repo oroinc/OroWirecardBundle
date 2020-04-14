@@ -8,7 +8,7 @@ use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessCreditCardConfig;
 
 class WirecardSeamlessCreditCardConfigProviderTest extends AbstractWirecardSeamlessConfigProviderTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->factory = $this->createMock(WirecardSeamlessCreditCardConfigFactory::class);

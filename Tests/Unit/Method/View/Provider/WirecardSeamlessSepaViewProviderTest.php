@@ -10,7 +10,7 @@ use Oro\Bundle\WirecardBundle\Method\View\Provider\WirecardSeamlessSepaViewProvi
 
 class WirecardSeamlessSepaViewProviderTest extends AbstractMethodViewProviderTest
 {
-    public function setUp()
+    protected function setUp(): void
     {
         $this->factory = $this->createMock(WirecardSeamlessSepaViewFactoryInterface::class);
         $this->configProvider = $this->createMock(WirecardSeamlessSepaConfigProviderInterface::class);

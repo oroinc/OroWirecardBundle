@@ -12,7 +12,7 @@ class CallbackControllerTest extends WebTestCase
 {
     const ALLOWED_IP_ADDR = '195.93.244.97';
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->initClient();
         $this->client->useHashNavigation(true);

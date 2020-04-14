@@ -9,7 +9,7 @@ class WirecardSeamlessChannelTypeTest extends \PHPUnit\Framework\TestCase
     /** @var WirecardSeamlessChannelType */
     private $channel;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->channel = new WirecardSeamlessChannelType();
     }

@@ -36,7 +36,7 @@ class WirecardSeamlessSepaPaymentMethodFactoryTest extends \PHPUnit\Framework\Te
     /** @var OptionsProviderInterface|\PHPUnit\Framework\MockObject\MockObject */
     protected $optionsProvider;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->transactionProvider = $this->createMock(PaymentTransactionProvider::class);
         $this->gateway = $this->createMock(GatewayInterface::class);

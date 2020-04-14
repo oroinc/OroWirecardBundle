@@ -11,7 +11,7 @@ class WirecardSeamlessTransportTest extends \PHPUnit\Framework\TestCase
     /** @var WirecardSeamlessTransport */
     private $transport;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->transport = new WirecardSeamlessTransport();
     }

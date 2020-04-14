@@ -28,7 +28,7 @@ abstract class AbstractRequestTest extends \PHPUnit\Framework\TestCase
     /** @return array */
     abstract public function getOptions():array;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->resolver = new OptionsResolver();
         $this->request = $this->createRequest();

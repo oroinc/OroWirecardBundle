@@ -26,7 +26,7 @@ class WirecardSeamlessSettingsTypeTest extends FormIntegrationTestCase
      */
     private $encoder;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->encoder = $this->createMock(SymmetricCrypterInterface::class);
         $this->formType = new WirecardSeamlessSettingsType();

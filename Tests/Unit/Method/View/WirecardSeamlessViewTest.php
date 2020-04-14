@@ -38,7 +38,7 @@ abstract class WirecardSeamlessViewTest extends \PHPUnit\Framework\TestCase
      */
     abstract protected function getInitiateRoute();
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->formFactory = $this->getMockBuilder(FormFactoryInterface::class)
             ->disableOriginalConstructor()

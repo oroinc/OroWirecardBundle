@@ -36,7 +36,7 @@ class PaymentMethodParamConverterTest extends \PHPUnit\Framework\TestCase
      */
     protected $paymentMethodProvider;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->requestAttributes = $this->createMock(ParameterBag::class);
         $this->request = new Request();

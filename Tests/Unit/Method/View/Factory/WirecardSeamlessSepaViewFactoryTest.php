@@ -15,7 +15,7 @@ class WirecardSeamlessSepaViewFactoryTest extends \PHPUnit\Framework\TestCase
     /** @var WirecardSeamlessSepaViewFactory */
     protected $factory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->formFactory = $this->createMock(FormFactoryInterface::class);
         $this->factory = new WirecardSeamlessSepaViewFactory($this->formFactory);

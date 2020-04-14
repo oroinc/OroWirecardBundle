@@ -15,7 +15,7 @@ class WirecardSeamlessPayPalViewFactoryTest extends \PHPUnit\Framework\TestCase
     /** @var WirecardSeamlessPayPalViewFactory */
     protected $factory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->formFactory = $this->createMock(FormFactoryInterface::class);
         $this->factory = new WirecardSeamlessPayPalViewFactory($this->formFactory);

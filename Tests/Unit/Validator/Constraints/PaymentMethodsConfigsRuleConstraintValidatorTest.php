@@ -30,7 +30,7 @@ class PaymentMethodsConfigsRuleConstraintValidatorTest extends \PHPUnit\Framewor
     /** @var ConstraintViolationBuilderInterface|\PHPUnit\Framework\MockObject\MockObject */
     protected $builder;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->provider = $this->createMock(WirecardSeamlessSepaConfigProvider::class);
         $this->context = $this->createMock(ExecutionContextInterface::class);

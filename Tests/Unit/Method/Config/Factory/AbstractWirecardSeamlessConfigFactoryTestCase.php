@@ -36,7 +36,7 @@ abstract class AbstractWirecardSeamlessConfigFactoryTestCase extends \PHPUnit\Fr
     /** @var WirecardSeamlessConfigFactoryInterface */
     protected $wirecardSeamlessConfigFactory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->encoder = $this->createMock(SymmetricCrypterInterface::class);
         $this->localizationHelper = $this->createMock(LocalizationHelper::class);

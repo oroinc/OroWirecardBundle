@@ -9,7 +9,7 @@ use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\ReadDataStorageRequest;
 
 class ReadDataStorageNativeRequestBuilderTest extends AbstractNativeRequestBuilderTest
 {
-    public function setUp()
+    protected function setUp(): void
     {
         $this->options[Option\StorageId::STORAGEID] = 123;
         $this->nativeRequestBuilder = new ReadDataStorageNativeRequestBuilder();

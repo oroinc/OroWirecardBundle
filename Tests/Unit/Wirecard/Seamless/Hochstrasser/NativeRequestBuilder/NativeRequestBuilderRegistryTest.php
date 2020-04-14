@@ -13,7 +13,7 @@ class NativeRequestBuilderRegistryTest extends \PHPUnit\Framework\TestCase
     /** @var  NativeRequestBuilderInterface|\PHPUnit\Framework\MockObject\MockObject */
     protected $nativeRequestBuilder;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->nativeRequestBuilderRegistry = new NativeRequestBuilderRegistry();
         $this->nativeRequestBuilder = $this->createMock(NativeRequestBuilderInterface::class);

@@ -8,7 +8,7 @@ use Oro\Bundle\WirecardBundle\Method\Config\WirecardSeamlessPayPalConfig;
 
 class WirecardSeamlessPayPalConfigProviderTest extends AbstractWirecardSeamlessConfigProviderTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->factory = $this->createMock(WirecardSeamlessPayPalConfigFactory::class);

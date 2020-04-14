@@ -15,7 +15,7 @@ class WirecardIPCheckListenerTest extends \PHPUnit\Framework\TestCase
     protected $paymentMethodProvider;
 
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->paymentMethodProvider = $this->createMock(PaymentMethodProviderInterface::class);
     }

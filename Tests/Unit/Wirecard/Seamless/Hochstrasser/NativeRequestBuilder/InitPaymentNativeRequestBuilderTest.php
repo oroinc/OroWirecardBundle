@@ -8,7 +8,7 @@ use Oro\Bundle\WirecardBundle\Wirecard\Seamless\Request\InitPaymentRequest;
 
 class InitPaymentNativeRequestBuilderTest extends AbstractNativeRequestBuilderTest
 {
-    public function setUp()
+    protected function setUp(): void
     {
         $this->nativeRequestBuilder = new InitPaymentNativeRequestBuilder();
     }
