@@ -85,12 +85,11 @@ abstract class WirecardSeamlessInitiateAwarePaymentMethodTest extends AbstractWi
         ], $transaction->getResponse());
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Appropriate checkout is not found
-     */
     public function testPurchaseWithoutCheckoutInOptions()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Appropriate checkout is not found');
+
         $transaction = new PaymentTransaction();
 
         $this->doctrineHelper->expects($this->never())
@@ -99,12 +98,11 @@ abstract class WirecardSeamlessInitiateAwarePaymentMethodTest extends AbstractWi
         $this->method->purchase($transaction);
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Appropriate checkout is not found
-     */
     public function testPurchaseWithoutCheckout()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Appropriate checkout is not found');
+
         $transaction = new PaymentTransaction();
 
         $transaction->setTransactionOptions(['checkoutId' => 123]);
@@ -116,12 +114,11 @@ abstract class WirecardSeamlessInitiateAwarePaymentMethodTest extends AbstractWi
         $this->method->purchase($transaction);
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Initiate payment transaction not found
-     */
     public function testPurchaseWithoutInitiateTransaction()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Initiate payment transaction not found');
+
         $transaction = new PaymentTransaction();
         $transaction->setPaymentMethod('payment_method');
 

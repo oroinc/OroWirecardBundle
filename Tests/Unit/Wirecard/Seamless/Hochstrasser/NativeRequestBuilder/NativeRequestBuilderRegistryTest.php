@@ -31,9 +31,10 @@ class NativeRequestBuilderRegistryTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /** @expectedException \InvalidArgumentException */
     public function testGetNativeRequestBuilderWithWrongIdentifier()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->nativeRequestBuilder->expects($this->once())->method('getRequestIdentifier')
             ->willReturn('test1');
         $this->nativeRequestBuilderRegistry->addNativeRequestBuilder($this->nativeRequestBuilder);

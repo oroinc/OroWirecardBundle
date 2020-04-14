@@ -43,11 +43,9 @@ class PaymentMethodsConfigsRuleConstraintValidatorTest extends \PHPUnit\Framewor
         $this->validator->initialize($this->context);
     }
 
-    /**
-     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     */
     public function testValidateWrongRule()
     {
+        $this->expectException(\Symfony\Component\Validator\Exception\UnexpectedTypeException::class);
         $this->validator->validate(new \stdClass(), $this->constraint);
     }
 

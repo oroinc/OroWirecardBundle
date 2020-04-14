@@ -84,11 +84,9 @@ abstract class AbstractWirecardSeamlessPaymentMethodTest extends \PHPUnit\Framew
         $this->method = $this->createMethod();
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testExecuteWrongAction()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->method->execute('some wrong action', new PaymentTransaction());
     }
 
