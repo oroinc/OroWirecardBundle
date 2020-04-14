@@ -25,11 +25,10 @@ abstract class WirecardSeamlessInitiateAwarePaymentMethodTest extends AbstractWi
         $this->method->initiate($transaction);
 
         $this->assertTrue($transaction->isActive());
-        $this->assertArraySubset([
-            'language' => 'EN',
-            'returnUrl' => 'http://test.local',
-        ], $transaction->getRequest());
-        $this->assertArrayHasKey('orderIdent', $transaction->getRequest());
+        $request = $transaction->getRequest();
+        $this->assertSame('EN', $request['language']);
+        $this->assertSame('http://test.local', $request['returnUrl']);
+        $this->assertArrayHasKey('orderIdent', $request);
 
         $this->assertEquals([
             Response::REDIRECT_URL_FIELD => 'http://test.local/redirect',
