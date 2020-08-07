@@ -1,8 +1,9 @@
 dynamic-imports:
-    orowirecard:
+    oropayment:
         - orowirecard/js/app/components/input-wirecard-seamless
         - orowirecard/js/app/components/input-wirecard-seamless-credit-card
         - orowirecard/js/app/components/input-wirecard-seamless-sepa-direct-debit
         - orowirecard/js/app/components/wirecard-seamless-component
+    oroform-validate:
         - orowirecard/js/validator/sepa-bic
         - orowirecard/js/validator/sepa-iban
